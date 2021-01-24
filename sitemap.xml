@@ -522,14 +522,14 @@
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <loc>https://perfectsymphony.github.io/tags/vue/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/vue/</loc>
+    <loc>https://perfectsymphony.github.io/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -543,13 +543,6 @@
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/%E8%B7%A8%E5%9F%9F/</loc>
-    <lastmod>2021-01-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://perfectsymphony.github.io/tags/HTML/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
@@ -557,7 +550,7 @@
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/Git/</loc>
+    <loc>https://perfectsymphony.github.io/tags/%E8%B7%A8%E5%9F%9F/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -565,6 +558,13 @@
   
   <url>
     <loc>https://perfectsymphony.github.io/tags/uni-app/</loc>
+    <lastmod>2021-01-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://perfectsymphony.github.io/tags/Git/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
