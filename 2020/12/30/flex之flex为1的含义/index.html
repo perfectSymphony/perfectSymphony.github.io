@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            flex之flex为1的含义 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">flex之flex为1的含义</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-12-30 22:06:30
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/flex/">flex</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>873 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>3 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="一-flex是由三个属性组成"><a href="#一-flex是由三个属性组成" class="headerlink" title="一. flex是由三个属性组成:"></a>一. flex是由三个属性组成:</h4><h5 id="1-flex-grow-存在剩余空间-为正-分配"><a href="#1-flex-grow-存在剩余空间-为正-分配" class="headerlink" title="1. flex-grow: 存在剩余空间, 为正, 分配"></a>1. flex-grow: 存在剩余空间, 为正, 分配</h5><p>属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。<br>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。在「flex」属性中该值如果被省略则默认为1.</p>
+<h5 id="取值："><a href="#取值：" class="headerlink" title="取值："></a>取值：</h5><p>number：用数值来定义扩展比率。不允许负值</p>
+<p>适用于：flex子项</p>
+<h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h5><p>设置或检索弹性盒的扩展比率。<br>根据弹性盒子元素所设置的扩展因子作为比率来分配剩余空间。</p>
+<p>eg:<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rOzZeU"><img src="https://s3.ax1x.com/2020/12/30/rOzZeU.jpg" alt="rOzZeU.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rOztTe"><img src="https://s3.ax1x.com/2020/12/30/rOztTe.jpg" alt="rOztTe.jpg"></a></p>
+<h4 id="2-flex-shrink-不存在剩余空间-为负-计算收缩比例"><a href="#2-flex-shrink-不存在剩余空间-为负-计算收缩比例" class="headerlink" title="2. flex-shrink: 不存在剩余空间, 为负, 计算收缩比例"></a>2. flex-shrink: 不存在剩余空间, 为负, 计算收缩比例</h4><p>属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。<br>负值对该属性无效。</p>
+<h4 id="取值：-1"><a href="#取值：-1" class="headerlink" title="取值："></a>取值：</h4><p>number：用数值来定义收缩比率。不允许负值</p>
+<p>适用于：flex子项</p>
+<h4 id="说明：-1"><a href="#说明：-1" class="headerlink" title="说明："></a>说明：</h4><p>设置或检索弹性盒的收缩比率。<br>根据弹性盒子元素所设置的收缩因子作为比率来收缩空间。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rOzcTg"><img src="https://s3.ax1x.com/2020/12/30/rOzcTg.jpg" alt="rOzcTg.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rOz70U"><img src="https://s3.ax1x.com/2020/12/30/rOz70U.jpg" alt="rOz70U.jpg"></a></p>
+<h4 id="3-flex-basis-分配剩余空间前-定义宽度"><a href="#3-flex-basis-分配剩余空间前-定义宽度" class="headerlink" title="3. flex-basis: 分配剩余空间前, 定义宽度"></a>3. flex-basis: 分配剩余空间前, 定义宽度</h4><p>属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。<br>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。<br>在「flex」属性中该值如果被省略则默认为「0%」<br>在「flex」属性中该值如果被指定为「auto」，则伸缩基准值的计算值是自身的 &lt;’ width ‘&gt; 设置，如果自身的宽度没有定义，则长度取决于内容。</p>
+<h5 id="取值：-2"><a href="#取值：-2" class="headerlink" title="取值："></a>取值：</h5><p>length：用长度值来定义宽度。不允许负值<br>percent：用百分比来定义宽度。不允许负值<br>auto：无特定宽度值，取决于其它属性值<br>content：基于内容自动计算宽度</p>
+<p>适用于：flex子项</p>
+<h5 id="说明：-2"><a href="#说明：-2" class="headerlink" title="说明："></a>说明：</h5><p>设置或检索弹性盒伸缩基准值。<br>如果所有子元素的基准值之和大于剩余空间，则会根据每项设置的基准值，按比率伸缩剩余空间<br>对应的脚本特性为flexBasis。</p>
+<h4 id="二-flex"><a href="#二-flex" class="headerlink" title="二. flex:"></a>二. flex:</h4><h4 id="说明：-3"><a href="#说明：-3" class="headerlink" title="说明："></a>说明：</h4><p>复合属性。设置或检索弹性盒模型对象的子元素如何分配空间。<br>如果缩写「flex: 1」, 则其计算值为「1 1 0%」<br>如果缩写「flex: auto」, 则其计算值为「1 1 auto」<br>如果「flex: none」, 则其计算值为「0 0 auto」<br>如果「flex: 0 auto」或者「flex: initial」, 则其计算值为「0 1 auto」，即「flex」初始值 </p>
+<p>flex属性默认是0 1 auto<br>flex-grow为0，则存在剩余空间也不放大<br>flex-shrink为1，则空间不足该项目缩小<br>flex-basis为auto，则该项目本来的大小</p>
+<p>eg1:</p>
+<p>页面设计中用到了flex:1, 具体什么意思呢, 说说我自己的理解.</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rXS1hj"><img src="https://s3.ax1x.com/2020/12/30/rXS1hj.jpg" alt="rXS1hj.jpg"></a></p>
+<p>解析:</p>
+<p>flex-grow:1; 有剩余空间, 分配</p>
+<p>flex-shrink:1; 没有剩余空间, 收缩</p>
+<p>flex-basis:0%; 没有基础宽度</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rXS7vt"><img src="https://s3.ax1x.com/2020/12/30/rXS7vt.jpg" alt="rXS7vt.jpg"></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：flex之flex为1的含义</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-12-30 22:06:30</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/12/30/flex之flex为1的含义/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/04/%E5%85%B3%E4%BA%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">关于面向对象</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/12/30/Vue%E5%AD%90%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8%E7%88%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Vue子组件调用父组件的三种方法</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-flex%E6%98%AF%E7%94%B1%E4%B8%89%E4%B8%AA%E5%B1%9E%E6%80%A7%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">一. flex是由三个属性组成:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-flex-grow-%E5%AD%98%E5%9C%A8%E5%89%A9%E4%BD%99%E7%A9%BA%E9%97%B4-%E4%B8%BA%E6%AD%A3-%E5%88%86%E9%85%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1. flex-grow: 存在剩余空间, 为正, 分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%96%E5%80%BC%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">取值：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-flex-shrink-%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%89%A9%E4%BD%99%E7%A9%BA%E9%97%B4-%E4%B8%BA%E8%B4%9F-%E8%AE%A1%E7%AE%97%E6%94%B6%E7%BC%A9%E6%AF%94%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">2. flex-shrink: 不存在剩余空间, 为负, 计算收缩比例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E5%80%BC%EF%BC%9A-1"><span class="nav-number">3.</span> <span class="nav-text">取值：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-1"><span class="nav-number">4.</span> <span class="nav-text">说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-flex-basis-%E5%88%86%E9%85%8D%E5%89%A9%E4%BD%99%E7%A9%BA%E9%97%B4%E5%89%8D-%E5%AE%9A%E4%B9%89%E5%AE%BD%E5%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">3. flex-basis: 分配剩余空间前, 定义宽度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%96%E5%80%BC%EF%BC%9A-2"><span class="nav-number">5.1.</span> <span class="nav-text">取值：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-2"><span class="nav-number">5.2.</span> <span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-flex"><span class="nav-number">6.</span> <span class="nav-text">二. flex:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-3"><span class="nav-number">7.</span> <span class="nav-text">说明：</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

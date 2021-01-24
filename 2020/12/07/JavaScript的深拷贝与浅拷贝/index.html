@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            JavaScript的深拷贝与浅拷贝 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">JavaScript的深拷贝与浅拷贝</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-12-07 00:54:12
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a>一、预备知识</h3><h4 id="1-1、JS数据类型"><a href="#1-1、JS数据类型" class="headerlink" title="1.1、JS数据类型"></a>1.1、JS数据类型</h4><p>基本数据类型：Boolean、String、Number、null、undefined<br>引用数据类型：Object、Array、Function、RegExp、Date等</p>
+<h4 id="1-2、数据类型的复制"><a href="#1-2、数据类型的复制" class="headerlink" title="1.2、数据类型的复制"></a>1.2、数据类型的复制</h4><p>基本数据类型的复制，是按值传递的</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">var b = a;</span><br><span class="line">b = 2;</span><br><span class="line">console.log(a); // 1</span><br><span class="line">console.lob(b); // 2</span><br></pre></td></tr></table></figure>
+<p>引用数据类型的复制，是按引用传值</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = &#123;</span><br><span class="line"> a: 1;</span><br><span class="line"> b: 2;</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = obj1;</span><br><span class="line">obj2.a=3;</span><br><span class="line">console.log(obj1.a); //3</span><br><span class="line">console.log(obj2.a); // 3</span><br></pre></td></tr></table></figure>
+<h4 id="1-3、深拷贝与浅拷贝"><a href="#1-3、深拷贝与浅拷贝" class="headerlink" title="1.3、深拷贝与浅拷贝"></a>1.3、深拷贝与浅拷贝</h4><p>深拷贝和浅拷贝都只针对引用数据类型，浅拷贝会对对象逐个成员依次拷贝，但只复制内存地址，而不复制对象本身，新旧对象成员还是共享同一内存；深拷贝会另外创建一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。</p>
+<p>区别：浅拷贝只复制对象的第一层属性，而深拷贝会对对象的属性进行递归复制。</p>
+<h3 id="二、JS浅拷贝"><a href="#二、JS浅拷贝" class="headerlink" title="二、JS浅拷贝"></a>二、JS浅拷贝</h3><h4 id="2-1、赋值与浅拷贝"><a href="#2-1、赋值与浅拷贝" class="headerlink" title="2.1、赋值与浅拷贝"></a>2.1、赋值与浅拷贝</h4><p>当把一个对象赋值给一个新的变量时，赋的对象是该对象在栈中的地址，而不是堆中的数据。也就是新旧两个对象指的是同一个存储空间，无论哪个对象发生改变，其实都是改变的存储空间的内容，两个对象联动的会一起改变。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = &#123;</span><br><span class="line">  <span class="string">&#x27;name&#x27;</span> : <span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;language&#x27;</span> : [1,[2,3],[4,5]],</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = obj1;</span><br><span class="line">obj2.name = <span class="string">&quot;lisi&quot;</span>;</span><br><span class="line">obj2.language[1] = [<span class="string">&quot;二&quot;</span>,<span class="string">&quot;三&quot;</span>];</span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>,obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>,obj2)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DvCoJx"><img src="https://s3.ax1x.com/2020/12/07/DvCoJx.png" alt="DvCoJx.png"></a></p>
+<p>浅拷贝是按位拷贝对象，它会创建一个新对象，对原有对象的成员进行依次拷贝。如果属性是基本类型，拷贝的就是基本类型的值；如果属性是引用类型，拷贝的就是内存地址。因此如果新对象中的某个对象成员改变了地址，就会影响到原有的对象。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//手写浅拷贝</span><br><span class="line"><span class="keyword">function</span> shallowCopy(obj1) &#123;</span><br><span class="line"> <span class="built_in">let</span> obj2 = Array.isArray(obj1) ? [] : &#123;&#125;</span><br><span class="line"> <span class="keyword">for</span> (<span class="built_in">let</span> i <span class="keyword">in</span> obj1) &#123;</span><br><span class="line">  obj2[i] = obj1[i]</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">return</span> obj2</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">  <span class="string">&#x27;name&#x27;</span> : <span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;language&#x27;</span> : [1,[2,3],[4,5]],</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = shallowCopy(obj1);</span><br><span class="line">obj2.name = <span class="string">&quot;lisi&quot;</span>;</span><br><span class="line">obj2.language[1] = [<span class="string">&quot;二&quot;</span>,<span class="string">&quot;三&quot;</span>];</span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>,obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>,obj2)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DvCTW6"><img src="https://s3.ax1x.com/2020/12/07/DvCTW6.png" alt="DvCTW6.png"></a></p>
+<h4 id="2-2、浅拷贝的实现"><a href="#2-2、浅拷贝的实现" class="headerlink" title="2.2、浅拷贝的实现"></a>2.2、浅拷贝的实现</h4><p>（1）Object.assign()</p>
+<p>Object.assign()方法可以把源对象自身的任意多个的可枚举属性拷贝给目标对象，然后返回目标对象，但是Object.assign()进行的是浅拷贝，拷贝的是对象的属性的引用，而不是对象本身。此方法对于Array和Object均可适用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = &#123;</span><br><span class="line">  <span class="string">&#x27;name&#x27;</span> : <span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;language&#x27;</span> : [1,[2,3],[4,5]],</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = Object.assign(&#123;&#125;, obj1);</span><br><span class="line">obj2.name = <span class="string">&quot;lisi&quot;</span>;</span><br><span class="line">obj2.language[1] = [<span class="string">&quot;二&quot;</span>,<span class="string">&quot;三&quot;</span>];</span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>,obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>,obj2)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DvCjwd"><img src="https://s3.ax1x.com/2020/12/07/DvCjwd.png" alt="DvCjwd.png"></a></p>
+<p>（2）Array.prototype.concat()和Array.prototype.slice()</p>
+<p>Array.prototype.concat()和Array.prototype.slice()均为Array原型上的方法，只适用于Array。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [1,3,&#123;</span><br><span class="line"> user: <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">&#125;]</span><br><span class="line">var arr2 = arr1.concat();</span><br><span class="line">arr2[0] = <span class="string">&#x27;一&#x27;</span>;</span><br><span class="line">arr2[2].user = <span class="string">&#x27;AAA&#x27;</span>;</span><br><span class="line">console.log(<span class="string">&#x27;arr1&#x27;</span>,arr1)</span><br><span class="line">console.log(<span class="string">&#x27;arr2&#x27;</span>,arr2)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">var arr1 = [1,3,&#123;</span><br><span class="line"> user: <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">&#125;]</span><br><span class="line">var arr2 = arr1.slice();</span><br><span class="line">arr2[0] = <span class="string">&#x27;一&#x27;</span>;</span><br><span class="line">arr2[2].user = <span class="string">&#x27;AAA&#x27;</span>;</span><br><span class="line">console.log(<span class="string">&#x27;arr1&#x27;</span>,arr1)</span><br><span class="line">console.log(<span class="string">&#x27;arr2&#x27;</span>,arr2)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DvCzFI"><img src="https://s3.ax1x.com/2020/12/07/DvCzFI.png" alt="DvCzFI.png"></a><br>补充说明：Array的slice和contact方法都不会修改原数组，而是会返回一个对原数组进行浅拷贝的新数组。这两种方法同Object.assign()一样，都是对第一层属性依次拷贝，如果第一层的属性是基本数据类型，就拷贝值；如果是引用数据类型，就拷贝内存地址。</p>
+<h3 id="三、JS深拷贝"><a href="#三、JS深拷贝" class="headerlink" title="三、JS深拷贝"></a>三、JS深拷贝</h3><p>对对象的属性中所有引用类型的值，遍历到是基本类型的值为止。</p>
+<h4 id="3-1、深拷贝实现方式"><a href="#3-1、深拷贝实现方式" class="headerlink" title="3.1、深拷贝实现方式"></a>3.1、深拷贝实现方式</h4><p>(1)JSON.parse(JSON.stringify())<br>原理：用JSON.stringify()将对象转成字符串，再用JSON.parse()把字符串解析成对象。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = &#123;</span><br><span class="line">  <span class="string">&#x27;name&#x27;</span> : <span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;language&#x27;</span> : [1,[2,3],[4,5]],</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = JSON.parse(JSON.stringify(obj1));</span><br><span class="line">obj2.name = <span class="string">&quot;lisi&quot;</span>;</span><br><span class="line">obj2.language[1] = [<span class="string">&quot;二&quot;</span>,<span class="string">&quot;三&quot;</span>];</span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>,obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>,obj2)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DvPlXF"><img src="https://s3.ax1x.com/2020/12/07/DvPlXF.png" alt="DvPlXF.png"></a></p>
+<p>缺点：这种方法可以实现数组和对象和基本数据类型的深拷贝，但不能处理函数。因为JSON.stringify()方法是将一个javascript值转换我一个JSON字符串，不能接受函数。其他影响如下：</p>
+<ul>
+<li>如果对象中有时间对象，那么用该方法拷贝之后的对象中，时间是字符串形式而不是时间对象</li>
+<li>如果对象中有RegExp、Error对象，那么序列化的结果是空</li>
+<li>如果对象中有函数或者undefined，那么序列化的结果会把函数或undefined丢失</li>
+<li>如果对象中有NAN、infinity、-infinity，那么序列化的结果会变成null</li>
+<li>JSON.stringfy（）只能序列化对象的可枚举自有属性，如果对象中有是构造函数生成的，那么拷贝后会丢弃对象的constructor</li>
+<li>如果对象中存在循环引用也无法正确实现深拷贝</li>
+</ul>
+<p>（2）手写深拷贝函数</p>
+<p>通过递归实现深拷贝</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> deepCopy(obj)&#123;</span><br><span class="line"> var result= Array.isArray(obj) ? [] : &#123;&#125;</span><br><span class="line"> <span class="keyword">if</span> (obj &amp;&amp; typeof(obj) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">   <span class="keyword">if</span> (obj.hasOwnProperty(i))&#123; // 思考：这句是否有必要？</span><br><span class="line">    <span class="keyword">if</span> (obj[i] &amp;&amp; typeof(obj[i]) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">     result[i] = deepCopy(obj[i])</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     result[i] = obj[i]</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line"> a: 1,</span><br><span class="line"> b: &#123;</span><br><span class="line">  c: 2</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = deepCopy(obj1);</span><br><span class="line">obj2.a = <span class="string">&#x27;一&#x27;</span>;</span><br><span class="line">obj2.b.c = <span class="string">&#x27;二&#x27;</span></span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>, obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>, obj2)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>obj.hasOwnProperty(prop)用来判断obj这个对象中是否含有prop这个属性，返回布尔值，有则true，没有则false</p>
+</blockquote>
+<p>以上有个缺陷：当遇到两个互相引用的对象时，会出现死循环的情况，从而导致爆栈。为了避免相互引用的对象导致死循环的情况，则应该在遍历的时候判断是否互相引用。</p>
+<p>深拷贝函数改进（防止循环递归爆栈）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> deepCopy(obj, parent = null) &#123;</span><br><span class="line"> <span class="built_in">let</span> result = Array.isArray(obj) ? [] : &#123;&#125;</span><br><span class="line"> <span class="built_in">let</span> _parent = parent</span><br><span class="line"> // 该字段有父级则需要追溯该字段的父级</span><br><span class="line"> <span class="keyword">while</span>(_parent) &#123;</span><br><span class="line">  // 如果该字段引用了它的父级，则为循环引用</span><br><span class="line">  <span class="keyword">if</span> (_parent.originalParent === obj) &#123;</span><br><span class="line">   // 循环引用返回同级的新对象</span><br><span class="line">   <span class="built_in">return</span> _parent.currentParent </span><br><span class="line">  &#125;</span><br><span class="line">  _parent = _parent.parent</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">if</span> (obj &amp;&amp; typeof(obj) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">   // 如果字段的值也是一个对象</span><br><span class="line">   <span class="keyword">if</span> (obj[i] &amp;&amp; typeof(obj[i]) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">    // 递归执行深拷，将同级的待拷贝对象传递给parent，方便追溯循环引用</span><br><span class="line">    result[i] = deepCopy(obj[i], &#123;</span><br><span class="line">     originalParent: obj,</span><br><span class="line">     currentParent: result,</span><br><span class="line">     parent: parent</span><br><span class="line">    &#125;)</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    result[i] = obj[i]</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line"> x: 1,</span><br><span class="line"> y: 2</span><br><span class="line">&#125;;</span><br><span class="line">obj1.z = obj1</span><br><span class="line">var obj2 = deepCopy(obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>, obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>, obj2)</span><br></pre></td></tr></table></figure>
+<p>以上代码可以复制到浏览器去试试吧</p>
+<p>深拷贝函数最终版（支持基本数据类型、Array、Object、原型链、RegExp、Date类型）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> deepCopy(obj, parent = null) &#123;</span><br><span class="line"> <span class="built_in">let</span> result</span><br><span class="line"> <span class="built_in">let</span> _parent = parent</span><br><span class="line"> <span class="keyword">while</span>(_parent) &#123;</span><br><span class="line">  <span class="keyword">if</span> (_parent.originalParent === obj) &#123;</span><br><span class="line">   <span class="built_in">return</span> _parent.currentParent</span><br><span class="line">  &#125;</span><br><span class="line">  _parent = _parent.parent</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">if</span> (obj &amp;&amp; typeof(obj) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (obj instanceof RegExp) &#123;</span><br><span class="line">   result = new RegExp(obj.source, obj.flags)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj instanceof Date) &#123;</span><br><span class="line">   result = new Date(obj.getTime())</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (obj instanceof Array) &#123;</span><br><span class="line">    result = []</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">let</span> proto = Object.getPrototypeOf(obj)</span><br><span class="line">    result = Object.create(proto)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span> (<span class="built_in">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="keyword">if</span>(obj[i] &amp;&amp; typeof(obj[i]) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">     result[i] = deepCopy(obj[i], &#123;</span><br><span class="line">      originalParent: obj,</span><br><span class="line">      currentParent: result,</span><br><span class="line">      parent: parent</span><br><span class="line">     &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     result[i] = obj[i]</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">return</span> obj</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line"> x: 1 </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//试调用</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">construct</span></span>()&#123;</span><br><span class="line">  this.a = 1,</span><br><span class="line">  this.b = &#123;</span><br><span class="line">    x:2,</span><br><span class="line">    y:3,</span><br><span class="line">    z:[4,5,[6]]</span><br><span class="line">  &#125;,</span><br><span class="line">  this.c = [7,8,[9,10]],</span><br><span class="line">  this.d = new Date(),</span><br><span class="line">  this.e = /abc/ig,</span><br><span class="line">  this.f = <span class="keyword">function</span>(a,b)&#123;</span><br><span class="line">    <span class="built_in">return</span> a+b</span><br><span class="line">  &#125;,</span><br><span class="line">  this.g = null,</span><br><span class="line">  this.h = undefined,</span><br><span class="line">  this.i = <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">  this.j = Symbol(<span class="string">&quot;foo&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">construct.prototype.str = <span class="string">&quot;I&#x27;m prototype&quot;</span></span><br><span class="line">var obj1 = new construct()</span><br><span class="line">obj1.k = obj1</span><br><span class="line">obj2 = deepCopy(obj1)</span><br><span class="line"> </span><br><span class="line">obj2.b.x = 999</span><br><span class="line">obj2.c[0] = 666</span><br><span class="line"> </span><br><span class="line">console.log(<span class="string">&#x27;obj1&#x27;</span>, obj1)</span><br><span class="line">console.log(<span class="string">&#x27;obj2&#x27;</span>, obj2)</span><br></pre></td></tr></table></figure>
+<p>（3）函数库<br>也可以使用一些函数库，比如函数库lodash，也有提供_.cloneDeep用来做深拷贝；</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var _ = require(<span class="string">&#x27;lodash&#x27;</span>);</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">  a: 1,</span><br><span class="line">  b: &#123; f: &#123; g: 1 &#125; &#125;,</span><br><span class="line">  c: [1, 2, 3]</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = _.cloneDeep(obj1);</span><br><span class="line">console.log(obj1.b.f === obj2.b.f);</span><br><span class="line">// <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：JavaScript的深拷贝与浅拷贝</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-12-07 00:54:12</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/12/07/JavaScript的深拷贝与浅拷贝/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/12/14/stash%E7%9A%84%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">git stash的用法总结</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/12/07/%E5%89%8D%E7%AB%AF%E6%A0%B7%E5%BC%8F%E5%AF%BC%E5%85%A5%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">前端样式导入的方式有哪些？</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">一、预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1%E3%80%81JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、JS数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、数据类型的复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.3.</span> <span class="nav-text">1.3、深拷贝与浅拷贝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81JS%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.</span> <span class="nav-text">二、JS浅拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81%E8%B5%8B%E5%80%BC%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、赋值与浅拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、浅拷贝的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81JS%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">3.</span> <span class="nav-text">三、JS深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、深拷贝实现方式</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

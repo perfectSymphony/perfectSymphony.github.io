@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            css3中定位模型之position属性的使用方法 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">css3中定位模型之position属性的使用方法</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-08-02 17:12:11
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CSS/">CSS</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="一、position元素介绍"><a href="#一、position元素介绍" class="headerlink" title="一、position元素介绍"></a>一、position元素介绍</h2><table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>描述</th>
+<th>所属类别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static</td>
+<td>默认值。没有定位，<br/>元素出现在正常的流中(忽略top,bottom,left,right或者z-index声明)</td>
+<td></td>
+</tr>
+<tr>
+<td>relative</td>
+<td>元素遵循默认的文档流。<br/>相对于元素的原位置进行移动，周围元素忽略该元素的移动。<br/>需要设置top、bottom、left、right值进行定位</td>
+<td>相对定位</td>
+</tr>
+<tr>
+<td>absolute</td>
+<td>元素脱离正常的文档流<br/>相对于包含该元素的第一个非静态定位的元素进行定位，<br/>若不满足条件，则会根据最外层的window进行定位。<br/>需要设置top、bottom、left、right值进行定位</td>
+<td>绝对定位</td>
+</tr>
+<tr>
+<td>fixed</td>
+<td>元素脱离正常文档流。<br/>相对于最外层的window进行定位，固定在屏幕上的某个位置，不因屏幕滚动而消失。<br/>需要设置top、bottom、left、right值进行定位</td>
+<td>绝对定位(固定定位)</td>
+</tr>
+<tr>
+<td>inherit</td>
+<td>继承父元素的position值</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>设置position属性只会让元素脱离文档流，需要设置偏移属性使元素移动。包括4个偏移属性，分别为top、bottom、left、right。</p>
+<p>具体描述如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th>偏移属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>left</td>
+<td>表示向元素左端插入多少距离，正值使元素右移多少距离。</td>
+</tr>
+<tr>
+<td>right</td>
+<td>表示向元素右端插入多少距离，正值使元素左移多少距离。</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>表示向元素下方插入多少距离，正值使元素上移多少距离。</td>
+</tr>
+<tr>
+<td>top</td>
+<td>表示向元素上方插入多少距离，正值使元素下移多少距离。</td>
+</tr>
+</tbody></table>
+<p>偏移属性的值可以为负值，负值时向相同方向移动。一般设置时设置一个或两个偏移量即可。</p>
+<p>当元素中设置position为非默认值后，该元素会成为设定位置的元素。在元素变成设定位置后，就成为了最近的绝对定位后代元素的定位参考点，即该元素为设置为绝对定位子元素的第一个非静态定位的元素。</p>
+<p>目前所有主流的浏览器都支持position属性的使用，但注意所有IE浏览器均不支持inherit属性值。</p>
+<h2 id="二、属性值详细介绍"><a href="#二、属性值详细介绍" class="headerlink" title="二、属性值详细介绍"></a>二、属性值详细介绍</h2><p>首先设置示例的显示内容，分别设定了三个div块元素，并分别设置class属性值。HTML源代码如下：  </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;div0&quot;</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div1 div&quot;</span>&gt;This is div1.&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div2 div&quot;</span>&gt;This is div2.&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div3 div&quot;</span>&gt;This is div3.&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>设置原始示例的显示效果，为了截图容易理解，将body设置为3px的红色边框。包围三个div块的大div块设置1px的黑边框，灰色的背景色以及50%的宽度。三个div块则设置相同的边框和100px的高度。CSS源代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    border: 3px solid red;</span><br><span class="line">&#125;</span><br><span class="line">.div0 &#123;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    width: 50%;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    margin: 50px;</span><br><span class="line">&#125;</span><br><span class="line">.div &#123;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    margin: 20px;</span><br><span class="line">    padding: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终的示例效果图如下：</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYs9wq.png" alt="aYs9wq.png"></p>
+<p>1、<strong>relative</strong>——使元素相对于文档流的位置偏移一段距离</p>
+<p>元素遵循默认的文档流，相对于元素的原位置进行移动，周围元素忽略该元素的移动。需要设置top、bottom、left、right的值进行相对定位。<br>举个栗子：设置第二个div块的position属性为relative，并且设置偏移量为向右偏移50px、向下偏移50px。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到如下效果图中，第一和第三块div块并没有移动位置，说明relative属性值使元素遵循默认的文档流。设置偏移量后，第二块div块则向右、向下分别偏移50px。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsikV.png" alt="aYsikV.png"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: -50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当设置左偏移量为-50px时，则如下图所示，第二元素块向左偏移了50px。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsFYT.png" alt="aYsFYT.png"></p>
+<p>2、<strong>absolute</strong>——使元素相对于文档流的位置或最近定位祖先元素的位置偏移一定的距离<br/><br>元素脱离默认的文档流，相对于包含该元素的第一个非静态定位的元素进行定位。需要设置top、bottom、left、right值进行绝对定位。</p>
+<p>对于元素，使用width、height可以设置它的尺寸，设定百分数是相对于最近定位祖先元素的尺寸。</p>
+<p>举个栗子*2：设置第二个div块的position属性为absolute，并且设置偏移量为向右偏移50px、向下偏移50px。注意此时没有设置该元素的父元素的position值为非默认值。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 20px;</span><br><span class="line">    top: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以从图中看到，第三块div元素向上移动，第二块元素脱离了原来的文档流。而在没有设置该元素的父元素的position值为非默认值时，第二块div元素块是相对于body的值来向右、向下偏移的。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsEpF.png" alt="aYsEpF.png"></p>
+<p> 再来看设置了该元素的父元素的position值为非默认值的情况。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.div0 &#123;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    width: 50%;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    margin: 50px;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 当设置了该元素的父元素的position值为非默认值的情况时，此时的第二块div元素块则是相对于包含三个元素块的大div元素块来进行向右、向下的偏移。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYskfU.png" alt="aYskfU.png"></p>
+<p>  3、<strong>fixed</strong>——使元素相对于视口偏移一定的距离<br/></p>
+<p>元素脱离默认的文档流，相对于最外层的window进行定位，固定在屏幕上的某个位置，不因屏幕滚动而消失。需要设置top、bottom、left、right值进行定位。</p>
+<p>举个栗子*3：设置第二个div块的position属性为fixed，并且设置偏移量为向右偏移20px、向下偏移200px。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: fixed;</span><br><span class="line">    right: 20px;</span><br><span class="line">    top: 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从图中看出，第二个div元素块的位置在右下角，是相对于视口进行了向左20px、向下200px的偏移。并且在页面滑动时，也会保持着同样的位置不变。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsVl4.png" alt="aYsVl4.png"></p>
+<h2 id="三、Z-index"><a href="#三、Z-index" class="headerlink" title="三、Z-index"></a>三、Z-index</h2><p>Z-index可用于设置元素之间的层叠顺序。只对于定位元素有效，即只对于position属性的属性值为absolute、relative和fixed有效。静态定位元素按照文档出现顺序从后往前进行堆叠。设定位置元素忽略文档出现顺序，根据z-index值由小到大的顺序从后往前堆叠，即Z-index的值越高表示元素显示的顺序越优先。设置为负值z-index的设定位置元素位于静态定位元素和非设定位置浮动元素之下。z-index值不必为连续值，其默认值为auto。当设置的值相同时，后加载的元素优先显示。<br/></p>
+<p>举个栗子*4：将relative示例的元素设置-index值为-1。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">    z-index: -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从图中可以看到，当元素的z-index设置为负值时，设定位置元素是位于静态定位元素之下，即是di第二个div元素的父元素div0的位置之下。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYseX9.png" alt="aYseX9.png"></p>
+<h2 id="四、实际应用——使用绝对定位显示二级菜单"><a href="#四、实际应用——使用绝对定位显示二级菜单" class="headerlink" title="四、实际应用——使用绝对定位显示二级菜单"></a>四、实际应用——使用绝对定位显示二级菜单</h2><p>使用无序列表和Flex布局导航栏菜单，HTML源代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=<span class="string">&quot;MenuWrap&quot;</span>&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem1&quot;</span>&gt;</span><br><span class="line">        &lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span> &gt;Home&lt;/a&gt;</span><br><span class="line">        &lt;ul class=<span class="string">&quot;MenuWrap2&quot;</span> id=<span class="string">&quot;MenuWrap2&quot;</span>&gt;</span><br><span class="line">             &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item1&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item2&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item3&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem2&quot;</span>&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span>&gt;About&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem3&quot;</span>&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span>&gt;Products&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt; </span><br></pre></td></tr></table></figure>
+<p>将包裹二级菜单的ul元素设置的position属性设置为非默认值relative。再将二级菜单的position属性设置为绝对定位，根据一级菜单的高度设置偏移量。并且将二级菜单的显示方式display属性设置为none值表示不显示。最后再通过JavaScript设置鼠标悬浮经过一级菜单栏时显示二级菜单栏。CSS源代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">.MenuWrap &#123;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    min-height: 2.75em;</span><br><span class="line">    display: flex;</span><br><span class="line">    align-items: center;</span><br><span class="line">    list-style-type: none;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.ListItem &#123;</span><br><span class="line">    color: black;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    padding:0px 20px;</span><br><span class="line">&#125;</span><br><span class="line">ul.MenuWrap2 &#123;</span><br><span class="line">    padding: 0px;</span><br><span class="line">&#125;</span><br><span class="line">.MenuWrap2 &#123;</span><br><span class="line">    list-style-type: none;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    min-width: 4.5em;</span><br><span class="line">    text-align: center;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 2.75em;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">.MenuWrap2 li &#123;</span><br><span class="line">    padding-bottom: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.ListItem2 &#123;</span><br><span class="line">    color:black;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元素的定位模型中需要区分每个属性值的不同定位方式，分为绝对定位、相对定位、固定定位以及默认定位和继承父元素。其中绝对定位和固定定位都脱离原本的文档流，而相对定位则遵循原本的文档流。设置元素的定位方式后，还需要指定偏移量。可以从上、右、下、左四个方向进行偏移。并且可以利用Z-index属性设置元素之间的层叠顺序。</p>
+<p>定位模型是在CSS中设置元素位置的重要方式之一，使用该模型可以实现页面常用的菜单导航、悬浮公告等效果。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：css3中定位模型之position属性的使用方法</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-08-02 17:12:11</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/08/02/css3中定位模型之position属性的使用方法/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/08/02/collapse%E3%80%81overflow%E3%80%81float%E8%BF%99%E4%BA%9B%E7%89%B9%E6%80%A7%E7%9B%B8%E4%BA%92%E5%8F%A0%E5%8A%A0%E5%90%8E%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">collapse、overflow、float这些特性相互叠加后会怎么样</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/08/02/%E7%A7%BB%E5%8A%A8%E7%AB%AFWeb%E9%A1%B5%E9%9D%A2%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">移动端Web页面适配方案</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81position%E5%85%83%E7%B4%A0%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">一、position元素介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B1%9E%E6%80%A7%E5%80%BC%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">二、属性值详细介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Z-index"><span class="nav-number">3.</span> <span class="nav-text">三、Z-index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E6%98%BE%E7%A4%BA%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95"><span class="nav-number">4.</span> <span class="nav-text">四、实际应用——使用绝对定位显示二级菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

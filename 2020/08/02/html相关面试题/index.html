@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            html相关面试题 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">html相关面试题</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-08-02 15:15:34
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTML/">HTML</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="一、什么是HTML语义化标签"><a href="#一、什么是HTML语义化标签" class="headerlink" title="一、什么是HTML语义化标签"></a>一、什么是HTML语义化标签</h3><p>语义化的标签，说明让标签有自己的含义。</p>
+<p>一行文字</p>
+
+<p><span>一行文字</span></p>
+<p>如上代码，p 标签与 span 标签都区别之一就是，p 标签的含义是：段落。而 span 标签则没有独特的含义。</p>
+<p>二、语义化标签的特点</p>
+<p>代码结构清晰，方便阅读，有利于团队合作开发。</p>
+<p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以语义的方式来渲染网页。</p>
+<p>有利于搜索引擎优化（SEO）。</p>
+<p>便于团队开发和维护，语义化更具可读性，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p>
+<p>三、常见的语义化标签</p>
+<p>因此我们在写页面结构时，应尽量使用有 语义的HTML 标签</p>
+<p><code>&lt;title&gt;</code>：页面主体内容。</p>
+<p><code>&lt;hn&gt;</code>：h1~h6，分级标题，<code>&lt;h1&gt;</code> 与 <code>&lt;title&gt;</code> 协调有利于搜索引擎优化。</p>
+<p><code>&lt;ul&gt;</code>：无序列表。</p>
+<p><code>&lt;ol&gt;</code>：有序列表。</p>
+<p><code>&lt;header&gt;</code>：页眉通常包括网站标志、主导航、全站链接以及搜索框。</p>
+<p><code>&lt;nav&gt;</code>：标记导航，仅对文档中重要的链接群使用。</p>
+<p><code>&lt;main&gt;</code>：页面主要内容，一个页面只能使用一次。如果是web应用，则包围其主要功能。</p>
+<p><code>&lt;article&gt;</code>：定义外部的内容，其中的内容独立于文档的其余部分。</p>
+<p><code>&lt;section&gt;</code>：定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分。</p>
+<p><code>&lt;aside&gt;</code>：定义其所处内容之外的内容。如侧栏、文章的一组链接、广告、友情链接、相关产品列表等。</p>
+<p><code>&lt;footer&gt;</code>：页脚，只有当父级是body时，才是整个页面的页脚。</p>
+<p><code>&lt;small&gt;</code>：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。</p>
+<p><code>&lt;strong&gt;</code>：和 em 标签一样，用于强调文本，但它强调的程度更强一些。</p>
+<p><code>&lt;em&gt;</code>：将其中的文本表示为强调的内容，表现为斜体。</p>
+<p><code>&lt;mark&gt;</code>：使用黄色突出显示部分文本。</p>
+<p><code>&lt;figure&gt;</code>：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。</p>
+<p><code>&lt;figcaption&gt;</code>：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。</p>
+<p><code>&lt;cite&gt;</code>：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。</p>
+<p><code>&lt;blockquoto&gt;</code>：定义块引用，块引用拥有它们自己的空间。</p>
+<p><code>&lt;q&gt;</code>：短的引述（跨浏览器问题，尽量避免使用）。</p>
+<p><code>&lt;time&gt;</code>：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。</p>
+<p><code>&lt;abbr&gt;</code>：简称或缩写。</p>
+<p><code>&lt;dfn&gt;</code>：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。</p>
+<p><code>&lt;del&gt;</code>：移除的内容。</p>
+<p><code>&lt;ins&gt;</code>：添加的内容。</p>
+<p><code>&lt;code&gt;</code>：标记代码。</p>
+<p><code>&lt;meter&gt;</code>：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）</p>
+<p><code>&lt;progress&gt;</code>：定义运行中的进度（进程）。</p>
+<h3 id="二、什么是回流，什么是重绘，有什么区别？"><a href="#二、什么是回流，什么是重绘，有什么区别？" class="headerlink" title="二、什么是回流，什么是重绘，有什么区别？"></a>二、什么是回流，什么是重绘，有什么区别？</h3><h4 id="html-加载时发生了什么"><a href="#html-加载时发生了什么" class="headerlink" title="html 加载时发生了什么"></a>html 加载时发生了什么</h4><p>在页面加载时，浏览器把获取到的HTML代码解析成1个DOM树，DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。<br>浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体<br>DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，因为render tree能识别样式，render tree中每个NODE都有自己的style，而且render tree不包含隐藏的节点(比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。我自己简单的理解就是DOM Tree和我们写的CSS结合在一起之后，渲染出了render tree。</p>
+<h4 id="什么是回流"><a href="#什么是回流" class="headerlink" title="什么是回流"></a>什么是回流</h4><p>当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建render tree。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p>
+<h4 id="什么是重绘"><a href="#什么是重绘" class="headerlink" title="什么是重绘"></a>什么是重绘</h4><p>当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>他们的区别很大：<br>回流必将引起重绘，而重绘不一定会引起回流。比如：只有颜色改变的时候就只会发生重绘而不会引起回流<br>当页面布局和几何属性改变时就需要回流<br>比如：添加或者删除可见的DOM元素，元素位置改变，元素尺寸改变——边距、填充、边框、宽度和高度，内容改变</p>
+<h4 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h4><p>能得知回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系<br>因为这些机制的存在，所以浏览器会帮助我们优化这些操作，浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</p>
+<h4 id="触发重排途径"><a href="#触发重排途径" class="headerlink" title="触发重排途径"></a>触发重排途径</h4><h5 id="添加、删除或改变元素的可见性"><a href="#添加、删除或改变元素的可见性" class="headerlink" title="添加、删除或改变元素的可见性"></a>添加、删除或改变元素的可见性</h5><p>使用JavaScript更改DOM会导致回流</p>
+<h5 id="添加、删除或改变css样式"><a href="#添加、删除或改变css样式" class="headerlink" title="添加、删除或改变css样式"></a>添加、删除或改变css样式</h5><p>直接应用CSS样式或者类名都可能会改变布局。比如更改元素的宽度会影响同一DOM树及其周围的所有元素</p>
+<h5 id="CSS3-animations-和-transitions"><a href="#CSS3-animations-和-transitions" class="headerlink" title="CSS3 animations 和 transitions"></a>CSS3 animations 和 transitions</h5><p>动画的每一帧都会引起回流</p>
+<h5 id="用offsetWidth-和-offsetHeight"><a href="#用offsetWidth-和-offsetHeight" class="headerlink" title="用offsetWidth 和 offsetHeight"></a>用offsetWidth 和 offsetHeight</h5><p>读取元素的<code>offsetWidth</code>和<code>offsetHeight</code>属性会触发回流来计算属性值。</p>
+<h5 id="用户行为"><a href="#用户行为" class="headerlink" title="用户行为"></a>用户行为</h5><p>一些用户行为会触发回流，比如：hover、在输入框中输入文本、调整窗口大小、更改字体大小、切换样式表或字体。</p>
+<h4 id="减少回流和重绘的技巧"><a href="#减少回流和重绘的技巧" class="headerlink" title="减少回流和重绘的技巧"></a>减少回流和重绘的技巧</h4><p>减少回流、重绘其实就是需要减少对render tree的操作，并减少对一些style信息的请求。</p>
+<p>具体方法：</p>
+<h5 id="1、不要1个1个改变元素的样式属性，最好直接改变className，但className是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用cssText来改变，见下面代码："><a href="#1、不要1个1个改变元素的样式属性，最好直接改变className，但className是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用cssText来改变，见下面代码：" class="headerlink" title="1、不要1个1个改变元素的样式属性，最好直接改变className，但className是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用cssText来改变，见下面代码："></a>1、不要1个1个改变元素的样式属性，最好直接改变className，但className是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用cssText来改变，见下面代码：</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 不好的写法  </span><br><span class="line">var left = 1;  </span><br><span class="line">var top = 1;  </span><br><span class="line">el.style.left = left + <span class="string">&quot;px&quot;</span>;  </span><br><span class="line">el.style.top  = top  + <span class="string">&quot;px&quot;</span>;  </span><br><span class="line"> </span><br><span class="line">// 比较好的写法   </span><br><span class="line">el.className += <span class="string">&quot; className1&quot;</span>;  </span><br><span class="line"> </span><br><span class="line">// 比较好的写法   </span><br><span class="line">el.style.cssText += <span class="string">&quot;; left: &quot;</span> + left + <span class="string">&quot;px; top: &quot;</span> + top + <span class="string">&quot;px;&quot;</span>; </span><br></pre></td></tr></table></figure>
+<h5 id="2、让要操作的元素进行”离线处理”，处理完后一起更新，这里所谓的”离线处理”即让元素不存在于render-tree中，比如："><a href="#2、让要操作的元素进行”离线处理”，处理完后一起更新，这里所谓的”离线处理”即让元素不存在于render-tree中，比如：" class="headerlink" title="2、让要操作的元素进行”离线处理”，处理完后一起更新，这里所谓的”离线处理”即让元素不存在于render tree中，比如："></a>2、让要操作的元素进行”离线处理”，处理完后一起更新，这里所谓的”离线处理”即让元素不存在于render tree中，比如：</h5><p>a) 使用documentFragment或div等元素进行缓存操作，这个主要用于添加元素的时候，大家应该都用过，就是先把所有要添加的元素添加到1个div(这个div也是新加的)，最后才把这个div append到body中。</p>
+<p>b) 先display:none 隐藏元素，然后对该元素进行所有的操作，最后再显示该元素。因对display:none的元素进行操作不会引起回流、重绘。所以只要操作只会有2次回流。</p>
+<h5 id="3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，就先读取到变量中进行缓存，以后用的时候直接读取变量就可以了，见下面代码："><a href="#3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，就先读取到变量中进行缓存，以后用的时候直接读取变量就可以了，见下面代码：" class="headerlink" title="3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，就先读取到变量中进行缓存，以后用的时候直接读取变量就可以了，见下面代码："></a>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，就先读取到变量中进行缓存，以后用的时候直接读取变量就可以了，见下面代码：</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 别这样写  </span><br><span class="line"><span class="keyword">for</span>(循环) &#123;  </span><br><span class="line">    elel.style.left = el.offsetLeft + 5 + <span class="string">&quot;px&quot;</span>;  </span><br><span class="line">    elel.style.top  = el.offsetTop  + 5 + <span class="string">&quot;px&quot;</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"> </span><br><span class="line">// 这样写好点  </span><br><span class="line">var left = el.offsetLeft,top  = el.offsetTop,s = el.style;  </span><br><span class="line"><span class="keyword">for</span>(循环) &#123;  </span><br><span class="line">    left += 10;  </span><br><span class="line">    top  += 10;  </span><br><span class="line">    s.left = left + <span class="string">&quot;px&quot;</span>;  </span><br><span class="line">    s.top  = top  + <span class="string">&quot;px&quot;</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4、操作会影响到render-tree中的多少节点以及影响的方式，影响越多，花费肯定就越多。比如现在很多人使用jquery的animate方法移动元素来展示一些动画效果，想想下面2种移动的方法："><a href="#4、操作会影响到render-tree中的多少节点以及影响的方式，影响越多，花费肯定就越多。比如现在很多人使用jquery的animate方法移动元素来展示一些动画效果，想想下面2种移动的方法：" class="headerlink" title="4、操作会影响到render tree中的多少节点以及影响的方式，影响越多，花费肯定就越多。比如现在很多人使用jquery的animate方法移动元素来展示一些动画效果，想想下面2种移动的方法："></a>4、操作会影响到render tree中的多少节点以及影响的方式，影响越多，花费肯定就越多。比如现在很多人使用jquery的animate方法移动元素来展示一些动画效果，想想下面2种移动的方法：</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// block1是position:absolute 定位的元素，它移动会影响到它父元素下的所有子元素。  </span><br><span class="line">// 因为在它移动过程中，所有子元素需要判断block1的z-index是否在自己的上面，  </span><br><span class="line">// 如果是在自己的上面,则需要重绘,这里不会引起回流  </span><br><span class="line">$(<span class="string">&quot;#block1&quot;</span>).animate(&#123;left:50&#125;);  </span><br><span class="line">// block2是相对定位的元素,这个影响的元素与block1一样，但是因为block2非绝对定位  </span><br><span class="line">// 而且改变的是marginLeft属性，所以这里每次改变不但会影响重绘，  </span><br><span class="line">// 还会引起父元素及其下元素的回流  </span><br><span class="line">$(<span class="string">&quot;#block2&quot;</span>).animate(&#123;marginLeft:50&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="使用最佳布局方案"><a href="#使用最佳布局方案" class="headerlink" title="使用最佳布局方案"></a>使用最佳布局方案</h5><p>不要使用内联样式和table布局！<br>内联样式会在下载HTML时影响布局，并触发额外的reflow。<br>table布局开销很大，因为解析器需要多次传递去计算单元格维度，使用table时应用fixed定位有一定的优化效果，因为列的宽度是基于标题行的内容。<br>主页面布局应用flexbox也会有性能影响，因为在HTML下载的时候，flex items的位置和尺寸可能会变化。</p>
+<h5 id="最小化CSS规则的数量"><a href="#最小化CSS规则的数量" class="headerlink" title="最小化CSS规则的数量"></a>最小化CSS规则的数量</h5><p>css规则越少，重排越快，要尽量避免复杂的css选择器。<br>如果您使用的是Bootstrap这样的框架，那么这一点尤其成问题——很少有站点使用了框架提供的所有样式。像Unused CSS、uCSS、grunt-uncss和gulp-uncss这样的工具可以显著减少样式定义和文件大小。</p>
+<h5 id="最小化DOM层级"><a href="#最小化DOM层级" class="headerlink" title="最小化DOM层级"></a>最小化DOM层级</h5><p>稍微复杂一点——减小DOM树大小和每个分支的元素数量。文档越小越浅，回流越快。如果不需要支持古老的浏览器，可以删除不必要的包裹元素</p>
+<h5 id="从文档流中移除复杂的动效"><a href="#从文档流中移除复杂的动效" class="headerlink" title="从文档流中移除复杂的动效"></a>从文档流中移除复杂的动效</h5><p>通过使用<code>position: absolute;</code> 或者 <code>position: fixed;</code>来使有动效的元素脱离文档流，这可以在不影响文档流中的其它元素的情况下更新尺寸和位置。</p>
+<h5 id="更新隐藏的元素"><a href="#更新隐藏的元素" class="headerlink" title="更新隐藏的元素"></a>更新隐藏的元素</h5><p>通过<code>display: none;</code>来隐藏的元素在改变时不会触发重绘和重排，可以的话，在元素可见之前进行更改。</p>
+<h4 id="行内元素和块级元素的区别"><a href="#行内元素和块级元素的区别" class="headerlink" title="行内元素和块级元素的区别"></a>行内元素和块级元素的区别</h4><p><strong>1）、行内元素</strong></p>
+<p>①：设置宽高无效</p>
+<p>②：对margin设置左右方向有效，而上下无效，padding设置都无效</p>
+<p>③：不会自动换行</p>
+<p><strong>2）、块级元素</strong></p>
+<p>①：可以设置宽高</p>
+<p>②：设置margin和padding都有效</p>
+<p>③：可以自动换行</p>
+<p>④：多个块状，默认排列从上到下</p>
+<h4 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h4><p>数字递归求和：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> sum (n)&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == 0) <span class="built_in">return</span> 0;</span><br><span class="line">    <span class="built_in">return</span> n + sum(n-1)</span><br><span class="line">&#125;</span><br><span class="line">console.log(sum(100))</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：html相关面试题</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-08-02 15:15:34</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/08/02/html相关面试题/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/08/02/CSS%E4%B8%AD%E7%9A%84BFC%E8%AF%A6%E8%A7%A3/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CSS中的BFC详解</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFHTML%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE"><span class="nav-number">1.</span> <span class="nav-text">一、什么是HTML语义化标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9E%E6%B5%81%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8D%E7%BB%98%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">二、什么是回流，什么是重绘，有什么区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#html-%E5%8A%A0%E8%BD%BD%E6%97%B6%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">html 加载时发生了什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9E%E6%B5%81"><span class="nav-number">2.2.</span> <span class="nav-text">什么是回流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8D%E7%BB%98"><span class="nav-number">2.3.</span> <span class="nav-text">什么是重绘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">2.4.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">扩展：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E9%87%8D%E6%8E%92%E9%80%94%E5%BE%84"><span class="nav-number">2.6.</span> <span class="nav-text">触发重排途径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E6%88%96%E6%94%B9%E5%8F%98%E5%85%83%E7%B4%A0%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">2.6.1.</span> <span class="nav-text">添加、删除或改变元素的可见性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E6%88%96%E6%94%B9%E5%8F%98css%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.6.2.</span> <span class="nav-text">添加、删除或改变css样式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSS3-animations-%E5%92%8C-transitions"><span class="nav-number">2.6.3.</span> <span class="nav-text">CSS3 animations 和 transitions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8offsetWidth-%E5%92%8C-offsetHeight"><span class="nav-number">2.6.4.</span> <span class="nav-text">用offsetWidth 和 offsetHeight</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA"><span class="nav-number">2.6.5.</span> <span class="nav-text">用户行为</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E5%9B%9E%E6%B5%81%E5%92%8C%E9%87%8D%E7%BB%98%E7%9A%84%E6%8A%80%E5%B7%A7"><span class="nav-number">2.7.</span> <span class="nav-text">减少回流和重绘的技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E4%B8%8D%E8%A6%811%E4%B8%AA1%E4%B8%AA%E6%94%B9%E5%8F%98%E5%85%83%E7%B4%A0%E7%9A%84%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7%EF%BC%8C%E6%9C%80%E5%A5%BD%E7%9B%B4%E6%8E%A5%E6%94%B9%E5%8F%98className%EF%BC%8C%E4%BD%86className%E6%98%AF%E9%A2%84%E5%85%88%E5%AE%9A%E4%B9%89%E5%A5%BD%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%8C%E4%B8%8D%E6%98%AF%E5%8A%A8%E6%80%81%E7%9A%84%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BD%A0%E8%A6%81%E5%8A%A8%E6%80%81%E6%94%B9%E5%8F%98%E4%B8%80%E4%BA%9B%E6%A0%B7%E5%BC%8F%EF%BC%8C%E5%88%99%E4%BD%BF%E7%94%A8cssText%E6%9D%A5%E6%94%B9%E5%8F%98%EF%BC%8C%E8%A7%81%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">2.7.1.</span> <span class="nav-text">1、不要1个1个改变元素的样式属性，最好直接改变className，但className是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用cssText来改变，见下面代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E8%AE%A9%E8%A6%81%E6%93%8D%E4%BD%9C%E7%9A%84%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E2%80%9D%E7%A6%BB%E7%BA%BF%E5%A4%84%E7%90%86%E2%80%9D%EF%BC%8C%E5%A4%84%E7%90%86%E5%AE%8C%E5%90%8E%E4%B8%80%E8%B5%B7%E6%9B%B4%E6%96%B0%EF%BC%8C%E8%BF%99%E9%87%8C%E6%89%80%E8%B0%93%E7%9A%84%E2%80%9D%E7%A6%BB%E7%BA%BF%E5%A4%84%E7%90%86%E2%80%9D%E5%8D%B3%E8%AE%A9%E5%85%83%E7%B4%A0%E4%B8%8D%E5%AD%98%E5%9C%A8%E4%BA%8Erender-tree%E4%B8%AD%EF%BC%8C%E6%AF%94%E5%A6%82%EF%BC%9A"><span class="nav-number">2.7.2.</span> <span class="nav-text">2、让要操作的元素进行”离线处理”，处理完后一起更新，这里所谓的”离线处理”即让元素不存在于render tree中，比如：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E3%80%81%E4%B8%8D%E8%A6%81%E7%BB%8F%E5%B8%B8%E8%AE%BF%E9%97%AE%E4%BC%9A%E5%BC%95%E8%B5%B7%E6%B5%8F%E8%A7%88%E5%99%A8flush%E9%98%9F%E5%88%97%E7%9A%84%E5%B1%9E%E6%80%A7%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%A1%AE%E5%AE%9E%E8%A6%81%E8%AE%BF%E9%97%AE%EF%BC%8C%E5%B0%B1%E5%85%88%E8%AF%BB%E5%8F%96%E5%88%B0%E5%8F%98%E9%87%8F%E4%B8%AD%E8%BF%9B%E8%A1%8C%E7%BC%93%E5%AD%98%EF%BC%8C%E4%BB%A5%E5%90%8E%E7%94%A8%E7%9A%84%E6%97%B6%E5%80%99%E7%9B%B4%E6%8E%A5%E8%AF%BB%E5%8F%96%E5%8F%98%E9%87%8F%E5%B0%B1%E5%8F%AF%E4%BB%A5%E4%BA%86%EF%BC%8C%E8%A7%81%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">2.7.3.</span> <span class="nav-text">3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，就先读取到变量中进行缓存，以后用的时候直接读取变量就可以了，见下面代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4%E3%80%81%E6%93%8D%E4%BD%9C%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%88%B0render-tree%E4%B8%AD%E7%9A%84%E5%A4%9A%E5%B0%91%E8%8A%82%E7%82%B9%E4%BB%A5%E5%8F%8A%E5%BD%B1%E5%93%8D%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%BD%B1%E5%93%8D%E8%B6%8A%E5%A4%9A%EF%BC%8C%E8%8A%B1%E8%B4%B9%E8%82%AF%E5%AE%9A%E5%B0%B1%E8%B6%8A%E5%A4%9A%E3%80%82%E6%AF%94%E5%A6%82%E7%8E%B0%E5%9C%A8%E5%BE%88%E5%A4%9A%E4%BA%BA%E4%BD%BF%E7%94%A8jquery%E7%9A%84animate%E6%96%B9%E6%B3%95%E7%A7%BB%E5%8A%A8%E5%85%83%E7%B4%A0%E6%9D%A5%E5%B1%95%E7%A4%BA%E4%B8%80%E4%BA%9B%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%EF%BC%8C%E6%83%B3%E6%83%B3%E4%B8%8B%E9%9D%A22%E7%A7%8D%E7%A7%BB%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.7.4.</span> <span class="nav-text">4、操作会影响到render tree中的多少节点以及影响的方式，影响越多，花费肯定就越多。比如现在很多人使用jquery的animate方法移动元素来展示一些动画效果，想想下面2种移动的方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9C%80%E4%BD%B3%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88"><span class="nav-number">2.7.5.</span> <span class="nav-text">使用最佳布局方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%96CSS%E8%A7%84%E5%88%99%E7%9A%84%E6%95%B0%E9%87%8F"><span class="nav-number">2.7.6.</span> <span class="nav-text">最小化CSS规则的数量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%96DOM%E5%B1%82%E7%BA%A7"><span class="nav-number">2.7.7.</span> <span class="nav-text">最小化DOM层级</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E6%96%87%E6%A1%A3%E6%B5%81%E4%B8%AD%E7%A7%BB%E9%99%A4%E5%A4%8D%E6%9D%82%E7%9A%84%E5%8A%A8%E6%95%88"><span class="nav-number">2.7.8.</span> <span class="nav-text">从文档流中移除复杂的动效</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E9%9A%90%E8%97%8F%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.7.9.</span> <span class="nav-text">更新隐藏的元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E5%92%8C%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.8.</span> <span class="nav-text">行内元素和块级元素的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS"><span class="nav-number">2.9.</span> <span class="nav-text">JS</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

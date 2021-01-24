@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            CSS相关面试题 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">CSS相关面试题</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-09-15 16:59:17
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CSS/">CSS</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="一、使一个盒子水平居中"><a href="#一、使一个盒子水平居中" class="headerlink" title="一、使一个盒子水平居中"></a>一、使一个盒子水平居中</h3><p>目前有4种方式:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">/* 宽度/高度已知 */</span><br><span class="line"></span><br><span class="line">.box&#123;</span><br><span class="line">    width: 400px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: relative;</span><br><span class="line">    background: <span class="comment">#f00;</span></span><br><span class="line">&#125;</span><br><span class="line">.inner-box &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    background: <span class="comment">#ff0;</span></span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -100px;</span><br><span class="line">    margin-top: -50px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 第二种方式 */</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    background: <span class="comment">#f00;</span></span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.inner-box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    background: <span class="comment">#ff0;</span></span><br><span class="line">    position:absolute;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* flex布局 */</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    width: 400px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: <span class="comment">#f00;</span></span><br><span class="line">    display: flex;</span><br><span class="line">    /* 实现水平居中 */</span><br><span class="line">    justify-content: center; </span><br><span class="line">    /* 实现垂直居中 */</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.inner-box &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: <span class="comment">#ff0;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 平移 定位+transform (宽度、高度未知时，上下左右居中) */</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    width: 400px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: <span class="comment">#f00;</span></span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.inner-box &#123;</span><br><span class="line">    /* width: 200px;</span><br><span class="line">    height: 100px; */</span><br><span class="line">    background:<span class="comment">#f90;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">        &lt;dov class=<span class="string">&quot;inner-box&quot;</span>&gt;</span><br><span class="line">          content</span><br><span class="line">        &lt;/dov&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>二、盒模型<br>1、盒模型分为标准盒模型和怪异盒模型(IE盒模型)</p>
+<p>标准盒模型：盒模型的宽高只是内容的宽高；<br>怪异盒模型：盒模型的宽高是内容(content) + 填充(padding) +边框(border)的总宽度。</p>
+<p>现代浏览器和IE9+默认值是content-box。</p>
+<p>2、CSS如何设置两种模型</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标准盒模型</span></span><br><span class="line">box-sizing: content-box;</span><br><span class="line"></span><br><span class="line"><span class="comment"># IE 模型</span></span><br><span class="line">border-sizing: border-box;</span><br></pre></td></tr></table></figure>
+<p>最终盒子实际所占位置大小计算公式是这样的：</p>
+<p>盒子所占位置的实际宽度=宽度+左填充+右填充+左边框+右边框+左边界+右边界</p>
+<p>盒子所占位置的实际高度=高度+顶部填充+底部填充+上边框+下边框+上边界+下边界</p>
+<p>要注意区分的是盒子所占位置的实际宽度高度值和盒子实际大小的宽度和高度值，盒子实际大小的宽度和高度是所占位置实际宽度高度的值减去边界（margin）所占的大小，即</p>
+<p>盒子的实际宽度=宽度+左填充+右填充+左边框+右边框</p>
+<p>盒子的实际高度=高度+顶部填充+底部填充+上边框+下边框</p>
+<p>盒子模型的3D示意图，如下图所示，padding与margin是看不见的透明元素</p>
+<p>从第一层到第五层依次为：border、content+padding、background-image、background-color、margin。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/D14WjK"><img src="https://s3.ax1x.com/2020/11/21/D14WjK.png" alt="D14WjK.png"></a></p>
+<h4 id="例如一个盒子的-margin-为-20px，border-为-1px，padding-为-10px-content-的宽为-200px、高为50px"><a href="#例如一个盒子的-margin-为-20px，border-为-1px，padding-为-10px-content-的宽为-200px、高为50px" class="headerlink" title="例如一个盒子的 margin 为 20px，border 为 1px，padding 为 10px,content 的宽为 200px、高为50px"></a>例如一个盒子的 margin 为 20px，border 为 1px，padding 为 10px,content 的宽为 200px、高为50px</h4><p>假如用标准 w3c 盒子模型解释，那么这个盒子需要占据的位置为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">宽 20*2+1*2+10*2+200=262px、高20*2+1*2*10*2+50=112px</span><br><span class="line"></span><br><span class="line">盒子的实际大小为：宽1*2+10*2+200=222px、高1*2+10*2+50=72px</span><br></pre></td></tr></table></figure>
+<p>假如用ie 盒子模型，那么这个盒子需要占据的位置为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">宽 20*2+200=240px、高20*2+50=70px</span><br><span class="line"></span><br><span class="line">盒子的实际大小为：宽 200px、高 50px</span><br></pre></td></tr></table></figure>
+
+<h4 id="浏览器兼容问题"><a href="#浏览器兼容问题" class="headerlink" title="浏览器兼容问题"></a>浏览器兼容问题</h4><p>由于IE浏览器使用自己的非标准模型。IE浏览器的 width 属性不是内容的宽度，而是内容、内边距和边框的宽度的总和。虽然有方法解决这个问题。但是目前最好的解决方案是回避这个问题。解决IE8及更早版本不兼容问题可以在HTML页面声明 即可。就是要在网页的顶部加上DOCTYPE声明。</p>
+<p>二、实现三栏布局(两侧定宽，中间自适应)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    /* flex方式实现 */</span><br><span class="line"></span><br><span class="line">    .box &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        <span class="comment"># justify-content: center;</span></span><br><span class="line">        height: 200px;</span><br><span class="line">    &#125;</span><br><span class="line">    .left &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        background: <span class="comment">#f00;</span></span><br><span class="line">        height: 100%;</span><br><span class="line">    &#125;</span><br><span class="line">    .center &#123;</span><br><span class="line">        background: <span class="comment">#f90;</span></span><br><span class="line">        flex: 1;</span><br><span class="line">    &#125;</span><br><span class="line">    .right &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        background: <span class="comment">#ff0;</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;left&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;center&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;right&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    /* 浮动方式，此方式 content 必须放在最下边 */</span><br><span class="line"></span><br><span class="line">    .box &#123;</span><br><span class="line">        height: 200px;</span><br><span class="line">    &#125;</span><br><span class="line">    .left &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        background: <span class="comment">#f00;</span></span><br><span class="line">        height: 100%;</span><br><span class="line">        <span class="built_in">float</span>: left;</span><br><span class="line">    &#125;</span><br><span class="line">    .center &#123;</span><br><span class="line">        background: <span class="comment">#f90;</span></span><br><span class="line">        height: 100%;</span><br><span class="line">    &#125;</span><br><span class="line">    .right &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        <span class="built_in">float</span>: right;</span><br><span class="line">        height: 100%;</span><br><span class="line">        background: <span class="comment">#ff0;</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;left&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;right&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;center&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    /* 绝对定位的方式实现 */</span><br><span class="line"></span><br><span class="line">    .box &#123;</span><br><span class="line">        position: relative;</span><br><span class="line">        height: 200px;</span><br><span class="line">    &#125;</span><br><span class="line">    .left &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        background: <span class="comment">#f00;</span></span><br><span class="line">        height: 100%;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 0;</span><br><span class="line">    &#125;</span><br><span class="line">    .center &#123;</span><br><span class="line">        background: <span class="comment">#f90;</span></span><br><span class="line">        height: 100%;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">        right: 200px;</span><br><span class="line">    &#125;</span><br><span class="line">    .right &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 100%;</span><br><span class="line">        position: absolute;</span><br><span class="line">        right: 0;</span><br><span class="line">        background: <span class="comment">#ff0;</span></span><br><span class="line">    &#125;</span><br><span class="line">    /*  */</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;left&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;center&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;right&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    /* grid网格布局 */</span><br><span class="line">    .box &#123;</span><br><span class="line">        display: grid;</span><br><span class="line">        grid-template-columns: 200px auto 200px;</span><br><span class="line">        grid-template-rows: 200px;</span><br><span class="line">    &#125;</span><br><span class="line">    .left &#123;</span><br><span class="line">        background: <span class="comment">#f00;</span></span><br><span class="line">    &#125;</span><br><span class="line">    .center &#123;</span><br><span class="line">        background: <span class="comment">#f90;</span></span><br><span class="line">    &#125;</span><br><span class="line">    .right &#123;</span><br><span class="line">        background: <span class="comment">#ff0;</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;left&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;center&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class=<span class="string">&quot;right&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="只要一行代码实现CSS五种经典布局"><a href="#只要一行代码实现CSS五种经典布局" class="headerlink" title="只要一行代码实现CSS五种经典布局"></a>只要一行代码实现CSS五种经典布局</h3><blockquote>
+<p>这几个布局都是自适应的，自动适配桌面设备和移动设备。代码实现很简单，核心代码只有一行，有很大的学习价值，内容也很实用。<br>我会用到 CSS 的 <a class="link"   target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" >Flex 语法<i class="fas fa-external-link-alt"></i></a>和 <a class="link"   target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html" >Grid 语法<i class="fas fa-external-link-alt"></i></a>，每一个布局都带有 CodePen 示例。</p>
+</blockquote>
+<h4 id="一、空间居中布局"><a href="#一、空间居中布局" class="headerlink" title="一、空间居中布局"></a>一、空间居中布局</h4><p>空间居中布局指的是，不管容器的大小，项目总是占据中心点。</p>
+<p>CSS代码如下(<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/una/pen/YzyYbBx" >CodePen 示例<i class="fas fa-external-link-alt"></i></a>)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.container &#123; display: grid; place-items: center; &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码需要写在容器上，指定为 Grid 布局。核心代码是place-items属性那一行，它是一个简写形式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">place-items: &lt;align-items&gt; &lt;justify-items&gt;;</span><br></pre></td></tr></table></figure>
+<p><code>align-items</code>属性控制垂直位置，<code>justify-items</code>属性控制水平位置。这两个属性的值一致时，就可以合并写成一个值。所以，<code>place-items: center;</code>等同于<code>place-items: center center;</code>。</p>
+<p>同理，左上角布局可以写成下面这样。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">place-items: start;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWuIU.jpg"></p>
+<p>右下角布局:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">place-items: end;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWmZV.jpg"></p>
+<h4 id="二、并列式布局"><a href="#二、并列式布局" class="headerlink" title="二、并列式布局"></a>二、并列式布局</h4><p>并列式布局就是多个项目并列</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWMiF.jpg"></p>
+<p>如果宽度不够，放不下的项目就自动折行。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWnaT.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWkxs.jpg"></p>
+<p>它的实现也很简单。首先，容器设置成 Flex 布局，内容居中（justify-content）可换行（flex-wrap）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.container &#123; display: flex; flex-wrap: wrap; justify-content: center; &#125;</span><br></pre></td></tr></table></figure>
+<p>然后，项目上面只用一行flex属性就够了（<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/una/pen/WNQdBza" >CodePen 示例<i class="fas fa-external-link-alt"></i></a>）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.item&#123; flex: 0 1 150px; margin: 5px; &#125;</span><br></pre></td></tr></table></figure>
+<p><code>flex</code>属性是<code>flex-grow</code>、<code>flex-shrink</code>、<code>flex-basis</code>这三个属性的简写形式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;;</span><br></pre></td></tr></table></figure>
+<p><code>flex: 0 1 150px;</code>的意思就是，项目的初始宽度是150px，且不可以扩大，但是当容器宽度不足150px时，项目可以缩小。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWMiF.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWtZ6.jpg"></p>
+<h4 id="三、两栏式布局"><a href="#三、两栏式布局" class="headerlink" title="三、两栏式布局"></a>三、两栏式布局</h4><p>两栏式布局就是一个边栏，一个主栏。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWNdK.jpg"></p>
+<p>下面的实现是，边栏始终存在，主栏根据设备宽度，变宽或者变窄。如果希望主栏自动换到下一行，可以参考上面的”并列式布局”。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWQG4.jpg"></p>
+<p>使用 Grid，实现很容易（<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/una/pen/gOaNeWL" >CodePen 示例<i class="fas fa-external-link-alt"></i></a>）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.container &#123; display: grid; grid-template-columns: minmax(150px, 25%) 1fr; &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>grid-template-columns</code>指定页面分成两列。第一列的宽度是<code>minmax(150px, 25%)</code>，即最小宽度为<code>150px</code>，最大宽度为总宽度的25%；第二列为<code>1fr</code>，即所有剩余宽度。</p>
+<p>四、三明治布局</p>
+<p>三明治布局指的是，页面在垂直方向上，分成三部分：页眉、内容区、页脚。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWGs1.jpg"></p>
+<p>这个布局会根据设备宽度，自动适应，并且不管内容区有多少内容，页脚始终在容器底部（粘性页脚）。也就是说，这个布局总是会占满整个页面高度。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWJqx.jpg"></p>
+<p>CSS 代码如下（<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/una/pen/bGVXPWB" >CodePen 示例<i class="fas fa-external-link-alt"></i></a>）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.container &#123; display: grid; grid-template-rows: auto 1fr auto; &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码写在容器上面，指定采用 Grid 布局。核心代码是grid-template-rows那一行，指定垂直高度怎么划分，这里是从上到下分成三部分。第一部分（页眉）和第三部分（页脚）的高度都为auto，即本来的内容高度；第二部分（内容区）的高度为1fr，即剩余的所有高度，这可以保证页脚始终在容器的底部。</p>
+<h4 id="五、圣杯布局"><a href="#五、圣杯布局" class="headerlink" title="五、圣杯布局"></a>五、圣杯布局</h4><p>圣杯布局是最常用的布局，所以被比喻为圣杯。它将页面分成五个部分，除了页眉和页脚，内容区分成左边栏、主栏、右边栏。</p>
+<p>这里的实现是，不管页面宽度，内容区始终分成三栏。如果宽度太窄，主栏和右边栏会看不到。如果想将这三栏改成小屏幕自动堆叠，可以参考并列式布局。</p>
+<p><img src="https://s1.ax1x.com/2020/09/16/wgWlRJ.jpg"></p>
+<p>CSS 代码如下（<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/una/pen/mdVbdBy" >CodePen 示例<i class="fas fa-external-link-alt"></i></a>）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.container &#123; display: grid; grid-template: auto 1fr auto / auto 1fr auto; &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码要写在容器上面，指定采用 Grid 布局。核心代码是<code>grid-template</code>属性那一行，它是两个属性<code>grid-template-rows</code>（垂直方向）和<code>grid-template-columns</code>（水平方向）的简写形式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grid-template: &lt;grid-template-rows&gt; / &lt;grid-template-columns&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>grid-template-rows</code>和<code>grid-template-columns</code>都是<code>auto 1fr auto</code>，就表示页面在垂直方向和水平方向上，都分成三个部分。第一部分（页眉和左边栏）和第三部分（页脚和右边栏）都是本来的内容高度（或宽度），第二部分（内容区和主栏）占满剩余的高度（或宽度）。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：CSS相关面试题</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-09-15 16:59:17</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/09/15/CSS相关面试题/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/09/27/webpack%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94DLL/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">webpack性能优化——DLL</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/09/03/ES6%E4%B8%AD%E7%9A%84Set%E5%92%8CMap/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">ES6中的Set和Map</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BD%BF%E4%B8%80%E4%B8%AA%E7%9B%92%E5%AD%90%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-number">1.</span> <span class="nav-text">一、使一个盒子水平居中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%A6%82%E4%B8%80%E4%B8%AA%E7%9B%92%E5%AD%90%E7%9A%84-margin-%E4%B8%BA-20px%EF%BC%8Cborder-%E4%B8%BA-1px%EF%BC%8Cpadding-%E4%B8%BA-10px-content-%E7%9A%84%E5%AE%BD%E4%B8%BA-200px%E3%80%81%E9%AB%98%E4%B8%BA50px"><span class="nav-number">1.1.</span> <span class="nav-text">例如一个盒子的 margin 为 20px，border 为 1px，padding 为 10px,content 的宽为 200px、高为50px</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">浏览器兼容问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E8%A6%81%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0CSS%E4%BA%94%E7%A7%8D%E7%BB%8F%E5%85%B8%E5%B8%83%E5%B1%80"><span class="nav-number">2.</span> <span class="nav-text">只要一行代码实现CSS五种经典布局</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%A9%BA%E9%97%B4%E5%B1%85%E4%B8%AD%E5%B8%83%E5%B1%80"><span class="nav-number">2.1.</span> <span class="nav-text">一、空间居中布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B9%B6%E5%88%97%E5%BC%8F%E5%B8%83%E5%B1%80"><span class="nav-number">2.2.</span> <span class="nav-text">二、并列式布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%A4%E6%A0%8F%E5%BC%8F%E5%B8%83%E5%B1%80"><span class="nav-number">2.3.</span> <span class="nav-text">三、两栏式布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80"><span class="nav-number">2.4.</span> <span class="nav-text">五、圣杯布局</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            关于跨域,以及跨域的几种方式 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">关于跨域,以及跨域的几种方式</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-08-02 18:15:26
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>首先我们来想一想</p>
+<pre><code>为什么会有跨域这个名词的出现呢?
+
+跨域又是什么呢?为何要跨域?
+
+浏览器的同源策略又是什么?怎么解决?
+
+jsonp又是什么?
+
+跨域的原理又是什么呢?</code></pre>
+<h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释:"></a>名词解释:</h4><p><strong>跨域:</strong></p>
+<p>浏览器对于javascript的同源策略的限制,例如a.cn下面的js不能调用b.cn中的js,对象或数据(因为a.cn和b.cn是不同域),所以跨域就出现了.</p>
+<p>上面提到的,同域的概念又是什么呢??? 简单的解释就是相同域名,端口相同,协议相同。</p>
+<p><strong>同源策略:</strong></p>
+<p>请求的url地址,必须与浏览器上的url地址处于同域上,也就是域名,端口,协议相同.</p>
+<p>比如:我在本地上的域名是study.cn,请求另外一个域名一段数据</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjpRS.png" alt="aYjpRS.png"></p>
+<p>这个时候在浏览器上会报错:</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjPMQ.png" alt="aYjPMQ.png"></p>
+<p>这个就是同源策略的保护,如果浏览器对javascript没有同源策略的保护,那么一些重要的机密网站将会很危险~</p>
+<p>| study.cn/json/jsonp/jsonp.html |<br>| ——— | ——— | ——— |<br>|  请求地址| 形式| 结果<br>| <a class="link"   target="_blank" rel="noopener" href="http://study.cn/test/a.html|" >http://study.cn/test/a.html|<i class="fas fa-external-link-alt"></i></a> 同一域名,不同文件夹| 成功<br>| <a class="link"   target="_blank" rel="noopener" href="http://study.cn/json/jsonp/jsonp.html|" >http://study.cn/json/jsonp/jsonp.html|<i class="fas fa-external-link-alt"></i></a> 同一域名,统一文件夹| 成功<br>| <a class="link"   target="_blank" rel="noopener" href="http://a.study.cn/json/jsonp/jsonp.html|" >http://a.study.cn/json/jsonp/jsonp.html|<i class="fas fa-external-link-alt"></i></a> 不同域名,文件路径相同| 失败<br>| <a class="link"   target="_blank" rel="noopener" href="http://study.cn:8080/json/jsonp/jsonp.html|" >http://study.cn:8080/json/jsonp/jsonp.html|<i class="fas fa-external-link-alt"></i></a> 同一域名,不同端口| 失败<br>| <a class="link"   target="_blank" rel="noopener" href="https://study.cn/json/jsonp/jsonp.html|" >https://study.cn/json/jsonp/jsonp.html|<i class="fas fa-external-link-alt"></i></a> 同一域名,不同协议| 失败</p>
+<p><strong>jsonp:</strong></p>
+<p>jsonp 全称是JSON with Padding,是为了解决跨域请求资源而产生的解决方案,是一种依靠开发人员创造出的一种非官方跨域数据交互协议。</p>
+<p>一个是描述信息的格式，一个是信息传递双方约定的方法。</p>
+<p><strong>jsonp的产生:</strong></p>
+<p>1.AJAX直接请求普通文件存在跨域无权限访问的问题,不管是静态页面也好.</p>
+<p>2.不过我们在调用js文件的时候又不受跨域影响,比如引入jquery框架的,或者是调用相片的时候</p>
+<p>3.凡是拥有src这个属性的标签都可以跨域例如<code>&lt;script&gt;&lt;img&gt;&lt;iframe&gt;</code></p>
+<p>4.如果想通过纯web端跨域访问数据只有一种可能,那就是把远程服务器上的数据装进js格式的文件里.</p>
+<p>5.而json又是一个轻量级的数据格式,还被js原生支持</p>
+<p>6.为了便于客户端使用数据，逐渐形成了一种非正式传输协议，人们把它称作JSONP，该协议的一个要点就是允许用户传递一个callback 参数给服务端，</p>
+<p><strong>demo1:基于script标签实现跨域</strong></p>
+<p>举个例子:我在<a class="link"   target="_blank" rel="noopener" href="http://study.cn/json/jsonp/jsonp_2.html%E4%B8%8B%E8%AF%B7%E6%B1%82%E4%B8%80%E4%B8%AA%E8%BF%9C%E7%A8%8B%E7%9A%84js%E6%96%87%E4%BB%B6" >http://study.cn/json/jsonp/jsonp_2.html下请求一个远程的js文件<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!DOCTYPE html&gt;</span><br><span class="line"> &lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line"> &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line"> &lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">     var message = <span class="keyword">function</span>(data) &#123;</span><br><span class="line">         alert(data[1].title);</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;http://web.cn/js/message.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=<span class="string">&#x27;testdiv&#x27;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>远程的message.js文件是</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">message([</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;1&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;天津新闻联播，雷人搞笑的男主持人&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;2&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;楼市告别富得流油 专家:房价下跌是大概率事件&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;3&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;法国人关注时事 八成年轻人每天阅读新闻&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;4&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;新闻中的历史,历史中的新闻&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;5&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;东阳新闻20140222&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;6&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;23个职能部门要增加新闻发布频次&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;7&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;《贵州新闻联播》 中国美丽乡村&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;8&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;朝韩离散家属团聚首轮活动结束&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;9&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;索契冬奥会一天曝出两例兴奋剂事件&quot;</span>&#125;,</span><br><span class="line">     &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;10&quot;</span>, <span class="string">&quot;title&quot;</span>:<span class="string">&quot;今天中国多地仍将出现中度霾&quot;</span>&#125;</span><br><span class="line"> ]);</span><br></pre></td></tr></table></figure>
+<p>这个时候我们得到的相应头是:</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjirj.png" alt="aYjirj.png"></p>
+<p>这样就实现跨域成功了,因为服务端返回数据时会将这个callback参数(message)作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</p>
+<p><strong>demo2: 基于script标签实现跨域</strong></p>
+<p>让远程js知道它应该调用的本地函数叫什么名字,只要服务端提供的js脚本是动态生成的就好了,这样前台只需要传一个callback参数过去告诉服务端,我需要XXX代码,于是服务端就会得到相应了.</p>
+<p>例如 在<a class="link"   target="_blank" rel="noopener" href="http://study.cn/json/jsonp/jsonp_3.html%E9%A1%B5%E9%9D%A2%E8%AF%B7%E6%B1%82" >http://study.cn/json/jsonp/jsonp_3.html页面请求<i class="fas fa-external-link-alt"></i></a> <a class="link"   target="_blank" rel="noopener" href="http://192.168.31.137/train/test/jsonpthree" >http://192.168.31.137/train/test/jsonpthree<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">    var messagetow = <span class="keyword">function</span>(data)&#123;</span><br><span class="line">        alert(data);</span><br><span class="line">    &#125;;</span><br><span class="line">    var url = <span class="string">&quot;http://192.168.31.137/train/test/jsonpthree?callback=messagetow&quot;</span>;</span><br><span class="line">    var script = document.createElement(<span class="string">&#x27;script&#x27;</span>); </span><br><span class="line">    script.setAttribute(<span class="string">&#x27;src&#x27;</span>, url); </span><br><span class="line">    document.getElementsByTagName(<span class="string">&#x27;head&#x27;</span>)[0].appendChild(script);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>得到的响应头是:</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjFqs.png" alt="aYjFqs.png"></p>
+<p><strong>demo3:  基于jquery跨域</strong></p>
+<p>那么如何用jquery来实现我们的跨域呢???jquery已经把跨域封装到ajax上了,而且封装得非常的好,使用起来也特别方便</p>
+<p>如果是一般的ajax请求:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">        url:<span class="string">&#x27;http://192.168.31.137/train/test/testjsonp&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span> : <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">        dataType : <span class="string">&#x27;text&#x27;</span>,</span><br><span class="line">        success:<span class="keyword">function</span>(data)&#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;,</span><br><span class="line">        error:<span class="keyword">function</span>(data)&#123;</span><br><span class="line">            alert(2);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>那么在浏览器中会报错:</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjAZn.png" alt="aYjAZn.png"></p>
+<p>jsonp形式的ajax请求:并且通过get请求的方式传入参数,</p>
+<p><strong>注意:跨域请求是只能是get请求不能使用post请求</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;./js/jquery.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">$(document).ready(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    var name = <span class="string">&#x27;chenshishuo&#x27;</span>;</span><br><span class="line">    var sex = <span class="string">&#x27;man&#x27;</span>;</span><br><span class="line">    var address = <span class="string">&#x27;shenzhen&#x27;</span>;</span><br><span class="line">    var looks = <span class="string">&#x27;handsome &#x27;</span>;</span><br><span class="line">     $.ajax(&#123;</span><br><span class="line">         <span class="built_in">type</span> : <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">         url:<span class="string">&#x27;http://192.168.31.137/train/test/testjsonp&#x27;</span>,</span><br><span class="line">        data : &#123;</span><br><span class="line">            name : name,</span><br><span class="line">            sex : sex,</span><br><span class="line">            address : address,</span><br><span class="line">            looks : looks,</span><br><span class="line">        &#125;,</span><br><span class="line">        cache :<span class="literal">false</span>,</span><br><span class="line">        jsonp: <span class="string">&quot;callback&quot;</span>,</span><br><span class="line">        jsonpCallback:<span class="string">&quot;success&quot;</span>,</span><br><span class="line">        dataType : <span class="string">&#x27;jsonp&#x27;</span>,</span><br><span class="line">        success:<span class="keyword">function</span>(data)&#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;,</span><br><span class="line">        error:<span class="keyword">function</span>(data)&#123;</span><br><span class="line">            alert(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input id=<span class="string">&#x27;inputtest&#x27;</span> value=<span class="string">&#x27;546&#x27;</span> name=<span class="string">&#x27;inputtest&#x27;</span>&gt;</span><br><span class="line">&lt;div id=<span class="string">&#x27;testdiv&#x27;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>jsonp 传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)</strong><br><strong>jsonpCallback 自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名</strong></p>
+<p>看看请求头和相应头吧</p>
+<p>请求头:jquery会自动带入callback参数,当服务端获取到这个参数后,返回回来.(响应头)</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjVI0.png" alt="aYjVI0.png"></p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjEaq.png" alt="aYjEaq.png"></p>
+<p>现在是不是明白了跨域的基本原理,和基本的使用方法呢??</p>
+<p>上面我们说到img中的src可以自动调用远程图片的(这个比较简单我在这里就不说了)</p>
+<p>还有ifram请求:</p>
+<p>基于iframe实现的跨域要求两个域具有aa.xx.com,bb.xx.com 这种特点，</p>
+<p>也就是两个页面必须属于一个基础域（例如都是xxx.com)，使用同一协议和同一端口，这样在两个页面中同时添加document.domain，就可以实现父页面调用子页面的函数</p>
+<p><strong>要点就是 :通过修改document.domain来跨子域</strong></p>
+<p><strong>demo4: 通过iframe来跨子域</strong></p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://a.study.cn/a.html" >http://a.study.cn/a.html<i class="fas fa-external-link-alt"></i></a> 请求 <a class="link"   target="_blank" rel="noopener" href="http://b.study.cn/b.html" >http://b.study.cn/b.html<i class="fas fa-external-link-alt"></i></a></p>
+<p>在a.html:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">        &lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">            document.domain = <span class="string">&#x27;study.cn&#x27;</span>;</span><br><span class="line">            <span class="keyword">function</span> <span class="function"><span class="title">test</span></span>() &#123;</span><br><span class="line">                alert(document.getElementById(<span class="string">&#x27;a&#x27;</span>).contentWindow);</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;iframe id=<span class="string">&#x27;a&#x27;</span> src=<span class="string">&#x27;http://b.study.cn/b.html&#x27;</span> onload=<span class="string">&#x27;test()&#x27;</span>&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>在b.html:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">document.domain = <span class="string">&#x27;study.cn&#x27;</span>;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    我是b.study.cn的body</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>运行效果截图:</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYjeiV.png" alt="aYjeiV.png"></p>
+<p>我们就可以通过js访问到iframe中的各种属性和对象了</p>
+<p>如果你想在<a class="link"   target="_blank" rel="noopener" href="http://a.study.cn/a.html%E9%A1%B5%E9%9D%A2%E4%B8%AD%E9%80%9A%E8%BF%87ajax%E7%9B%B4%E6%8E%A5%E8%AF%B7%E6%B1%82%E9%A1%B5%E9%9D%A2http://b.study.cn/b.html%EF%BC%8C%E5%8D%B3%E4%BD%BF%E4%BD%A0%E8%AE%BE%E7%BD%AE%E4%BA%86%E7%9B%B8%E5%90%8C%E7%9A%84document.domain%E4%B9%9F%E8%BF%98%E6%98%AF%E4%B8%8D%E8%A1%8C%E7%9A%84" >http://a.study.cn/a.html页面中通过ajax直接请求页面http://b.study.cn/b.html，即使你设置了相同的document.domain也还是不行的<i class="fas fa-external-link-alt"></i></a>.</p>
+<p>所以修改document.domain的方法只适用于不同子域的框架(父类与子类)间的交互。</p>
+<p>如果想通过使用ajax的方法去与不同子域间的数据交互或者是js调用，只有两种方法,一种是使用jsonp的方法外，还有一种是使用iframe来做一个代理。</p>
+<p>原理就是让这个 iframe载入一个与你想要通过ajax获取数据的目标页面处在相同的域的页面，所以这个iframe中的页面是可以正常使用ajax去获取你要的数据 的，</p>
+<p>然后就是通过我们刚刚讲得修改document.domain的方法，让我们能通过js完全控制这个iframe，这样我们就可以让iframe去发 送ajax请求，然后收到的数据我们也可以获得了。</p>
+<p>上面的所有知识点,应该可以解决第一开始提出的问题了吧.</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：关于跨域,以及跨域的几种方式</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-08-02 18:15:26</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/08/02/关于跨域-以及跨域的几种方式/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/08/02/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%83%E5%A4%A7%E6%89%8B%E6%AE%B5/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">前端性能优化的七大手段</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/08/02/nginx%E7%9A%84gzip%E8%AE%BE%E7%BD%AE%E8%AF%A6%E8%A7%A3/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">nginx的gzip设置详解</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="nav-number">1.</span> <span class="nav-text">名词解释:</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

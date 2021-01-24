@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            Promise精选 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Promise精选</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-08-02 17:44:05
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="一、常见-Promise-面试题"><a href="#一、常见-Promise-面试题" class="headerlink" title="一、常见 Promise 面试题"></a>一、常见 Promise 面试题</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、了解 Promise 吗？</span><br><span class="line">2、Promise 解决的痛点是什么？</span><br><span class="line">3、Promise 解决的痛点还有其他方法可以解决吗？如果有，请列举。</span><br><span class="line">4、Promise 如何使用？</span><br><span class="line">5、Promise 常用的方法有哪些？它们的作用是什么？</span><br><span class="line">6、Promise 在事件循环中的执行过程是怎样的？</span><br><span class="line">7、Promise 的业界实现都有哪些？</span><br><span class="line">8、能不能手写一个 Promise 的 polyfill。</span><br></pre></td></tr></table></figure>
+<h3 id="Promise-出现的原因"><a href="#Promise-出现的原因" class="headerlink" title="Promise 出现的原因"></a>Promise 出现的原因</h3><p>在 Promise 出现以前，我们处理一个异步网络请求，大概是这样：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 请求 代表 一个异步网络调用。</span><br><span class="line">// 请求结果 代表网络请求的响应。</span><br><span class="line">请求1(<span class="keyword">function</span>(请求结果1)&#123;</span><br><span class="line">    处理请求结果1</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>看起来还不错。<br>但是，需求变化了，我们需要根据第一个网络请求的结果，再去执行第二个网络请求，代码大概如下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">请求1(<span class="keyword">function</span>(请求结果1)&#123;</span><br><span class="line">    请求2(<span class="keyword">function</span>(请求结果2)&#123;</span><br><span class="line">        处理请求结果2</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>看起来也不复杂。<br>但是需求是永无止境的，于是乎出现了如下的代码</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">请求1(<span class="keyword">function</span>(请求结果1)&#123;</span><br><span class="line">    请求2(<span class="keyword">function</span>(请求结果2)&#123;</span><br><span class="line">        请求3(<span class="keyword">function</span>(请求结果3)&#123;</span><br><span class="line">            请求4(<span class="keyword">function</span>(请求结果4)&#123;</span><br><span class="line">                请求5(<span class="keyword">function</span>(请求结果5)&#123;</span><br><span class="line">                    请求6(<span class="keyword">function</span>(请求结果3)&#123;</span><br><span class="line">                        ...</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这回傻眼了。。。 臭名昭著的 回调地狱 现身了。</p>
+<p>更糟糕的是，我们基本上还要对每次请求的结果进行一些处理，代码会更加臃肿，在一个团队中，代码 review 以及后续的维护将会是一个很痛苦的过程。</p>
+<p>回调地狱带来的负面作用有以下几点：</p>
+<ul>
+<li><p>代码臃肿。</p>
+</li>
+<li><p>可读性差。</p>
+</li>
+<li><p>耦合度过高，可维护性差。</p>
+</li>
+<li><p>代码复用性差。</p>
+</li>
+<li><p>容易滋生 bug。</p>
+</li>
+<li><p>只能在回调里处理异常。</p>
+<p>出现了问题，自然就会有人去想办法。这时，就有人思考了，能不能用一种更加友好的代码组织方式，解决异步嵌套的问题。</p>
+<p>let 请求结果1 = 请求1();<br>let 请求结果2 = 请求2(请求结果1);<br>let 请求结果3 = 请求3(请求结果2);<br>let 请求结果4 = 请求2(请求结果3);<br>let 请求结果5 = 请求3(请求结果4); </p>
+</li>
+</ul>
+<p>类似上面这种同步的写法。 于是 Promise 规范诞生了，并且在业界有了很多实现来解决回调地狱的痛点。比如业界著名的 Q 和 bluebird，bluebird 甚至号称运行最快的类库。</p>
+<blockquote>
+<p>看到这里，对于上面的问题 2 和问题 7 ，心中是否有了答案呢。</p>
+</blockquote>
+<h2 id="什么是-Promise"><a href="#什么是-Promise" class="headerlink" title="什么是 Promise"></a>什么是 Promise</h2><p> Promise 是异步编程的一种解决方案，比传统的异步解决方案【回调函数】和【事件】更合理、更强大。现已被 ES6 纳入进规范中。</p>
+<h3 id="代码书写比较"><a href="#代码书写比较" class="headerlink" title="代码书写比较"></a>代码书写比较</h3><p>还是使用上面的网络请求例子，我们看下 Promise 的常规写法：</p>
+<p>new Promise(请求1)<br>    .then(请求2(请求结果1))<br>    .then(请求3(请求结果2))<br>    .then(请求4(请求结果3))<br>    .then(请求5(请求结果4))<br>    .catch(处理异常(异常信息))</p>
+<p>比较一下这种写法和上面的回调式的写法。我们不难发现，Promise 的写法更为直观，并且能够在外层捕获异步函数的异常信息。</p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p>Promise 的常用 API 如下：</p>
+<ul>
+<li>Promise.resolve(value)</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">类方法，该方法返回一个以 value 值解析后的 Promise 对象 1、如果这个值是个 thenable（即带有 <span class="keyword">then</span> 方法），返回的 Promise 对象会“跟随”这个 thenable 的对象，采用它的最终状态（指 resolved/rejected/pending/settled）</span><br><span class="line">2、如果传入的 value 本身就是 Promise 对象，则该对象作为 Promise.resolve 方法的返回值返回。</span><br><span class="line">3、其他情况以该值为成功状态返回一个 Promise 对象。</span><br></pre></td></tr></table></figure>
+<p>上面是 resolve 方法的解释，传入不同类型的 value 值，返回结果也有区别。这个 API 比较重要，建议大家通过练习一些小例子，并且配合上面的解释来熟悉它。如下几个小例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//如果传入的 value 本身就是 Promise 对象，则该对象作为 Promise.resolve 方法的返回值返回。  </span><br><span class="line"><span class="keyword">function</span> fn(resolve)&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        resolve(123);</span><br><span class="line">    &#125;,3000);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">let</span> p0 = new Promise(fn);</span><br><span class="line"><span class="built_in">let</span> p1 = Promise.resolve(p0);</span><br><span class="line">// 返回为<span class="literal">true</span>，返回的 Promise 即是 入参的 Promise 对象。</span><br><span class="line">console.log(p0 === p1);</span><br></pre></td></tr></table></figure>
+<p>传入 thenable 对象，返回 Promise 对象跟随 thenable 对象的最终状态。</p>
+<blockquote>
+<p>ES6 Promises 里提到了 Thenable 这个概念，简单来说它就是一个非常类似 Promise 的东西。最简单的例子就是 jQuery.ajax，它的返回值就是 thenable 对象。但是要谨记，并不是只要实现了 then 方法就一定能作为 Promise 对象来使用。</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//如果传入的 value 本身就是 thenable 对象，返回的 promise 对象会跟随 thenable 对象的状态。</span><br><span class="line"><span class="built_in">let</span> promise = Promise.resolve($.ajax(<span class="string">&#x27;/test/test.json&#x27;</span>));// =&gt; promise对象</span><br><span class="line">promise.then(<span class="keyword">function</span>(value)&#123;</span><br><span class="line">   console.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>返回一个状态已变成 resolved 的 Promise 对象。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> p1 = Promise.resolve(123); </span><br><span class="line">//打印p1 可以看到p1是一个状态置为resolved的Promise对象</span><br><span class="line">console.log(p1)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Promise.reject</li>
+</ul>
+<blockquote>
+<p>类方法，且与 resolve 唯一的不同是，返回的 promise 对象的状态为 rejected。</p>
+</blockquote>
+<ul>
+<li><p>Promise.prototype.then</p>
+<blockquote>
+<p>实例方法，为 Promise 注册回调函数，函数形式：fn(vlaue){}，value 是上一个任务的返回结果，then 中的函数一定要 return 一个结果或者一个新的 Promise 对象，才可以让之后的then 回调接收。</p>
+</blockquote>
+</li>
+<li><p>Promise.prototype.catch</p>
+<blockquote>
+<p>实例方法，捕获异常，函数形式：fn(err){}, err 是 catch 注册 之前的回调抛出的异常信息。</p>
+</blockquote>
+</li>
+<li><p>Promise.race</p>
+<blockquote>
+<p>类方法，多个 Promise 任务同时执行，返回最先执行结束的 Promise 任务的结果，不管这个 Promise 结果是成功还是失败。 </p>
+</blockquote>
+</li>
+<li><p>Promise.all</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 类方法，多个 Promise 任务同时执行。</span><br><span class="line">如果全部成功执行，则以数组的方式返回所有 Promise 任务的执行结果。 如果有一个 Promise 任务 rejected，则只返回 rejected 任务的结果。</span><br></pre></td></tr></table></figure>
+<h2 id="如何理解-Promise"><a href="#如何理解-Promise" class="headerlink" title="如何理解 Promise"></a>如何理解 Promise</h2></li>
+</ul>
+<p> 为了便于理解 Promise，大家除了要多加练习以外，最好的方式是能够将Promise的机制与现实生活中的例子联系起来，这样才能真正得到消化。<br>  我们可以把 Promise 比作一个保姆，家里的一连串的事情，你只需要吩咐给他，他就能帮你做，你就可以去做其他事情了。<br>  比如，某一天要出门办事，但是我还要买菜做饭送到老婆单位。<br>  出门办的事情很重要，买菜做饭也重要。但我自己只能做一件事。<br>这时我就可以把买菜做饭的事情交给保姆，我会告诉她：</p>
+<ul>
+<li>你先去超市买菜。</li>
+<li>用超市买回来的菜做饭。</li>
+<li>将做好的饭菜送到老婆单位。</li>
+<li>送到单位后打电话告诉我。<br>我们知道，上面三步都是需要消耗时间的，我们可以理解为三个异步任务。利用 Promise 的写法来书写这个操作：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> 买菜(resolve，reject) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        resolve([<span class="string">&#x27;西红柿&#x27;</span>、<span class="string">&#x27;鸡蛋&#x27;</span>、<span class="string">&#x27;油菜&#x27;</span>]);</span><br><span class="line">    &#125;,3000)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> 做饭(resolve, reject)&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        //对做好的饭进行下一步处理。</span><br><span class="line">        resolve (&#123;</span><br><span class="line">            主食: <span class="string">&#x27;米饭&#x27;</span>,</span><br><span class="line">            菜: [<span class="string">&#x27;西红柿炒鸡蛋&#x27;</span>、<span class="string">&#x27;清炒油菜&#x27;</span>]</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,3000) </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> 送饭(resolve，reject)&#123;</span><br><span class="line">    //对送饭的结果进行下一步处理</span><br><span class="line">    resolve(<span class="string">&#x27;老婆的么么哒&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> 电话通知我()&#123;</span><br><span class="line">    //电话通知我后的下一步处理</span><br><span class="line">    给保姆加100块钱奖金;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，现在我整理好了四个任务，这时我需要告诉保姆，让他按照这个任务列表去做。这个过程是必不可少的，因为如果不告诉保姆，保姆不知道需要做这些事情。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 告诉保姆帮我做几件连贯的事情，先去超市买菜</span><br><span class="line">new Promise(买菜)</span><br><span class="line">//用买好的菜做饭</span><br><span class="line">.<span class="keyword">then</span>((买好的菜)=&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> new Promise(做饭);</span><br><span class="line">&#125;)</span><br><span class="line">//把做好的饭送到老婆公司</span><br><span class="line">.<span class="keyword">then</span>((做好的饭)=&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> new Promise(送饭);</span><br><span class="line">&#125;)</span><br><span class="line">//送完饭后打电话通知我</span><br><span class="line">.<span class="keyword">then</span>((送饭结果)=&gt;&#123;</span><br><span class="line">    电话通知我();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>至此，我通知了保姆要做这些事情，然后我就可以放心地去办我的事情。</p>
+<blockquote>
+<p>请一定要谨记：如果我们的后续任务是异步任务的话，必须return 一个 新的 promise 对象。<br>如果后续任务是同步任务，只需 return 一个结果即可。<br>我们上面举的例子，除了电话通知我是一个同步任务，其余的都是异步任务，异步任务 return 的是 promise对象。</p>
+</blockquote>
+<p>除此之外，一定谨记，一个 Promise 对象有三个状态，并且状态一旦改变，便不能再被更改为其他状态。</p>
+<ul>
+<li><p>pending，异步任务正在进行。</p>
+</li>
+<li><p>resolved (也可以叫fulfilled)，异步任务执行成功。</p>
+</li>
+<li><p>rejected，异步任务执行失败。</p>
+<h2 id="Promise的使用总结"><a href="#Promise的使用总结" class="headerlink" title="Promise的使用总结"></a>Promise的使用总结</h2><p>Promise 这么多概念，初学者很难一下子消化掉，那么我们可以采取强制记忆法，强迫自己去记住使用过程。</p>
+</li>
+<li><p>首先初始化一个 Promise 对象，可以通过两种方式创建， 这两种方式都会返回一个 Promise 对象。</p>
+</li>
+<li><p>1、new Promise(fn)</p>
+</li>
+<li><p>2、Promise.resolve(fn)</p>
+</li>
+<li><p>然后调用上一步返回的 promise 对象的 then 方法，注册回调函数。</p>
+</li>
+<li><p>then 中的回调函数可以有一个参数，也可以不带参数。如果 then 中的回调函数依赖上一步的返回结果，那么要带上参数。比如:</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">new Promise(fn)</span><br><span class="line">.<span class="keyword">then</span>(fn1(value）&#123;</span><br><span class="line">    //处理value</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最后注册 catch 异常处理函数，处理前面回调中可能抛出的异常。</li>
+</ul>
+<p>  通常按照这三个步骤，你就能够应对绝大部分的异步处理场景。用熟之后，再去研究 Promise 各个函数更深层次的原理以及使用方式即可。</p>
+<p>  看到这里之后，我们便能回答上面的问题 4 和问题 5了。</p>
+<h2 id="Promsie-与事件循环"><a href="#Promsie-与事件循环" class="headerlink" title="Promsie 与事件循环"></a>Promsie 与事件循环</h2><p>Promise在初始化时，传入的函数是同步执行的，然后注册 then 回调。注册完之后，继续往下执行同步代码，在这之前，then 中回调不会执行。同步代码块执行完毕后，才会在事件循环中检测是否有可用的 promise 回调，如果有，那么执行，如果没有，继续下一个事件循环。</p>
+<p>  关于 Promise 在事件循环中还有一个 微任务的概念(microtask)，感兴趣的话可以看另外一篇关于nodejs 时间循环的文章 <a class="link"   href="https://link.juejin.im/?target=https://juejin.im/post/5af1413ef265da0b851cce80" >剖析nodejs的事件循环<i class="fas fa-external-link-alt"></i></a>，虽然和浏览器端有些不同，但是Promise 微任务的执行时机相差不大。</p>
+<h2 id="Promise-的升级"><a href="#Promise-的升级" class="headerlink" title="Promise 的升级"></a>Promise 的升级</h2><p> ES6 出现了 generator 以及 async/await 语法，使异步处理更加接近同步代码写法，可读性更好，同时异常捕获和同步代码的书写趋于一致。上面的列子可以写成这样：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(async ()=&gt;&#123;</span><br><span class="line">    <span class="built_in">let</span> 蔬菜 = await 买菜();</span><br><span class="line">    <span class="built_in">let</span> 饭菜 = await 做饭(蔬菜);</span><br><span class="line">    <span class="built_in">let</span> 送饭结果 = await 送饭(饭菜);</span><br><span class="line">    <span class="built_in">let</span> 通知结果 = await 通知我(送饭结果);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>需要记住的是，async/await也是基于 Promise 实现的，所以，我们有必要深入理解 Promise 的用法。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Promise精选</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-08-02 17:44:05</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/08/02/Promise精选/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/08/02/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6-event-loop-%E4%B9%8B%E5%AE%8F%E4%BB%BB%E5%8A%A1%E3%80%81%E5%BE%AE%E4%BB%BB%E5%8A%A1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">JS事件循环机制(event loop)之宏任务、微任务</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/08/02/%E6%B5%85%E8%B0%88js%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">浅谈js防抖和节流</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%B8%B8%E8%A7%81-Promise-%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">一、常见 Promise 面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-%E5%87%BA%E7%8E%B0%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.1.</span> <span class="nav-text">Promise 出现的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Promise"><span class="nav-number">2.</span> <span class="nav-text">什么是 Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E6%AF%94%E8%BE%83"><span class="nav-number">2.1.</span> <span class="nav-text">代码书写比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">3.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-Promise"><span class="nav-number">4.</span> <span class="nav-text">如何理解 Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise%E7%9A%84%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">Promise的使用总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promsie-%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">Promsie 与事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-%E7%9A%84%E5%8D%87%E7%BA%A7"><span class="nav-number">7.</span> <span class="nav-text">Promise 的升级</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            ES6遍历数组和对象的方法总结 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">ES6遍历数组和对象的方法总结</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-08-02 17:57:11
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>1.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>5 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>1、every 数组的每一项都返回true，遍历完整个数组，最终返回值才为true</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.every((val,index,arr)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> val&lt;10;</span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>2、some 数组任意一项返回true，则停止遍历，返回值为true</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.some((val,index,arr)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> val&lt;10;</span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>3、filter 遍历整个数组，找到符合的元素，返回这个新组成的数组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　arr.filter((val,index,arr)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> val&lt;10;</span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>4、map 遍历整个数组，返回每个元素调用后的结果组成新的数组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.map((val,index,arr)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> val**2;</span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>5、forEach 遍历数组每一项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.foreach((val,index,arr)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> val**2;</span><br><span class="line">　　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>6、数组累加器reduce、reduceRight</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.reduce((preValue, currentValue)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> preValue + currentValue</span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>7、for of方法不仅可以遍历数组和对象，还可以遍历自定义的数据结构</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [1,2,3,4,5]</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">let</span> item of arr)&#123;</span><br><span class="line">  console.log(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>8、for…in既可以遍历对象也可以遍历数组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>];</span><br><span class="line"><span class="keyword">for</span>(var i <span class="keyword">in</span> arr) &#123;</span><br><span class="line">  console.log(<span class="string">&#x27;index:&#x27;</span>, i, <span class="string">&#x27;value:&#x27;</span>, arr[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES5-ES8-数组拥有的方法"><a href="#ES5-ES8-数组拥有的方法" class="headerlink" title="ES5~ES8 数组拥有的方法"></a>ES5~ES8 数组拥有的方法</h3><p>1、判断是否是数组 Array.isArray( arg ) 有兼容性;<br/><br>2、toString 数组转字符串 arr.toString();<br/><br>3、join 数组每一项间的拼接 arr.join(); String.split();<br/><br>4、pop 删除原数组最后一项，返回删除项 arr.pop() 原数组被修改;<br/><br>5、push 在原数组末尾添加一项，返回数组新长度，改变原数组<br/><br>　　arr.push( …arg )<br/><br>6、shift 删除数组第一项，改变原数组，返回删除项<br/><br>　　arr.shift( );<br/><br>7、unshift 在原数组首位添加项，返回数组新长度<br/><br>　　arr.unshift( …arg );<br/><br>8、reverse 反转数组项的顺序，返回修改后的数组<br/><br>　　arr.reverse();<br/><br>9、sort 数组每项按照unicode编码排序，默认升序<br/><br>　　arr.sort(); <br/><br>10、concat 数组合并，返回合并后的数组   arr1.concat( arr2 );<br/><br>11、slice 截取数组 参数一：开始位置 参数二：结束位置后一位 <br/><br>　　    参数为负数，用数组总长度加上该负数来确定位置;<br/><br>　　　结束位置小于起始位置，返回空数组<br/><br>　　arr.slice(arg1,arg2)<br/><br>12、splice 删除、插入、替换数组元素<br/><br>　　参数一：起始位置<br/><br>   参数二：删除元素个数<br/><br>   参数三：插入的元素<br/><br>　　arr.splice(arg1,arg2,arg3)<br/><br>　　返回被删除的项，会改变原数组。<br/><br>13、indexOf/lastIndexOf 数组中查找元素的位置<br/><br>　　参数一：要查找的元素 <br/><br>   参数二：开始查找位置 返回值-1 不存在，返回值大于等于0表示元素位置<br/><br>　　arr.indexOf(arg1,arg2) 从左往右查找<br/><br>　　arr.lastIndexOf(arg1,arg2) 从右往左查找<br/></p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>1、forEach、map、filter都可以遍历数组<br/><br>2、forEach操作的原数组，map、filter会返回一个新的数组<br/><br>3、纯粹的遍历操作使用forEach，如果想得到原数组的克隆使用map，如果想根据条件筛选使用filter<br/></p>
+<h3 id="ES6新增数组方法"><a href="#ES6新增数组方法" class="headerlink" title="ES6新增数组方法"></a>ES6新增数组方法</h3><p>1、from 将类似数组的对象和可遍历的对象转为真正的数组。<br/><br>　　<code>Array.from([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;])</code><br/><br>　　<code>Array.from(&quot;fool&quot;)</code><br/><br>2、of 将一组值转为数组 弥补Array()的不足<br/><br>　　<code>Array.of(7) //[,,,,,,]</code><br/><br>　　<code>Array.of(7) // [7]</code><br/><br>　　<code>Array.of(1, 2, 3); // [1, 2, 3]</code><br/><br>3、copyWithin 将数组中指定位置的元素复制到其他位置（会覆盖掉原有元素）<br/><br>　　参数一：从该位置开始替换元素 <br/><br>   参数二：从该位置开始读取数据，默认为0 <br/><br>   参数三：到该位置停止读 取数据，默认为数组长度<br/><br>　　<code>arr.copyWithin(arg1,arg2,arg3)</code><br/><br>4、fill 使用给定值，填充数组 参数一：给定的值 参数二：起始位置 参数三：结束位置<br/><br>　　<code>arr.fill(arg1,arg2,arg3)</code><br/><br>5、find/findIndex 找到数组中符合条件的值/位置，若没找到返回undefined<br/></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　arr.find((val,index,arr)=&gt;&#123;</span><br><span class="line">　　　　<span class="built_in">return</span> val&gt;9;</span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure>
+<p>6、keys() 遍历数组获取键名<br/><br>   values() 遍历数组获取键值<br/><br>   entries() 遍历数组获取键值对<br/><br>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">for</span>(<span class="built_in">let</span> [index,val] of arr.keys()) &#123;</span><br><span class="line">　　　　console.log(val)</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="ES7-0新增的数组方法"><a href="#ES7-0新增的数组方法" class="headerlink" title="ES7.0新增的数组方法"></a>ES7.0新增的数组方法</h3><p>1、includes 判断数组中是否存在该元素 弥补indexOf不能判断NaN<br/><br>　　<code>arr.includes()</code></p>
+<h3 id="ES8没有新增数组方法"><a href="#ES8没有新增数组方法" class="headerlink" title="ES8没有新增数组方法"></a>ES8没有新增数组方法</h3><h3 id="ES6遍历对象的方法总结"><a href="#ES6遍历对象的方法总结" class="headerlink" title="ES6遍历对象的方法总结"></a>ES6遍历对象的方法总结</h3><p>1、for … in 循环遍历对象自身的和继承的可枚举属性(循环遍历对象自身的和继承的可枚举属性(不含Symbol属性))。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYLePO.png" alt="aYLePO.png"></p>
+<p>2、使用Object.keys()遍历 (返回一个数组,包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性)).</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYLmGD.png" alt="aYLmGD.png"></p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYLuxH.png" alt="aYLuxH.png"></p>
+<p>3、Object.getOwnPropertyNames(obj),返回一个数组,包含对象自身的所有属性(不含Symbol属性,但是包括不可枚举属性).</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;<span class="string">&#x27;0&#x27;</span>:<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;1&#x27;</span>:<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;2&#x27;</span>:<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line"></span><br><span class="line">Object.getOwnPropertyNames(obj).forEach(<span class="keyword">function</span>(key)&#123;</span><br><span class="line">    console.log(key,obj[key]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>4、Reflect.ownKeys(obj),返回一个数组,包含对象自身的所有属性,不管属性名是Symbol或字符串,也不管是否可枚举.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;<span class="string">&#x27;0&#x27;</span>:<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;1&#x27;</span>:<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;2&#x27;</span>:<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line"></span><br><span class="line">Reflect.ownKeys(obj).forEach(<span class="keyword">function</span>(key)&#123;</span><br><span class="line">console.log(key,obj[key]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYLMMd.png" alt="aYLMMd.png"></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：ES6遍历数组和对象的方法总结</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-08-02 17:57:11</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/08/02/ES6遍历数组和对象的方法总结/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/08/02/HTTP%E7%8A%B6%E6%80%81%E7%A0%81%E6%B1%87%E6%80%BB/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">HTTP状态码汇总</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/08/02/%E5%B8%AE%E4%BD%A0%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82JS%E4%B8%AD%E7%9A%84prototype%E3%80%81-proto-%E4%B8%8Econstructor(%E5%9B%BE%E8%A7%A3)/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">帮你彻底搞懂JS中的prototype、__proto__与constructor(图解)</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5-ES8-%E6%95%B0%E7%BB%84%E6%8B%A5%E6%9C%89%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">ES5~ES8 数组拥有的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">总结：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6%E6%96%B0%E5%A2%9E%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">ES6新增数组方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES7-0%E6%96%B0%E5%A2%9E%E7%9A%84%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">ES7.0新增的数组方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES8%E6%B2%A1%E6%9C%89%E6%96%B0%E5%A2%9E%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">ES8没有新增数组方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">ES6遍历对象的方法总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

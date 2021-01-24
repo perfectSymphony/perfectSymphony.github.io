@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            深入理解css之vertical-align |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">深入理解css之vertical-align</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-12-29 15:24:28
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CSS/">CSS</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>1.8k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>7 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>vertical-align用来指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式。也就是说，对于块级元素，vertical-align是不起作用的。</p>
+<h3 id="vertical-align的各类属性值"><a href="#vertical-align的各类属性值" class="headerlink" title="vertical-align的各类属性值"></a>vertical-align的各类属性值</h3><p>vertical-align的属性值可以归为以下4类：</p>
+<ul>
+<li>线类，如 baseline、top、middle、bottom；</li>
+<li>文本类，如 text-top、text-bottom；</li>
+<li>上标下标类，如 sub、super；</li>
+<li>数值百分比类，如 10px、1em、5%；</li>
+</ul>
+<h4 id="线类"><a href="#线类" class="headerlink" title="线类"></a>线类</h4><p>baseline，baseline为vertical-align的默认值，其意思是指基线对齐，所谓基线，指的是字母x的下边缘，具体可看<a href="">深入理解css之line-height</a>有讲解到，不懂的小伙伴建议先看看这篇文章。我们来看个例子，代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    line-height: 100px;</span><br><span class="line">    border: 1px solid <span class="comment">#ccc;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;text&quot;</span>&gt;文本&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下： </p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rHxDKg"><img src="https://s3.ax1x.com/2020/12/29/rHxDKg.png" alt="rHxDKg.png"></a></p>
+<p>由于baseline是默认值，所以可以不用写。.box的line-height为100px，这其实是给“strut”设置的（不懂strut概念的可以看看<a href="">深入理解css盒子模型</a>，简单点说就是每一个行框盒子都有一个看不见的节点，该节点继承了line-height），因此.text对齐于该节点的基线（可以想象成这个看不见的节点有一个字母x，而.text就是跟这个字母x的下边缘对齐）</p>
+<p>关于baseline，有一个需要注意的地方就是inline-block元素，如果一个inline-block元素，里面没有内联元素，或者overflow不是visible，则该元素的基线是其margin底边缘；否则其基线就是元素里面最后一行内联元素的基线。例子如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.text &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 1px solid <span class="comment">#ccc;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;text&quot;</span>&gt;文本&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;text&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rHz1J0"><img src="https://s3.ax1x.com/2020/12/29/rHz1J0.png" alt="rHz1J0.png"></a></p>
+<p>top，对于内联元素，指的是元素的顶部和当前行框盒子的顶部对齐；对于table-cell元素，指的是元素的顶padding边缘和表格行的顶部对齐。例子如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    line-height: 100px;</span><br><span class="line">    border: 1px solid <span class="comment">#ccc;</span></span><br><span class="line">&#125;</span><br><span class="line">.top &#123;</span><br><span class="line">    line-height: normal;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;top&quot;</span>&gt;文本&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rbSl0H"><img src="https://s3.ax1x.com/2020/12/29/rbSl0H.png" alt="rbSl0H.png"></a></p>
+<p>bottom，跟top类似，将顶部换成底部即可。</p>
+<p>middle，这个属性值用得比较多。对于内联元素指的是元素的垂直中心点与行框盒子基线往上1/2x-height处对齐，简单点说就是字母x的中心位置对齐；对于table-cell元素，指的是单元格填充盒子相对于外面的表格行居中对齐。基本上所有字体中，字母x的位置都是偏下一点的，font-size越大偏移越明显，因此，字母x中心的位置不是行框盒子的中心，也就是说vertical-align只能实现近似垂直居中对齐。</p>
+<h4 id="文本类"><a href="#文本类" class="headerlink" title="文本类"></a>文本类</h4><p>text-top，指的是盒子的顶部和父级内容区域的顶部对齐。</p>
+<p>text-bottom，指的是盒子的底部和父级内容区域的底部对齐。</p>
+<p>例子如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    line-height: 100px;</span><br><span class="line">    border: 1px solid <span class="comment">#ccc;</span></span><br><span class="line">    font-size: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.f12 &#123;</span><br><span class="line">    font-size: 12px;</span><br><span class="line">&#125;</span><br><span class="line">.f16 &#123;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">&#125;</span><br><span class="line">.f20 &#123;</span><br><span class="line">    font-size: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.text-top &#123;</span><br><span class="line">    line-height: normal;</span><br><span class="line">    vertical-align: text-top;</span><br><span class="line">    width: 100px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;f12&quot;</span>&gt;12px&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;f16&quot;</span>&gt;16px&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;f20&quot;</span>&gt;20px&lt;/span&gt;</span><br><span class="line">    &lt;img class=<span class="string">&quot;text-top&quot;</span> src=<span class="string">&quot;./card.jpg&quot;</span>/&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rbCF0g"><img src="https://s3.ax1x.com/2020/12/29/rbCF0g.png" alt="rbCF0g.png"></a></p>
+<p>所谓内容区域，可以看成是鼠标选中文字后高亮的背景色区域，上面的例子中，由于父元素设置的是20px，所以图片的vertical-align设置text-top的时候，就可以看成是跟子元素为20px元素的内容区域顶部对齐。</p>
+<h4 id="上标下标类"><a href="#上标下标类" class="headerlink" title="上标下标类"></a>上标下标类</h4><p>上标和下标对应着两个标签super和sub，super在上面，sub在下面，这两个属性值在数学公式和化学表达式中用得比较多，平时我们开发几乎用不到，也没啥好讲的。</p>
+<h4 id="数值百分比类"><a href="#数值百分比类" class="headerlink" title="数值百分比类"></a>数值百分比类</h4><p>vertical-align是支持数值的，并且兼容性也非常好，但大部分开发人员却不知道vertical-align支持数值。对于数值，正值表示由基线往上偏移，负值表示由基线往下偏移。而百分比则是基于line-height来计算的，百分比用得比较少，因为line-height一般都是开发人员给出的，这时候数值就可以精确定位元素，不需要再使用百分比再去计算一遍。使用数值的代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    line-height: 100px;</span><br><span class="line">    border: 1px solid <span class="comment">#ccc;</span></span><br><span class="line">    font-size: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.num &#123;</span><br><span class="line">    line-height: normal;</span><br><span class="line">    vertical-align: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">    &lt;span class=<span class="string">&quot;num&quot;</span>&gt;文本&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rbPEDO"><img src="https://s3.ax1x.com/2020/12/29/rbPEDO.png" alt="rbPEDO.png"></a></p>
+<h4 id="vertical-align起作用的前提"><a href="#vertical-align起作用的前提" class="headerlink" title="vertical-align起作用的前提"></a>vertical-align起作用的前提</h4><p>vertical-align起作用是有前提条件的，这个前提条件就是：只能应用于内联元素以及display值为table-cell的元素。在css中，有些css属性是会改变元素的display值的，例如float和position: absolute，一旦设置了这两个属性之一，元素的display值就是变为block，因此，vertical-align也就失去了作用。下面这段代码这样写就是错的：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">span &#123;</span><br><span class="line">     <span class="built_in">float</span>: left;</span><br><span class="line">     vertical-align: middle; /* 错误，该行代码无效 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，更多人遇到的是以下这种无效的情况：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    height: 200px;</span><br><span class="line">&#125;</span><br><span class="line">.box &gt; img &#123;</span><br><span class="line">    height: 100px;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">    &lt;img  src=<span class="string">&quot;1.jpg&quot;</span> /&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>其实，不是vertical-align无效，而是前面所说的“strut”的影响，由于.box没有设置line-height，所以“strut”的line-height就非常小，比图片的高度小很多，vertical-align: middle没法发挥作用。这时给.box一个比较高的line-height，就会看到vertical-align起作用了：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    height: 200px;</span><br><span class="line">    line-height: 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="vertical-align与line-height的关系"><a href="#vertical-align与line-height的关系" class="headerlink" title="vertical-align与line-height的关系"></a>vertical-align与line-height的关系</h4><p>前面讲了，vertical-align的百分比值是根据line-height来计算的。但实质上，只要是内联元素，这两个元素都会同时在起作用。如下例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    line-height: 32px;</span><br><span class="line">&#125;</span><br><span class="line">.box &gt; span &#123;</span><br><span class="line">    font-size: 24px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;box&quot;</span>&gt;</span><br><span class="line">    &lt;span&gt;文本&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rbkp5Q"><img src="https://s3.ax1x.com/2020/12/29/rbkp5Q.png" alt="rbkp5Q.png"></a></p>
+<p>从代码上看，好像.box的高度会是32px，但实质上.box的高度会比32px还要高。原因是”strut”继承了line-height: 32px，span也继承了line-height: 32px，但两者的font-size不一样，这就导致了”strut”的font-size比较小，而span的font-size比较大，也就是说它们的基线不在同一位置上，”strut”偏上一点，而span默认又是基线对齐，为此，span总体会往上移以便跟”strut”基线对齐，.box元素就是这样被撑高了。而解决方案可以有以下几种：</p>
+<ul>
+<li>span元素不使用基线对齐，可以改为top对齐</li>
+<li>span元素块状化</li>
+<li>line-height设置为0</li>
+<li>font-size设置为0</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>讲解了vertical-align的各类属性值及其效果</li>
+<li>vertical-align起作用的前提是内联元素</li>
+<li>vertical-align与line-height都是同时作用在内联元素上的</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：深入理解css之vertical-align</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-12-29 15:24:28</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/12/29/深入理解css之vertical-align/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3css%E4%B9%8Bline-height/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">深入理解css之line-height</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/12/16/jsonp%E5%8E%9F%E7%90%86/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">jsonp原理</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vertical-align%E7%9A%84%E5%90%84%E7%B1%BB%E5%B1%9E%E6%80%A7%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">vertical-align的各类属性值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">线类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">文本类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E6%A0%87%E4%B8%8B%E6%A0%87%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">上标下标类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%99%BE%E5%88%86%E6%AF%94%E7%B1%BB"><span class="nav-number">2.4.</span> <span class="nav-text">数值百分比类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vertical-align%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E5%89%8D%E6%8F%90"><span class="nav-number">2.5.</span> <span class="nav-text">vertical-align起作用的前提</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vertical-align%E4%B8%8Eline-height%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.6.</span> <span class="nav-text">vertical-align与line-height的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

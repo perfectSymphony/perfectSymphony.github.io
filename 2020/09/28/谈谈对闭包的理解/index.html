@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            谈谈对闭包的理解 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">谈谈对闭包的理解</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-09-28 17:32:33
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.5k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包常用的方式是在一个函数中创建另一个函数，通过另一个函数访问这个函数的局部变量</p>
+<h4 id="2、特性"><a href="#2、特性" class="headerlink" title="2、特性"></a>2、特性</h4><ul>
+<li>函数嵌套函数</li>
+<li>在函数内部可以引用外部的参数和变量</li>
+<li>参数和变量不会以垃圾回收机制回收</li>
+</ul>
+<h4 id="3、优点"><a href="#3、优点" class="headerlink" title="3、优点"></a>3、优点</h4><ul>
+<li>设计私有的方法和变量</li>
+<li>利用闭包可以读取函数内部的变量，变量在函数外部不能直接读取到，从而达到保护变量安全的作用。因为私有方法在函数内部都能被访问到，从而实现了私有属性和方法的共享。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Counter = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">//私有属性</span></span><br><span class="line"><span class="keyword">var</span> privateCounter = <span class="number">0</span>; </span><br><span class="line"><span class="comment">//私有方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeBy</span>(<span class="params">val</span>) </span>&#123; </span><br><span class="line">    privateCounter += val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    increment: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    changeBy(<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    changeBy(-<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> privateCounter;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line">&#125;)();</span><br><span class="line"><span class="built_in">console</span>.log(privateCounter); <span class="comment">//privateCounter is not defined </span></span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 0</span></span><br><span class="line">Counter.increment();</span><br><span class="line">Counter.increment();</span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 2</span></span><br><span class="line">Counter.decrement();</span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+在jQuery框架的私有方法和变量也是这么设计的<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> jQuery.fn.init();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">    init:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;  <span class="comment">//this指向jQuery.prototype</span></span><br><span class="line">    &#125;,</span><br><span class="line">    length: <span class="number">1</span>,</span><br><span class="line">    size: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log($().size()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></li>
+<li>将处理结果缓存<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mult = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(vari=<span class="number">0</span>,l=<span class="built_in">arguments</span>.length;i&lt;l;i++)&#123;</span><br><span class="line">            a = a*<span class="built_in">arguments</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;    </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>,<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span>(args <span class="keyword">in</span> cache)&#123;</span><br><span class="line">            <span class="keyword">return</span> cache[args];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache[args] = calculate.apply(<span class="literal">null</span>,<span class="built_in">arguments</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h4 id="4、缺点"><a href="#4、缺点" class="headerlink" title="4、缺点"></a>4、缺点</h4></li>
+<li>闭包会常驻内存，增加内存使用量，使用不当很容易造成内存泄漏。在JavaScript中，函数即闭包，只有函数才会产生作用域。</li>
+<li>当返回的函数为匿名函数时，注意匿名函数中的this指的是window对象。</li>
+</ul>
+<h4 id="5、什么是内存泄漏？"><a href="#5、什么是内存泄漏？" class="headerlink" title="5、什么是内存泄漏？"></a>5、什么是内存泄漏？</h4><p>内存泄漏（Memory Leak）是指不再用到的内存，没有及时释放。</p>
+<h4 id="6、JavaScript垃圾回收机制原理"><a href="#6、JavaScript垃圾回收机制原理" class="headerlink" title="6、JavaScript垃圾回收机制原理"></a>6、JavaScript垃圾回收机制原理</h4><p>解决内存的泄露，垃圾回收机制会定期（周期性）找出那些不再用到的内存（变量），然后释放其内存。<br>现在各大浏览器通常采用的垃圾回收机制有两种方法：标记清除，引用计数。</p>
+<blockquote>
+<p>标记清除：</p>
+</blockquote>
+<p>js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在一个函数中声明一个变量，就将这个变量标记为”进入环境”，从逻辑上讲，永远不能释放进入环境变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为”离开环境”。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">//被标记&quot;进入环境&quot;</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="string">&quot;hello&quot;</span>;    <span class="comment">//被标记&quot;进入环境&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">test();    <span class="comment">//执行完毕后之后，a和b又被标记&quot;离开环境&quot;，被回收</span></span><br></pre></td></tr></table></figure>
+<p>垃圾回收机制在运行的时候会给存储再内存中的所有变量都加上标记（可以是任何标记方式），然后，它会去掉处在环境中的变量及被环境中的变量引用的变量标记（闭包）。而在此之后剩下的带有标记的变量被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后垃圾回收机制到下一个周期运行时，将释放这些变量的内存，回收它们所占用的空间。</p>
+<p>到目前为止，IE、Firefox、Opera、Chrome、Safari的js实现使用的都是标记清除的垃圾回收策略或类似的策略，只不过垃圾收集的时间间隔互不相同。</p>
+<blockquote>
+<p>引用计数：</p>
+</blockquote>
+<p>语言引擎有一张”引用表”，保存了内存里面所有资源（通常是各种值）的引用次数。如果一个值的引用次数是0，就表示这个值不再用到了，因此可以将这块内存释放。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Bz6jVe"><img src="https://s3.ax1x.com/2020/11/12/Bz6jVe.png" alt="Bz6jVe.png"></a></p>
+<p>上图中，左下角的两个值，没有任何引用，所以可以释放。</p>
+<p>如果一个值不再需要了，引用数却不为0，垃圾回收机制无法释放这块内存，从而导致内存泄漏。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">console.log(<span class="string">&quot;hello world&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>上面的代码中，数组[1,2,3,4]是一个值，会占用内存。变量arr是仅有的对这个值的引用，因此引用次数为1。尽管后面的代码没有用到arr，它是会持续占用内存。<br>如果增加一行代码，解除arr对[1,2,3,4]引用，这块内存就可以被垃圾回收机制释放了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [1,2,3,4];</span><br><span class="line">console.log(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">arr = null;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，arr重置为null，就解除了对[1，2，3，4]的引用，引用次数变成了0，内存就可以释放出来了。</p>
+<p>因此，并不是说有了垃圾回收机制，程序员就轻松了。你还是需要关注内存占用：那些很占空间的值，一旦不再用到，你必须检查是否还存在对它们的引用。如果是的话，就必须手动解除引用</p>
+<h4 id="7、内存泄漏的识别方法"><a href="#7、内存泄漏的识别方法" class="headerlink" title="7、内存泄漏的识别方法"></a>7、内存泄漏的识别方法</h4><p>怎样可以观察到内存泄漏呢？</p>
+<p>如果连续五次垃圾回收之后，内存占用一次比一次大，就有内存泄漏。这就要求实时查看内存占用。</p>
+<ul>
+<li>1、浏览器<br>Chrome 浏览器查看内存占用，按照以下步骤操作。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BzcrZD"><img src="https://s3.ax1x.com/2020/11/12/BzcrZD.png" alt="BzcrZD.png"></a></p>
+<blockquote>
+<p>1、打开开发者工具，选择 Timeline 面板<br> 2、在顶部的Capture字段里面勾选 Memory<br> 3、点击左上角的录制按钮。<br> 4、在页面上进行各种操作，模拟用户的使用情况。<br> 5、一段时间后，点击对话框的 stop 按钮，面板上就会显示这段时间的内存占用情况。</p>
+</blockquote>
+<p> 如果内存占用基本平稳，接近水平，就说明不存在内存泄漏。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BzgPY9"><img src="https://s3.ax1x.com/2020/11/12/BzgPY9.png" alt="BzgPY9.png"></a></p>
+<p>反之，就是内存泄漏了。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/BzgMYd"><img src="https://s3.ax1x.com/2020/11/12/BzgMYd.png" alt="BzgMYd.png"></a></p>
+<ul>
+<li>2、命令行<br>命令行可以使用 Node 提供的<a class="link"   target="_blank" rel="noopener" href="https://nodejs.org/api/process.html#process_process_memoryusage" >process.memoryUsage<i class="fas fa-external-link-alt"></i></a>方法。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(process.memoryUsage());</span><br><span class="line">// &#123; rss: 27709440,</span><br><span class="line">//  heapTotal: 5685248,</span><br><span class="line">//  heapUsed: 3449392,</span><br><span class="line">//  external: 8772 &#125;</span><br></pre></td></tr></table></figure>
+<p>process.memoryUsage返回一个对象，包含了 Node 进程的内存占用信息。该对象包含四个字段，单位是字节，含义如下。</p>
+<p> <a target="_blank" rel="noopener" href="https://imgchr.com/i/Bzg4pR"><img src="https://s3.ax1x.com/2020/11/12/Bzg4pR.png" alt="Bzg4pR.png"></a></p>
+<blockquote>
+<p>1、rss（resident set size）：所有内存占用，包括指令区和堆栈。<br>   2、heapTotal：”堆”占用的内存，包括用到的和没用到的。<br>   3、heapUsed：用到的堆的部分。<br>   4、external： V8 引擎内部的 C++ 对象占用的内存。</p>
+</blockquote>
+<p>判断内存泄漏，以heapUsed字段为准。</p>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>前面说过，及时清除引用非常重要。但是，你不可能记得那么多，有时候一疏忽就忘了，所以才有那么多内存泄漏。</p>
+<p>最好能有一种方法，在新建引用的时候就声明，哪些引用必须手动清除，哪些引用可以忽略不计，当其他引用消失以后，垃圾回收机制就可以释放内存。这样就能大大减轻程序员的负担，你只要清除主要引用就可以了。</p>
+<p>ES6 考虑到了这一点，推出了两种新的数据结构：WeakSet 和 WeakMap。它们对于值的引用都是不计入垃圾回收机制的，所以名字里面才会有一个”Weak”，表示这是弱引用。</p>
+<p>下面以 WeakMap 为例，看看它是怎么解决内存泄漏的。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const wm = new WeakMap();</span><br><span class="line"> </span><br><span class="line">const element = document.getElementById(<span class="string">&#x27;example&#x27;</span>);</span><br><span class="line"> </span><br><span class="line">wm.set(element, <span class="string">&#x27;some information&#x27;</span>);</span><br><span class="line">wm.get(element) // <span class="string">&quot;some information&quot;</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，先新建一个 Weakmap 实例。然后，将一个 DOM 节点作为键名存入该实例，并将一些附加信息作为键值，一起存放在 WeakMap 里面。这时，WeakMap 里面对element的引用就是弱引用，不会被计入垃圾回收机制。</p>
+<p>也就是说，DOM 节点对象的引用计数是1，而不是2。这时，一旦消除对该节点的引用，它占用的内存就会被垃圾回收机制释放。Weakmap 保存的这个键值对，也会自动消失。</p>
+<p>基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。</p>
+<h3 id="WeakMap-示例"><a href="#WeakMap-示例" class="headerlink" title="WeakMap 示例"></a>WeakMap 示例</h3><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ruanyf/es6tutorial/issues/362#issuecomment-292109104" >根据这个思路<i class="fas fa-external-link-alt"></i></a></p>
+<p>首先，打开 Node 命令行。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node --expose-gc</span><br></pre></td></tr></table></figure>
+<p>上面代码中，–expose-gc参数表示允许手动执行垃圾回收机制。</p>
+<p>然后，执行下面的代码。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">// 手动执行一次垃圾回收，保证获取的内存使用状态准确</span><br><span class="line">&gt; global.gc(); </span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 查看内存占用的初始状态，heapUsed 为 4M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 21106688,</span><br><span class="line">  heapTotal: 7376896,</span><br><span class="line">  heapUsed: 4153936,</span><br><span class="line">  external: 9059 &#125;</span><br><span class="line"> </span><br><span class="line">&gt; <span class="built_in">let</span> wm = new WeakMap();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">&gt; <span class="built_in">let</span> b = new Object();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 此时，heapUsed 仍然为 4M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 20537344,</span><br><span class="line">  heapTotal: 9474048,</span><br><span class="line">  heapUsed: 3967272,</span><br><span class="line">  external: 8993 &#125;</span><br><span class="line"> </span><br><span class="line">// 在 WeakMap 中添加一个键值对，</span><br><span class="line">// 键名为对象 b，键值为一个 5*1024*1024 的数组  </span><br><span class="line">&gt; wm.set(b, new Array(5*1024*1024));</span><br><span class="line">WeakMap &#123;&#125;</span><br><span class="line"> </span><br><span class="line">// 手动执行一次垃圾回收</span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 此时，heapUsed 为 45M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 62652416,</span><br><span class="line">  heapTotal: 51437568,</span><br><span class="line">  heapUsed: 45911664,</span><br><span class="line">  external: 8951 &#125;</span><br><span class="line"> </span><br><span class="line">// 解除对象 b 的引用  </span><br><span class="line">&gt; b = null;</span><br><span class="line">null</span><br><span class="line"> </span><br><span class="line">// 再次执行垃圾回收</span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 解除 b 的引用以后，heapUsed 变回 4M 左右</span><br><span class="line">// 说明 WeakMap 中的那个长度为 5*1024*1024 的数组被销毁了</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 20639744,</span><br><span class="line">  heapTotal: 8425472,</span><br><span class="line">  heapUsed: 3979792,</span><br><span class="line">  external: 8956 &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，只要外部的引用消失，WeakMap 内部的引用，就会自动被垃圾回收清除。由此可见，有了它的帮助，解决内存泄漏就会简单很多。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><a class="link"   target="_blank" rel="noopener" href="http://newhtml.net/v8-garbage-collection/" >更深入一些的讲解<i class="fas fa-external-link-alt"></i></a></p>
+<p>没有被引用的对象就是垃圾，就是要被清除。</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/a8a04fd00c3c" >其他的算法参考这里<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：谈谈对闭包的理解</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-09-28 17:32:33</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/09/28/谈谈对闭包的理解/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/09/29/JS%E5%9F%BA%E7%A1%80/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">JS基础(初级)</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/09/27/webpack%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94DLL/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">webpack性能优化——DLL</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">1、定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E7%89%B9%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">2、特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E4%BC%98%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">3、优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E7%BC%BA%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">4、缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">5、什么是内存泄漏？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6、JavaScript垃圾回收机制原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%E3%80%81%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E8%AF%86%E5%88%AB%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">7、内存泄漏的识别方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakMap"><span class="nav-number"></span> <span class="nav-text">WeakMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakMap-%E7%A4%BA%E4%BE%8B"><span class="nav-number"></span> <span class="nav-text">WeakMap 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number"></span> <span class="nav-text">扩展</span></a>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

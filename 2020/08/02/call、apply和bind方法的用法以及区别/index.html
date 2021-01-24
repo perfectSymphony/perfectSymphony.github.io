@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="perfectSymphony">
+    
+    <title>
+        
+            call、apply和bind方法的用法以及区别 |
+        
+        perfectSymphony
+    </title>
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"perfectsymphony.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":"local_search"},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"1.0.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="perfectSymphony の 博客" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                perfectSymphony
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">call、apply和bind方法的用法以及区别</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">perfectSymphony</span>
+                        <span class="level">Lv7</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2020-08-02 17:37:08
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>call、apply、bind的作用是改变函数运行时this的指向，所以先说清楚this。</p>
+<p>以下是函数的调用方法：</p>
+<p>当一个函数被保存为对象的一个方法时，如果调用表达式包含一个提取属性的动作，那么它就是被当做一个方法来调用，此时的this被绑定到这个对象。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">    a:2,</span><br><span class="line">    fn:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj1.fn()//2    </span><br></pre></td></tr></table></figure>
+<p>此时的this是指obj1这个对象，obj1.fn()实际上是obj1.fn.call(obj1)，事实上谁调用这个函数，this就是谁。补充一下，DOM对象绑定事件也属于方法调用模式，因此它绑定的this就是事件源DOM对象。如</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">document.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span>(e)&#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">    setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        console.log(this);</span><br><span class="line">    &#125;, 200);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>点击页面，依次输出：document和window对象<br>解析：点击页面监听click事件属于方法调用，this指向事件源DOM对象，即<code>obj.fn.apply(obj)</code>，setTimeout内的函数属于回调函数，可以这么理解，<code>f1.call(null,f2)</code>，所以this指向window。</p>
+<p><strong>函数调用模式：</strong></p>
+<p>就是普通函数的调用，此时的this被绑定到window</p>
+<ul>
+<li>最普通的函数调用</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn1</span></span>()&#123;</span><br><span class="line">      console.log(this)//window</span><br><span class="line">    &#125;</span><br><span class="line">fn1()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数嵌套</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn1</span></span>()&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">fn2</span></span>()&#123;</span><br><span class="line">        console.log(this)//window</span><br><span class="line">    &#125;</span><br><span class="line">    fn2()</span><br><span class="line">&#125;</span><br><span class="line">fn1()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把函数赋值之后再调用</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">    a:2,</span><br><span class="line">    fn:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        console.log(this.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var fn1 = obj1.fn</span><br><span class="line">fn1()//1</span><br></pre></td></tr></table></figure>
+<p>obj1.fn是一个函数<code>function()&#123;console.log(this.a)&#125;</code>，此时fn1就是不带任何修饰的函数调用，<code>function()&#123;console.log(this.a)&#125;.call(undefined)</code>，按理说打印出来的 this 应该就是 undefined 了吧，但是浏览器里有一条规则：</p>
+<blockquote>
+<p>如果你传的 context 就 null 或者 undefined，那么 window 对象就是默认的 context（严格模式下默认 context 是 undefined）</p>
+</blockquote>
+<p>因此上面的this绑定的就是window，它也被称为隐性绑定。<br>如果你希望打印出2，可以修改fn1()为fn1.call(obj1)，显示地绑定this为obj1</p>
+<ul>
+<li>回调函数</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line"><span class="keyword">function</span> f1(fn)&#123;</span><br><span class="line">    fn()</span><br><span class="line">    console.log(a)//1</span><br><span class="line">&#125;</span><br><span class="line">f1(f2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f2</span></span>()&#123;</span><br><span class="line">    var a = 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改写代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f1</span></span>()&#123;</span><br><span class="line">    (<span class="function"><span class="title">function</span></span> ()&#123;var a = 2&#125;)()</span><br><span class="line">    console.log(a)//1</span><br><span class="line">&#125;</span><br><span class="line">f1()</span><br></pre></td></tr></table></figure>
+<p>仍旧是最普通的函数调用，f1.call(undefined)，this指向window，打印出的是全局的a。<br>借此，我们终于可以解释为什么setTimeout总是丢失this了，因为它也就是一个回调函数而已。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(this)//window</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>()&#123;</span><br><span class="line">        console.log(this)//window</span><br><span class="line">    &#125;</span><br><span class="line">    fn()</span><br><span class="line">&#125;, 0);</span><br></pre></td></tr></table></figure>
+<p><strong>构造器调用模式:</strong></p>
+<p>new一个函数时，背地里会将创建一个连接到prototype成员的新对象，同时this会被绑定到那个新对象上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">// 这里的this都指向实例</span><br><span class="line">    this.name = name</span><br><span class="line">    this.age = age</span><br><span class="line">    this.sayAge = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        console.log(this.age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var dot = new Person(<span class="string">&#x27;Dot&#x27;</span>,2)</span><br><span class="line">dot.sayAge()//2</span><br></pre></td></tr></table></figure>
+<p><strong>call</strong></p>
+<p>call 方法第一个参数是要绑定给this的值，后面传入的是一个参数列表。当第一个参数为null、undefined的时候，默认指向window。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3, 89, 46]</span><br><span class="line">var max = Math.max.call(null, arr[0], arr[1], arr[2], arr[3], arr[4])//89</span><br></pre></td></tr></table></figure>
+<p>可以这么理解：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">obj1.fn() </span><br><span class="line">obj1.fn.call(obj1);</span><br><span class="line"></span><br><span class="line">fn1()</span><br><span class="line">fn1.call(null)</span><br><span class="line"></span><br><span class="line">f1(f2)</span><br><span class="line">f1.call(null,f2)</span><br></pre></td></tr></table></figure>
+<p>看一个例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    message: <span class="string">&#x27;My name is: &#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> getName(firstName, lastName) &#123;</span><br><span class="line">    console.log(this.message + firstName + <span class="string">&#x27; &#x27;</span> + lastName)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName.call(obj, <span class="string">&#x27;Dot&#x27;</span>, <span class="string">&#x27;Dolby&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>apply</strong></p>
+<p>apply接受两个参数，第一个参数是要绑定给this的值，第二个参数是一个参数数组。当第一个参数为null、undefined的时候，默认指向window。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,2,3,89,46]</span><br><span class="line">var max = Math.max.apply(null,arr)//89</span><br></pre></td></tr></table></figure>
+<p>可以这么理解：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">obj1.fn() </span><br><span class="line">obj1.fn.apply(obj1);</span><br><span class="line"></span><br><span class="line">fn1()</span><br><span class="line">fn1.apply(null)</span><br><span class="line"></span><br><span class="line">f1(f2)</span><br><span class="line">f1.apply(null,f2)</span><br></pre></td></tr></table></figure>
+<p>是不是觉得和前面写的call用法很像，事实上apply 和 call 的用法几乎相同, 唯一的差别在于：当函数需要传递多个变量时, apply 可以接受一个数组作为参数输入, call 则是接受一系列的单独变量。<br>看一个例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    message: <span class="string">&#x27;My name is: &#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> getName(firstName, lastName) &#123;</span><br><span class="line">    console.log(this.message + firstName + <span class="string">&#x27; &#x27;</span> + lastName)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName.apply(obj, [<span class="string">&#x27;Dot&#x27;</span>, <span class="string">&#x27;Dolby&#x27;</span>])// My name is: Dot Dolby</span><br></pre></td></tr></table></figure>
+<p>可以看到，obj 是作为函数上下文的对象，函数 getName 中 this 指向了 obj 这个对象。参数 firstName 和 lastName 是放在数组中传入 getName 函数。</p>
+<p>call和apply可用来借用别的对象的方法，这里以call()为例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var Person1  = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    this.name = <span class="string">&#x27;Dot&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">var Person2 = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    this.getname = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">    Person1.call(this);</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person2();</span><br><span class="line">person.getname();       // Dot</span><br></pre></td></tr></table></figure>
+<p>从上面我们看到，Person2 实例化出来的对象 person 通过 getname 方法拿到了 Person1 中的 name。因为在 Person2 中，Person1.call(this) 的作用就是使用 Person1 对象代替 this 对象，那么 Person2 就有了 Person1 中的所有属性和方法了，相当于 Person2 继承了 Person1 的属性和方法。</p>
+<p>对于什么时候该用什么方法，其实不用纠结。如果你的参数本来就存在一个数组中，那自然就用 apply，如果参数比较散乱相互之间没什么关联，就用 call。像上面的找一组数中最大值的例子，当然是用apply合理。</p>
+<p><strong>bind</strong></p>
+<p>和call很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表。区别在于bind方法返回值是函数以及bind接收的参数列表的使用。</p>
+<ul>
+<li><p>bind返回值是函数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    name: <span class="string">&#x27;Dot&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">printName</span></span>() &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var dot = printName.bind(obj)</span><br><span class="line">console.log(dot) // <span class="function"><span class="title">function</span></span> () &#123; … &#125;</span><br><span class="line">dot()  // Dot</span><br></pre></td></tr></table></figure>
+<p>bind 方法不会立即执行，而是返回一个改变了上下文 this 后的函数。而原函数 printName 中的 this 并没有被改变，依旧指向全局对象 window。</p>
+</li>
+<li><p>参数的使用</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> fn(a, b, c) &#123;</span><br><span class="line">    console.log(a, b, c);</span><br><span class="line">&#125;</span><br><span class="line">var fn1 = fn.bind(null, <span class="string">&#x27;Dot&#x27;</span>);</span><br><span class="line"></span><br><span class="line">fn(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);            // A B C</span><br><span class="line">fn1(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);           // Dot A B</span><br><span class="line">fn1(<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);                // Dot B C</span><br><span class="line">fn.call(null, <span class="string">&#x27;Dot&#x27;</span>);      // Dot undefined undefined</span><br></pre></td></tr></table></figure>
+<p>call 是把第二个及以后的参数作为 fn 方法的实参传进去，而 fn1 方法的实参实则是在 bind 中参数的基础上再往后排。</p>
+<p>有时候我们也用bind方法实现函数珂里化，以下是一个简单的示例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var add = <span class="keyword">function</span>(x) &#123;</span><br><span class="line">  <span class="built_in">return</span> <span class="keyword">function</span>(y) &#123;</span><br><span class="line">    <span class="built_in">return</span> x + y;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var increment = add(1);</span><br><span class="line">var addTen = add(10);</span><br><span class="line"></span><br><span class="line">increment(2);</span><br><span class="line">// 3</span><br><span class="line"></span><br><span class="line">addTen(2);</span><br><span class="line">// 12</span><br></pre></td></tr></table></figure>
+<p>在低版本浏览器没有 bind 方法，我们也可以自己实现一个。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!Function.prototype.bind) &#123;</span><br><span class="line">    Function.prototype.bind = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        var self = this,                        // 保存原函数</span><br><span class="line">            context = [].shift.call(arguments), // 保存需要绑定的this上下文</span><br><span class="line">            args = [].slice.call(arguments);    // 剩余的参数转为数组</span><br><span class="line">        <span class="built_in">return</span> <span class="function"><span class="title">function</span></span> () &#123;                    // 返回一个新函数</span><br><span class="line">            self.apply(context, [].concat.call(args, [].slice.call(arguments)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li><p>求数组中的最大和最小值</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,2,3,89,46]</span><br><span class="line">var max = Math.max.apply(null,arr)//89</span><br><span class="line">var min = Math.min.apply(null,arr)//1</span><br></pre></td></tr></table></figure></li>
+<li><p>将类数组转化为数组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var trueArr = Array.prototype.slice.call(arrayLike)</span><br></pre></td></tr></table></figure></li>
+<li><p>数组追加</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [1,2,3];</span><br><span class="line">var arr2 = [4,5,6];</span><br><span class="line">var total = [].push.apply(arr1, arr2);//6</span><br><span class="line">// arr1 [1, 2, 3, 4, 5, 6]</span><br><span class="line">// arr2 [4,5,6]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>判断变量类型</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> isArray(obj)&#123;</span><br><span class="line">    <span class="built_in">return</span> Object.prototype.toString.call(obj) == <span class="string">&#x27;[object Array]&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">isArray([]) // <span class="literal">true</span></span><br><span class="line">isArray(<span class="string">&#x27;dot&#x27;</span>) // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用call和apply做继承</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">    // 这里的this都指向实例</span><br><span class="line">    this.name = name</span><br><span class="line">    this.age = age</span><br><span class="line">    this.sayAge = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        console.log(this.age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Female</span></span>()&#123;</span><br><span class="line">    Person.apply(this,arguments)//将父元素所有方法在这里执行一遍就继承了</span><br><span class="line">&#125;</span><br><span class="line">var dot = new Female(<span class="string">&#x27;Dot&#x27;</span>,2)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 log 代理 console.log</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">log</span></span>()&#123;</span><br><span class="line">  console.log.apply(console, arguments);</span><br><span class="line">&#125;</span><br><span class="line">// 当然也有更方便的 var <span class="built_in">log</span> = console.log()</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>call、apply和bind函数存在的区别:</strong></p>
+<p>bind返回对应函数, 便于稍后调用； apply, call则是立即调用。</p>
+<p>除此外, 在 ES6 的箭头函数下, call 和 apply 将失效, 对于箭头函数来说:</p>
+<ul>
+<li>箭头函数体内的 this 对象, 就是定义时所在的对象, 而不是使用时所在的对象;所以不需要类似于var _this = this这种丑陋的写法</li>
+<li>箭头函数不可以当作构造函数，也就是说不可以使用 new 命令, 否则会抛出一个错误</li>
+<li>箭头函数不可以使用 arguments 对象,，该对象在函数体内不存在. 如果要用, 可以用 Rest 参数代替</li>
+<li>不可以使用 yield 命令, 因此箭头函数不能用作 Generator 函数，什么是Generator函数可自行查阅资料，推荐阅读<a class="link"   target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/04/generator.html" >阮一峰Generator 函数的含义与用法<i class="fas fa-external-link-alt"></i></a>，<a class="link"   target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/generator-async" >Generator 函数的异步应用<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<p> <strong>参考资料：</strong></p>
+<p> <a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23804247" >this 的值到底是什么？一次说清楚<i class="fas fa-external-link-alt"></i></a><br> <a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/cc7360f8fd1d" >一次性讲清楚apply/call/bind<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：call、apply和bind方法的用法以及区别</li>
+        <li>本文作者：perfectSymphony</li>
+        <li>创建时间：2020-08-02 17:37:08</li>
+        <li>
+            本文链接：https://perfectsymphony.github.io/2020/08/02/call、apply和bind方法的用法以及区别/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/08/02/%E6%B5%85%E8%B0%88js%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">浅谈js防抖和节流</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/08/02/jsonp%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E4%B8%8E%E6%99%AE%E9%80%9Ajson%E7%9A%84%E5%8C%BA%E5%88%AB/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">jsonp返回的数据格式与普通json的区别</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor">
+        <i class="fas fa-comments"> 评论</i>
+    </div>
+    
+        
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '214649a912887eb3fb3e',
+                    clientSecret: 'c005b178fcab8f6e2a70fd3881dad327937fa204',
+                    repo: 'gitalk-comments-data',
+                    owner: 'perfectSymphony',
+                    admin: ['perfectSymphony'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2017</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">perfectSymphony</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v1.0.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
