@@ -961,6 +961,31 @@
       </tags>
   </entry>
   <entry>
+    <title>Uncaught TypeError: Cannot assign to read only property exports of object</title>
+    <url>/2021/01/12/Uncaught-TypeError-Cannot-assign-to-read-only-property-exports-of-object/</url>
+    <content><![CDATA[<blockquote>
+<p>vue项目打包后生成的dist文件部署到GitHub page上之后，访问时，报<code>Uncaught TypeError: Cannot assign to read only property &#39;exports&#39; of object &#39;#&lt;Object&gt;&#39;</code></p>
+</blockquote>
+<h4 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h4><p>webpack 2中不允许混用import和module.exports </p>
+<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><p>一、每个页面模块目录通过一个 index.js 主入口来导出（<code>module.exports</code>）对应的vue文件，然后 <code>router.js</code> 中通过 <code>require</code> 方法去引入资源。</p>
+<p>这一做法是没毛病的，因为这是组织（webpack 2）允许的。</p>
+<p>二、如果好好的<code>require</code>不用，非要用 <code>import</code> 那么请不要和 <code>module.exports</code> 混合服用，因为这是组织不允许的，此时便会报标题的错。（Uncaught TypeError: Cannot assign to read only property ‘exports’ of object ‘#<Object>‘）</p>
+<p>三、如果你还是要用 import 方法来引入资源的话，你可以放弃 module.exports ，直接引入vue文件路径，因为 import 和 export default 是组织运行的。</p>
+<p>四、使用<code>babel</code> 的 <a class="link"   href="https://github.com/airbnb/babel-plugin-dynamic-import-node" >plugins babel-plugin-dynamic-import-node<i class="fas fa-external-link-alt"></i></a>。它只做一件事就是将所有的<code>import()</code>转化为<code>require()</code>，这样就可以用这个插件将所有异步组件都用同步的方式引入，并结合 <a class="link"   href="https://babeljs.io/docs/en/config-files/#env-option" >BABEL_ENV<i class="fas fa-external-link-alt"></i></a> 这个<code>babel</code>环境变量，让它只作用于开发环境下，在开发环境中将所有<code>import()</code>转化为<code>require()</code>，这种方案解决了之前重复打包的问题，同时对代码的侵入性也很小，你平时写路由的时候只需要按照官方<a class="link"   href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html" >文档<i class="fas fa-external-link-alt"></i></a>路由懒加载的方式就可以了，其它的都交给<code>babel</code>来处理，当你不想用这个方案的时候，也只要将它从<code>babel</code>的 <code>plugins</code>中移除就可以了。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  presets: [</span><br><span class="line">    <span class="string">&#x27;@vue/cli-plugin-babel/preset&#x27;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&#x27;env&#x27;</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;development&#x27;</span>: &#123;</span><br><span class="line">      <span class="string">&#x27;plugins&#x27;</span>: [<span class="string">&#x27;dynamic-import-node&#x27;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h4><p>1、<code>exports</code> 导出的东西需要 <code>require</code> 引入！</p>
+<p>2、<code>export</code> 导出的东西需要 <code>import</code> 引入！</p>
+<p>3、在webpack 2中<code>不允许混用 import</code> 和 <code>module.exports</code></p>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>其实正确地去理解这个报错的话，就一定要去整明白 require 和 import 的区别！</p>
+<blockquote>
+<p>node编程中最重要的思想就是模块化，import和require都是被模块化所使用。<br>1、遵循规范<br><code>require</code> / <code>exports</code> 是<code>CommonJS</code>的一部分<br><code>import</code> / <code>export</code> 是ES6的新规范，如果要兼容浏览器的话必须转化成es5的语法<br>2、调用时间<br><code>require</code> 是运行时调用，所以<code>require</code>理论上可以运用在代码的任何地方<br>import 是编译时调用，所以必须放在文件开头<br>3、本质<br><code>require</code> 是赋值过程，其实<code>require</code>的结果就是对象、数字、字符串、函数等，再把<code>require</code>的结果赋值给某个变量<br><code>import</code> 是解构过程，但是目前所有的引擎都还没有实现import，我们在node中使用babel支持ES6，也仅仅是将ES6转码为ES5再执行，<code>import</code>语法会被转码为<code>require</code></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>问题记录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vue-Router的params和query传参的使用和区别</title>
     <url>/2020/08/02/Vue-Router%E7%9A%84params%E5%92%8Cquery%E4%BC%A0%E5%8F%82%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h3 id="Vue-Router-的params和query传参的使用和区别"><a href="#Vue-Router-的params和query传参的使用和区别" class="headerlink" title="Vue Router 的params和query传参的使用和区别"></a>Vue Router 的params和query传参的使用和区别</h3><p>首先简单说明以下 <code>$router</code> 和 <code>$route</code> 的区别</p>
@@ -995,31 +1020,6 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;button @click=<span class="string">&quot;childMethod()&quot;</span>&gt;点击&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">export</span> default &#123;</span><br><span class="line">    props: &#123;</span><br><span class="line">      fatherMethod: &#123;</span><br><span class="line">        <span class="built_in">type</span>: Function,</span><br><span class="line">        default: null</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      <span class="function"><span class="title">childMethod</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (this.fatherMethod) &#123;</span><br><span class="line">          this.fatherMethod();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Uncaught TypeError: Cannot assign to read only property exports of object</title>
-    <url>/2021/01/12/Uncaught-TypeError-Cannot-assign-to-read-only-property-exports-of-object/</url>
-    <content><![CDATA[<blockquote>
-<p>vue项目打包后生成的dist文件部署到GitHub page上之后，访问时，报<code>Uncaught TypeError: Cannot assign to read only property &#39;exports&#39; of object &#39;#&lt;Object&gt;&#39;</code></p>
-</blockquote>
-<h4 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h4><p>webpack 2中不允许混用import和module.exports </p>
-<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><p>一、每个页面模块目录通过一个 index.js 主入口来导出（<code>module.exports</code>）对应的vue文件，然后 <code>router.js</code> 中通过 <code>require</code> 方法去引入资源。</p>
-<p>这一做法是没毛病的，因为这是组织（webpack 2）允许的。</p>
-<p>二、如果好好的<code>require</code>不用，非要用 <code>import</code> 那么请不要和 <code>module.exports</code> 混合服用，因为这是组织不允许的，此时便会报标题的错。（Uncaught TypeError: Cannot assign to read only property ‘exports’ of object ‘#<Object>‘）</p>
-<p>三、如果你还是要用 import 方法来引入资源的话，你可以放弃 module.exports ，直接引入vue文件路径，因为 import 和 export default 是组织运行的。</p>
-<p>四、使用<code>babel</code> 的 <a class="link"   href="https://github.com/airbnb/babel-plugin-dynamic-import-node" >plugins babel-plugin-dynamic-import-node<i class="fas fa-external-link-alt"></i></a>。它只做一件事就是将所有的<code>import()</code>转化为<code>require()</code>，这样就可以用这个插件将所有异步组件都用同步的方式引入，并结合 <a class="link"   href="https://babeljs.io/docs/en/config-files/#env-option" >BABEL_ENV<i class="fas fa-external-link-alt"></i></a> 这个<code>babel</code>环境变量，让它只作用于开发环境下，在开发环境中将所有<code>import()</code>转化为<code>require()</code>，这种方案解决了之前重复打包的问题，同时对代码的侵入性也很小，你平时写路由的时候只需要按照官方<a class="link"   href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html" >文档<i class="fas fa-external-link-alt"></i></a>路由懒加载的方式就可以了，其它的都交给<code>babel</code>来处理，当你不想用这个方案的时候，也只要将它从<code>babel</code>的 <code>plugins</code>中移除就可以了。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  presets: [</span><br><span class="line">    <span class="string">&#x27;@vue/cli-plugin-babel/preset&#x27;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&#x27;env&#x27;</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;development&#x27;</span>: &#123;</span><br><span class="line">      <span class="string">&#x27;plugins&#x27;</span>: [<span class="string">&#x27;dynamic-import-node&#x27;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h4><p>1、<code>exports</code> 导出的东西需要 <code>require</code> 引入！</p>
-<p>2、<code>export</code> 导出的东西需要 <code>import</code> 引入！</p>
-<p>3、在webpack 2中<code>不允许混用 import</code> 和 <code>module.exports</code></p>
-<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>其实正确地去理解这个报错的话，就一定要去整明白 require 和 import 的区别！</p>
-<blockquote>
-<p>node编程中最重要的思想就是模块化，import和require都是被模块化所使用。<br>1、遵循规范<br><code>require</code> / <code>exports</code> 是<code>CommonJS</code>的一部分<br><code>import</code> / <code>export</code> 是ES6的新规范，如果要兼容浏览器的话必须转化成es5的语法<br>2、调用时间<br><code>require</code> 是运行时调用，所以<code>require</code>理论上可以运用在代码的任何地方<br>import 是编译时调用，所以必须放在文件开头<br>3、本质<br><code>require</code> 是赋值过程，其实<code>require</code>的结果就是对象、数字、字符串、函数等，再把<code>require</code>的结果赋值给某个变量<br><code>import</code> 是解构过程，但是目前所有的引擎都还没有实现import，我们在node中使用babel支持ES6，也仅仅是将ES6转码为ES5再执行，<code>import</code>语法会被转码为<code>require</code></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>问题记录</tag>
       </tags>
   </entry>
   <entry>
@@ -1201,119 +1201,6 @@
       </tags>
   </entry>
   <entry>
-    <title>css3中定位模型之position属性的使用方法</title>
-    <url>/2020/08/02/css3%E4%B8%AD%E5%AE%9A%E4%BD%8D%E6%A8%A1%E5%9E%8B%E4%B9%8Bposition%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="一、position元素介绍"><a href="#一、position元素介绍" class="headerlink" title="一、position元素介绍"></a>一、position元素介绍</h2><table>
-<thead>
-<tr>
-<th>属性值</th>
-<th>描述</th>
-<th>所属类别</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>static</td>
-<td>默认值。没有定位，<br/>元素出现在正常的流中(忽略top,bottom,left,right或者z-index声明)</td>
-<td></td>
-</tr>
-<tr>
-<td>relative</td>
-<td>元素遵循默认的文档流。<br/>相对于元素的原位置进行移动，周围元素忽略该元素的移动。<br/>需要设置top、bottom、left、right值进行定位</td>
-<td>相对定位</td>
-</tr>
-<tr>
-<td>absolute</td>
-<td>元素脱离正常的文档流<br/>相对于包含该元素的第一个非静态定位的元素进行定位，<br/>若不满足条件，则会根据最外层的window进行定位。<br/>需要设置top、bottom、left、right值进行定位</td>
-<td>绝对定位</td>
-</tr>
-<tr>
-<td>fixed</td>
-<td>元素脱离正常文档流。<br/>相对于最外层的window进行定位，固定在屏幕上的某个位置，不因屏幕滚动而消失。<br/>需要设置top、bottom、left、right值进行定位</td>
-<td>绝对定位(固定定位)</td>
-</tr>
-<tr>
-<td>inherit</td>
-<td>继承父元素的position值</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>设置position属性只会让元素脱离文档流，需要设置偏移属性使元素移动。包括4个偏移属性，分别为top、bottom、left、right。</p>
-<p>具体描述如下表格所示：</p>
-<table>
-<thead>
-<tr>
-<th>偏移属性</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>left</td>
-<td>表示向元素左端插入多少距离，正值使元素右移多少距离。</td>
-</tr>
-<tr>
-<td>right</td>
-<td>表示向元素右端插入多少距离，正值使元素左移多少距离。</td>
-</tr>
-<tr>
-<td>bottom</td>
-<td>表示向元素下方插入多少距离，正值使元素上移多少距离。</td>
-</tr>
-<tr>
-<td>top</td>
-<td>表示向元素上方插入多少距离，正值使元素下移多少距离。</td>
-</tr>
-</tbody></table>
-<p>偏移属性的值可以为负值，负值时向相同方向移动。一般设置时设置一个或两个偏移量即可。</p>
-<p>当元素中设置position为非默认值后，该元素会成为设定位置的元素。在元素变成设定位置后，就成为了最近的绝对定位后代元素的定位参考点，即该元素为设置为绝对定位子元素的第一个非静态定位的元素。</p>
-<p>目前所有主流的浏览器都支持position属性的使用，但注意所有IE浏览器均不支持inherit属性值。</p>
-<h2 id="二、属性值详细介绍"><a href="#二、属性值详细介绍" class="headerlink" title="二、属性值详细介绍"></a>二、属性值详细介绍</h2><p>首先设置示例的显示内容，分别设定了三个div块元素，并分别设置class属性值。HTML源代码如下：  </p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;div0&quot;</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div1 div&quot;</span>&gt;This is div1.&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div2 div&quot;</span>&gt;This is div2.&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div3 div&quot;</span>&gt;This is div3.&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>设置原始示例的显示效果，为了截图容易理解，将body设置为3px的红色边框。包围三个div块的大div块设置1px的黑边框，灰色的背景色以及50%的宽度。三个div块则设置相同的边框和100px的高度。CSS源代码如下：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    border: 3px solid red;</span><br><span class="line">&#125;</span><br><span class="line">.div0 &#123;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    width: 50%;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    margin: 50px;</span><br><span class="line">&#125;</span><br><span class="line">.div &#123;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    margin: 20px;</span><br><span class="line">    padding: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最终的示例效果图如下：</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYs9wq.png" alt="aYs9wq.png"></p>
-<p>1、<strong>relative</strong>——使元素相对于文档流的位置偏移一段距离</p>
-<p>元素遵循默认的文档流，相对于元素的原位置进行移动，周围元素忽略该元素的移动。需要设置top、bottom、left、right的值进行相对定位。<br>举个栗子：设置第二个div块的position属性为relative，并且设置偏移量为向右偏移50px、向下偏移50px。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到如下效果图中，第一和第三块div块并没有移动位置，说明relative属性值使元素遵循默认的文档流。设置偏移量后，第二块div块则向右、向下分别偏移50px。</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYsikV.png" alt="aYsikV.png"></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: -50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当设置左偏移量为-50px时，则如下图所示，第二元素块向左偏移了50px。</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYsFYT.png" alt="aYsFYT.png"></p>
-<p>2、<strong>absolute</strong>——使元素相对于文档流的位置或最近定位祖先元素的位置偏移一定的距离<br/><br>元素脱离默认的文档流，相对于包含该元素的第一个非静态定位的元素进行定位。需要设置top、bottom、left、right值进行绝对定位。</p>
-<p>对于元素，使用width、height可以设置它的尺寸，设定百分数是相对于最近定位祖先元素的尺寸。</p>
-<p>举个栗子*2：设置第二个div块的position属性为absolute，并且设置偏移量为向右偏移50px、向下偏移50px。注意此时没有设置该元素的父元素的position值为非默认值。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 20px;</span><br><span class="line">    top: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以从图中看到，第三块div元素向上移动，第二块元素脱离了原来的文档流。而在没有设置该元素的父元素的position值为非默认值时，第二块div元素块是相对于body的值来向右、向下偏移的。</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYsEpF.png" alt="aYsEpF.png"></p>
-<p> 再来看设置了该元素的父元素的position值为非默认值的情况。</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div0 &#123;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    width: 50%;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    margin: 50px;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 当设置了该元素的父元素的position值为非默认值的情况时，此时的第二块div元素块则是相对于包含三个元素块的大div元素块来进行向右、向下的偏移。</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYskfU.png" alt="aYskfU.png"></p>
-<p>  3、<strong>fixed</strong>——使元素相对于视口偏移一定的距离<br/></p>
-<p>元素脱离默认的文档流，相对于最外层的window进行定位，固定在屏幕上的某个位置，不因屏幕滚动而消失。需要设置top、bottom、left、right值进行定位。</p>
-<p>举个栗子*3：设置第二个div块的position属性为fixed，并且设置偏移量为向右偏移20px、向下偏移200px。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: fixed;</span><br><span class="line">    right: 20px;</span><br><span class="line">    top: 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从图中看出，第二个div元素块的位置在右下角，是相对于视口进行了向左20px、向下200px的偏移。并且在页面滑动时，也会保持着同样的位置不变。</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYsVl4.png" alt="aYsVl4.png"></p>
-<h2 id="三、Z-index"><a href="#三、Z-index" class="headerlink" title="三、Z-index"></a>三、Z-index</h2><p>Z-index可用于设置元素之间的层叠顺序。只对于定位元素有效，即只对于position属性的属性值为absolute、relative和fixed有效。静态定位元素按照文档出现顺序从后往前进行堆叠。设定位置元素忽略文档出现顺序，根据z-index值由小到大的顺序从后往前堆叠，即Z-index的值越高表示元素显示的顺序越优先。设置为负值z-index的设定位置元素位于静态定位元素和非设定位置浮动元素之下。z-index值不必为连续值，其默认值为auto。当设置的值相同时，后加载的元素优先显示。<br/></p>
-<p>举个栗子*4：将relative示例的元素设置-index值为-1。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">    z-index: -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从图中可以看到，当元素的z-index设置为负值时，设定位置元素是位于静态定位元素之下，即是di第二个div元素的父元素div0的位置之下。</p>
-<p><img src="https://s1.ax1x.com/2020/08/02/aYseX9.png" alt="aYseX9.png"></p>
-<h2 id="四、实际应用——使用绝对定位显示二级菜单"><a href="#四、实际应用——使用绝对定位显示二级菜单" class="headerlink" title="四、实际应用——使用绝对定位显示二级菜单"></a>四、实际应用——使用绝对定位显示二级菜单</h2><p>使用无序列表和Flex布局导航栏菜单，HTML源代码如下：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;ul class=<span class="string">&quot;MenuWrap&quot;</span>&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem1&quot;</span>&gt;</span><br><span class="line">        &lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span> &gt;Home&lt;/a&gt;</span><br><span class="line">        &lt;ul class=<span class="string">&quot;MenuWrap2&quot;</span> id=<span class="string">&quot;MenuWrap2&quot;</span>&gt;</span><br><span class="line">             &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item1&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item2&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item3&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem2&quot;</span>&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span>&gt;About&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem3&quot;</span>&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span>&gt;Products&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt; </span><br></pre></td></tr></table></figure>
-<p>将包裹二级菜单的ul元素设置的position属性设置为非默认值relative。再将二级菜单的position属性设置为绝对定位，根据一级菜单的高度设置偏移量。并且将二级菜单的显示方式display属性设置为none值表示不显示。最后再通过JavaScript设置鼠标悬浮经过一级菜单栏时显示二级菜单栏。CSS源代码如下：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.MenuWrap &#123;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    min-height: 2.75em;</span><br><span class="line">    display: flex;</span><br><span class="line">    align-items: center;</span><br><span class="line">    list-style-type: none;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.ListItem &#123;</span><br><span class="line">    color: black;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    padding:0px 20px;</span><br><span class="line">&#125;</span><br><span class="line">ul.MenuWrap2 &#123;</span><br><span class="line">    padding: 0px;</span><br><span class="line">&#125;</span><br><span class="line">.MenuWrap2 &#123;</span><br><span class="line">    list-style-type: none;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    min-width: 4.5em;</span><br><span class="line">    text-align: center;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 2.75em;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">.MenuWrap2 li &#123;</span><br><span class="line">    padding-bottom: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.ListItem2 &#123;</span><br><span class="line">    color:black;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元素的定位模型中需要区分每个属性值的不同定位方式，分为绝对定位、相对定位、固定定位以及默认定位和继承父元素。其中绝对定位和固定定位都脱离原本的文档流，而相对定位则遵循原本的文档流。设置元素的定位方式后，还需要指定偏移量。可以从上、右、下、左四个方向进行偏移。并且可以利用Z-index属性设置元素之间的层叠顺序。</p>
-<p>定位模型是在CSS中设置元素位置的重要方式之一，使用该模型可以实现页面常用的菜单导航、悬浮公告等效果。</p>
-]]></content>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>collapse、overflow、float这些特性相互叠加后会怎么样</title>
     <url>/2020/08/02/collapse%E3%80%81overflow%E3%80%81float%E8%BF%99%E4%BA%9B%E7%89%B9%E6%80%A7%E7%9B%B8%E4%BA%92%E5%8F%A0%E5%8A%A0%E5%90%8E%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/</url>
     <content><![CDATA[<h2 id="position跟display、margin-collapse、overflow、float这些特性相互叠加后会怎么样？"><a href="#position跟display、margin-collapse、overflow、float这些特性相互叠加后会怎么样？" class="headerlink" title="position跟display、margin collapse、overflow、float这些特性相互叠加后会怎么样？"></a>position跟display、margin collapse、overflow、float这些特性相互叠加后会怎么样？</h2><p>这是寒冬大神提出的一个题目，刚开始看到这题的时候完全不知道从什么地方回答起好，题目内容比较广泛，找不到针对点。后来我觉得这个题目应该能拆成几个点来回答：1、’display’、’position’ 和 ‘float’ 的相互关系；2、position跟display、overflow、float下的margin collapse。</p>
@@ -1433,6 +1320,119 @@
       </tags>
   </entry>
   <entry>
+    <title>css3中定位模型之position属性的使用方法</title>
+    <url>/2020/08/02/css3%E4%B8%AD%E5%AE%9A%E4%BD%8D%E6%A8%A1%E5%9E%8B%E4%B9%8Bposition%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="一、position元素介绍"><a href="#一、position元素介绍" class="headerlink" title="一、position元素介绍"></a>一、position元素介绍</h2><table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>描述</th>
+<th>所属类别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static</td>
+<td>默认值。没有定位，<br/>元素出现在正常的流中(忽略top,bottom,left,right或者z-index声明)</td>
+<td></td>
+</tr>
+<tr>
+<td>relative</td>
+<td>元素遵循默认的文档流。<br/>相对于元素的原位置进行移动，周围元素忽略该元素的移动。<br/>需要设置top、bottom、left、right值进行定位</td>
+<td>相对定位</td>
+</tr>
+<tr>
+<td>absolute</td>
+<td>元素脱离正常的文档流<br/>相对于包含该元素的第一个非静态定位的元素进行定位，<br/>若不满足条件，则会根据最外层的window进行定位。<br/>需要设置top、bottom、left、right值进行定位</td>
+<td>绝对定位</td>
+</tr>
+<tr>
+<td>fixed</td>
+<td>元素脱离正常文档流。<br/>相对于最外层的window进行定位，固定在屏幕上的某个位置，不因屏幕滚动而消失。<br/>需要设置top、bottom、left、right值进行定位</td>
+<td>绝对定位(固定定位)</td>
+</tr>
+<tr>
+<td>inherit</td>
+<td>继承父元素的position值</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>设置position属性只会让元素脱离文档流，需要设置偏移属性使元素移动。包括4个偏移属性，分别为top、bottom、left、right。</p>
+<p>具体描述如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th>偏移属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>left</td>
+<td>表示向元素左端插入多少距离，正值使元素右移多少距离。</td>
+</tr>
+<tr>
+<td>right</td>
+<td>表示向元素右端插入多少距离，正值使元素左移多少距离。</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>表示向元素下方插入多少距离，正值使元素上移多少距离。</td>
+</tr>
+<tr>
+<td>top</td>
+<td>表示向元素上方插入多少距离，正值使元素下移多少距离。</td>
+</tr>
+</tbody></table>
+<p>偏移属性的值可以为负值，负值时向相同方向移动。一般设置时设置一个或两个偏移量即可。</p>
+<p>当元素中设置position为非默认值后，该元素会成为设定位置的元素。在元素变成设定位置后，就成为了最近的绝对定位后代元素的定位参考点，即该元素为设置为绝对定位子元素的第一个非静态定位的元素。</p>
+<p>目前所有主流的浏览器都支持position属性的使用，但注意所有IE浏览器均不支持inherit属性值。</p>
+<h2 id="二、属性值详细介绍"><a href="#二、属性值详细介绍" class="headerlink" title="二、属性值详细介绍"></a>二、属性值详细介绍</h2><p>首先设置示例的显示内容，分别设定了三个div块元素，并分别设置class属性值。HTML源代码如下：  </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;div0&quot;</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div1 div&quot;</span>&gt;This is div1.&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div2 div&quot;</span>&gt;This is div2.&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">&quot;div3 div&quot;</span>&gt;This is div3.&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>设置原始示例的显示效果，为了截图容易理解，将body设置为3px的红色边框。包围三个div块的大div块设置1px的黑边框，灰色的背景色以及50%的宽度。三个div块则设置相同的边框和100px的高度。CSS源代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    border: 3px solid red;</span><br><span class="line">&#125;</span><br><span class="line">.div0 &#123;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    width: 50%;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    margin: 50px;</span><br><span class="line">&#125;</span><br><span class="line">.div &#123;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    margin: 20px;</span><br><span class="line">    padding: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终的示例效果图如下：</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYs9wq.png" alt="aYs9wq.png"></p>
+<p>1、<strong>relative</strong>——使元素相对于文档流的位置偏移一段距离</p>
+<p>元素遵循默认的文档流，相对于元素的原位置进行移动，周围元素忽略该元素的移动。需要设置top、bottom、left、right的值进行相对定位。<br>举个栗子：设置第二个div块的position属性为relative，并且设置偏移量为向右偏移50px、向下偏移50px。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到如下效果图中，第一和第三块div块并没有移动位置，说明relative属性值使元素遵循默认的文档流。设置偏移量后，第二块div块则向右、向下分别偏移50px。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsikV.png" alt="aYsikV.png"></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: -50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当设置左偏移量为-50px时，则如下图所示，第二元素块向左偏移了50px。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsFYT.png" alt="aYsFYT.png"></p>
+<p>2、<strong>absolute</strong>——使元素相对于文档流的位置或最近定位祖先元素的位置偏移一定的距离<br/><br>元素脱离默认的文档流，相对于包含该元素的第一个非静态定位的元素进行定位。需要设置top、bottom、left、right值进行绝对定位。</p>
+<p>对于元素，使用width、height可以设置它的尺寸，设定百分数是相对于最近定位祖先元素的尺寸。</p>
+<p>举个栗子*2：设置第二个div块的position属性为absolute，并且设置偏移量为向右偏移50px、向下偏移50px。注意此时没有设置该元素的父元素的position值为非默认值。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 20px;</span><br><span class="line">    top: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以从图中看到，第三块div元素向上移动，第二块元素脱离了原来的文档流。而在没有设置该元素的父元素的position值为非默认值时，第二块div元素块是相对于body的值来向右、向下偏移的。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsEpF.png" alt="aYsEpF.png"></p>
+<p> 再来看设置了该元素的父元素的position值为非默认值的情况。</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div0 &#123;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    width: 50%;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    margin: 50px;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 当设置了该元素的父元素的position值为非默认值的情况时，此时的第二块div元素块则是相对于包含三个元素块的大div元素块来进行向右、向下的偏移。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYskfU.png" alt="aYskfU.png"></p>
+<p>  3、<strong>fixed</strong>——使元素相对于视口偏移一定的距离<br/></p>
+<p>元素脱离默认的文档流，相对于最外层的window进行定位，固定在屏幕上的某个位置，不因屏幕滚动而消失。需要设置top、bottom、left、right值进行定位。</p>
+<p>举个栗子*3：设置第二个div块的position属性为fixed，并且设置偏移量为向右偏移20px、向下偏移200px。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: fixed;</span><br><span class="line">    right: 20px;</span><br><span class="line">    top: 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从图中看出，第二个div元素块的位置在右下角，是相对于视口进行了向左20px、向下200px的偏移。并且在页面滑动时，也会保持着同样的位置不变。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYsVl4.png" alt="aYsVl4.png"></p>
+<h2 id="三、Z-index"><a href="#三、Z-index" class="headerlink" title="三、Z-index"></a>三、Z-index</h2><p>Z-index可用于设置元素之间的层叠顺序。只对于定位元素有效，即只对于position属性的属性值为absolute、relative和fixed有效。静态定位元素按照文档出现顺序从后往前进行堆叠。设定位置元素忽略文档出现顺序，根据z-index值由小到大的顺序从后往前堆叠，即Z-index的值越高表示元素显示的顺序越优先。设置为负值z-index的设定位置元素位于静态定位元素和非设定位置浮动元素之下。z-index值不必为连续值，其默认值为auto。当设置的值相同时，后加载的元素优先显示。<br/></p>
+<p>举个栗子*4：将relative示例的元素设置-index值为-1。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.div2 &#123;</span><br><span class="line">    background-color: <span class="comment">#e0e0e0;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 50px;</span><br><span class="line">    z-index: -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从图中可以看到，当元素的z-index设置为负值时，设定位置元素是位于静态定位元素之下，即是di第二个div元素的父元素div0的位置之下。</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/aYseX9.png" alt="aYseX9.png"></p>
+<h2 id="四、实际应用——使用绝对定位显示二级菜单"><a href="#四、实际应用——使用绝对定位显示二级菜单" class="headerlink" title="四、实际应用——使用绝对定位显示二级菜单"></a>四、实际应用——使用绝对定位显示二级菜单</h2><p>使用无序列表和Flex布局导航栏菜单，HTML源代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;ul class=<span class="string">&quot;MenuWrap&quot;</span>&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem1&quot;</span>&gt;</span><br><span class="line">        &lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span> &gt;Home&lt;/a&gt;</span><br><span class="line">        &lt;ul class=<span class="string">&quot;MenuWrap2&quot;</span> id=<span class="string">&quot;MenuWrap2&quot;</span>&gt;</span><br><span class="line">             &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item1&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item2&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem2&quot;</span>&gt;Item3&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem2&quot;</span>&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span>&gt;About&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li id=<span class="string">&quot;ListItem3&quot;</span>&gt;&lt;a href=<span class="string">&quot;#&quot;</span> class=<span class="string">&quot;ListItem&quot;</span>&gt;Products&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt; </span><br></pre></td></tr></table></figure>
+<p>将包裹二级菜单的ul元素设置的position属性设置为非默认值relative。再将二级菜单的position属性设置为绝对定位，根据一级菜单的高度设置偏移量。并且将二级菜单的显示方式display属性设置为none值表示不显示。最后再通过JavaScript设置鼠标悬浮经过一级菜单栏时显示二级菜单栏。CSS源代码如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">.MenuWrap &#123;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    min-height: 2.75em;</span><br><span class="line">    display: flex;</span><br><span class="line">    align-items: center;</span><br><span class="line">    list-style-type: none;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.ListItem &#123;</span><br><span class="line">    color: black;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    padding:0px 20px;</span><br><span class="line">&#125;</span><br><span class="line">ul.MenuWrap2 &#123;</span><br><span class="line">    padding: 0px;</span><br><span class="line">&#125;</span><br><span class="line">.MenuWrap2 &#123;</span><br><span class="line">    list-style-type: none;</span><br><span class="line">    background-color: <span class="comment">#f0f0f0;</span></span><br><span class="line">    min-width: 4.5em;</span><br><span class="line">    text-align: center;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 2.75em;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">.MenuWrap2 li &#123;</span><br><span class="line">    padding-bottom: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.ListItem2 &#123;</span><br><span class="line">    color:black;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元素的定位模型中需要区分每个属性值的不同定位方式，分为绝对定位、相对定位、固定定位以及默认定位和继承父元素。其中绝对定位和固定定位都脱离原本的文档流，而相对定位则遵循原本的文档流。设置元素的定位方式后，还需要指定偏移量。可以从上、右、下、左四个方向进行偏移。并且可以利用Z-index属性设置元素之间的层叠顺序。</p>
+<p>定位模型是在CSS中设置元素位置的重要方式之一，使用该模型可以实现页面常用的菜单导航、悬浮公告等效果。</p>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>css优先级和权重问题以及important优先级</title>
     <url>/2020/08/02/css%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E6%9D%83%E9%87%8D%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8Aimportant%E4%BC%98%E5%85%88%E7%BA%A7/</url>
     <content><![CDATA[<h2 id="css优先级和权重问题以及-important优先级"><a href="#css优先级和权重问题以及-important优先级" class="headerlink" title="css优先级和权重问题以及!important优先级"></a>css优先级和权重问题以及!important优先级</h2><p>css选择器大致可以分为四类：<br/></p>
@@ -1494,6 +1494,15 @@
 ]]></content>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flex</title>
+    <url>/2020/08/02/flex/</url>
+    <content><![CDATA[<p><a class="link"   href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" >Flex 布局教程：语法篇<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" >Flex 布局教程：实例篇<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html" >grid布局<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <tags>
+        <tag>flex</tag>
       </tags>
   </entry>
   <entry>
@@ -1644,6 +1653,15 @@
       </tags>
   </entry>
   <entry>
+    <title>jsonp返回的数据格式与普通json的区别</title>
+    <url>/2020/08/02/jsonp%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E4%B8%8E%E6%99%AE%E9%80%9Ajson%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p><a class="link"   href="https://segmentfault.com/q/1010000008772557/a-1020000008775449" >jsonp返回的数据格式与普通json的区别<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <tags>
+        <tag>跨域</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>js判断变量是不是数组的方法</title>
     <url>/2020/11/24/js%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E4%B8%8D%E6%98%AF%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h4 id="方案一：-instanceof"><a href="#方案一：-instanceof" class="headerlink" title="方案一： instanceof"></a>方案一： instanceof</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">变量 instanceof 类型  返回的是布尔值  <span class="literal">true</span> <span class="literal">false</span>&lt;br&gt;例: var a = []   a instanceof Array</span><br></pre></td></tr></table></figure>
@@ -1676,12 +1694,25 @@
       </tags>
   </entry>
   <entry>
-    <title>jsonp返回的数据格式与普通json的区别</title>
-    <url>/2020/08/02/jsonp%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E4%B8%8E%E6%99%AE%E9%80%9Ajson%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p><a class="link"   href="https://segmentfault.com/q/1010000008772557/a-1020000008775449" >jsonp返回的数据格式与普通json的区别<i class="fas fa-external-link-alt"></i></a></p>
+    <title>js基本数据类型有哪些，有什么区别？</title>
+    <url>/2020/08/24/js%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/</url>
+    <content><![CDATA[<p>一、JavaScript的数据类型：</p>
+<p>1、基本数据类型有这五种: Undefined、Null、String、Number、Boolean</p>
+<p>2、引用类型：当复制保存着对象的某个变量时，操作的是对象的引用，但在为对象添加属性时，操作的是实际的对象。引用类型值指那些可能为多个值构成的对象。引用类型值指那些可能为多个值构成的对象。</p>
+<p>3、引用类型有这几种：object、Array、RegExp、Date、Function、特殊的基本包装类型(String、Number、Boolean)以及单体内置对象(Global、Math)。</p>
+<p>二、基本类型和引用类型的区别</p>
+<p>1、基本类型的变量是存放在栈区的（栈区指内存里的栈内存）；</p>
+<p>2、引用类型的值是同时保存在栈内存和堆内存中的对象；</p>
+<p>3、基本类型的比较是值的比较；</p>
+<p>4、引用类型的比较是引用的比较；</p>
+<p>三、什么是栈内存，什么是堆内存，两者有什么区别？</p>
+<p><strong>栈内存</strong>：由程序自动向操作系统申请分配以及回收，速度快，使用方便，但程序员无法控制。若分配失败，则提示栈溢出错误。注意，const局部变量也储存在栈区内，栈区向地址减小的方向增长。</p>
+<p><strong>堆内存</strong>：程序员向操作系统申请一块内存，当系统收到程序的申请时，会遍历一个记录空闲内存地址的链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序。分配的速度较慢，地址不连续，容易碎片化。此外，由程序员申请，同时也必须由程序员负责销毁，否则则导致内存泄露。</p>
+<p>四、关于堆和栈区别的比喻：</p>
+<p>堆和栈的区别可以引用一位前辈的比喻来看出：使用栈就象我们去饭馆里吃饭，只管点菜（发出申请）、付钱、和吃（使用），吃饱了就走，不必理会切菜、洗菜等准备工作和洗碗、刷锅等扫尾工作，他的好处是快捷，但是自由度小。使用堆就象是自己动手做喜欢吃的菜肴，比较麻烦，但是比较符合自己的口味，而且自由度大。</p>
 ]]></content>
       <tags>
-        <tag>跨域</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1706,79 +1737,6 @@
 ]]></content>
       <tags>
         <tag>Nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>table使用总结</title>
-    <url>/2020/11/13/table%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>1、(IE浏览器)使用 table-layout:fixed;强制table的宽度,内层td,th采用word-break : break-all;或者word-wrap : break-word ;换行</p>
-<h3 id="2、解决设置table中td宽度不生效"><a href="#2、解决设置table中td宽度不生效" class="headerlink" title="2、解决设置table中td宽度不生效"></a>2、解决设置table中td宽度不生效</h3><ul>
-<li><p>特性：table是一个整体，每一列td的宽度是由一个其中一个最长td的宽度决定的。</p>
-</li>
-<li><p>解决：一定要在table标签上加word-wrap: break-word; word-break: break-all;之后再设置百分比宽度就可以生效了(获取你用的bootstrap，可以添加col-md-1)</p>
-<p><a href="https://imgchr.com/i/DpvwdS"><img src="https://s3.ax1x.com/2020/11/13/DpvwdS.png" alt="DpvwdS.png"></a><br><a href="https://imgchr.com/i/DpvWZT"><img src="https://s3.ax1x.com/2020/11/13/DpvWZT.png" alt="DpvWZT.png"></a></p>
-<h1 id="让一个元素相对于父元素固定定位"><a href="#让一个元素相对于父元素固定定位" class="headerlink" title="让一个元素相对于父元素固定定位"></a>让一个元素相对于父元素固定定位</h1><p>遇到了一个场景，需要实现相对于父元素的fixed定位：在父元素内拖动滚动条时，”fixed”定位的元素不能滑动，在外层拖动滚动条时，父元素及父元素内的所有元素跟着一起滑动。但是position: fixed是相对于窗口进行的定位，不能直接实现我们需要的效果。</p>
-</li>
-</ul>
-<p>  让特定子元素相对于父元素”fixed”定位，也就是说，剩余的子元素不定位。那我们可以分开来想，如果添加一个祖先元素assistor，有两个祖先元素，一个用于辅助定位，一个用于包裹不定位的内容，这个问题就解决了。</p>
-<p>  实质上是child相对于assistorabsolute定位，parent内的内容自己负责展示。只要assistor和parent一样大，看起来就像是子元素child相对于父元素parent固定定位了。具体原理是position: absolute;的元素会相对于第一个设置了position: relative;的祖先元素进行定位，我们将assistor设置为position: reletive;，滚动条是在parent中的，这样”fixed”定位和parent内的内容滚动就都实现了。</p>
-  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">&quot;utf-8&quot;</span> /&gt;</span><br><span class="line">&lt;title&gt;<span class="built_in">test</span>&lt;/td&gt;&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">.assistor &#123;</span><br><span class="line">  position: relative; /*关键点*/</span><br><span class="line">  display: block;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 300px;</span><br><span class="line">  margin: 100px auto 0 auto;</span><br><span class="line">  background-color: <span class="comment">#ddd;</span></span><br><span class="line">&#125;</span><br><span class="line">.parent &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 300px;</span><br><span class="line">  background-color: <span class="comment">#888;</span></span><br><span class="line">  overflow: auto; /*关键点*/</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  position: absolute; /*关键点*/</span><br><span class="line">  width: 120px;</span><br><span class="line">  height: 120px;</span><br><span class="line">  margin: 100px 50px;</span><br><span class="line">  background-color: <span class="comment">#eee;</span></span><br><span class="line">&#125;</span><br><span class="line">.placeholder &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 1000px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div class=<span class="string">&quot;assistor&quot;</span>&gt;</span><br><span class="line">		&lt;div class=<span class="string">&quot;parent&quot;</span>&gt;</span><br><span class="line">		  &lt;div class=<span class="string">&quot;child&quot;</span>&gt;111&lt;/div&gt;</span><br><span class="line">		  &lt;div class=<span class="string">&quot;placeholder&quot;</span>&gt;</span><br><span class="line">			  1114561611&lt;br/&gt;11134111&lt;br/&gt;1111116761111&lt;br/&gt;1111111111111111111111</span><br><span class="line">			  11111111111111111111111111111111111111111111111111111111111</span><br><span class="line">			  1111111111111111111111111111111111111122222222222222222222</span><br><span class="line">			  22222222222222222222222222222222222222222222222222222222222</span><br><span class="line">			  222222222222222222222222&lt;br/&gt; 2222222222222222222222222222222</span><br><span class="line">			  22222222222222222222222222&lt;/div&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>HTML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>js基本数据类型有哪些，有什么区别？</title>
-    <url>/2020/08/24/js%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/</url>
-    <content><![CDATA[<p>一、JavaScript的数据类型：</p>
-<p>1、基本数据类型有这五种: Undefined、Null、String、Number、Boolean</p>
-<p>2、引用类型：当复制保存着对象的某个变量时，操作的是对象的引用，但在为对象添加属性时，操作的是实际的对象。引用类型值指那些可能为多个值构成的对象。引用类型值指那些可能为多个值构成的对象。</p>
-<p>3、引用类型有这几种：object、Array、RegExp、Date、Function、特殊的基本包装类型(String、Number、Boolean)以及单体内置对象(Global、Math)。</p>
-<p>二、基本类型和引用类型的区别</p>
-<p>1、基本类型的变量是存放在栈区的（栈区指内存里的栈内存）；</p>
-<p>2、引用类型的值是同时保存在栈内存和堆内存中的对象；</p>
-<p>3、基本类型的比较是值的比较；</p>
-<p>4、引用类型的比较是引用的比较；</p>
-<p>三、什么是栈内存，什么是堆内存，两者有什么区别？</p>
-<p><strong>栈内存</strong>：由程序自动向操作系统申请分配以及回收，速度快，使用方便，但程序员无法控制。若分配失败，则提示栈溢出错误。注意，const局部变量也储存在栈区内，栈区向地址减小的方向增长。</p>
-<p><strong>堆内存</strong>：程序员向操作系统申请一块内存，当系统收到程序的申请时，会遍历一个记录空闲内存地址的链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序。分配的速度较慢，地址不连续，容易碎片化。此外，由程序员申请，同时也必须由程序员负责销毁，否则则导致内存泄露。</p>
-<p>四、关于堆和栈区别的比喻：</p>
-<p>堆和栈的区别可以引用一位前辈的比喻来看出：使用栈就象我们去饭馆里吃饭，只管点菜（发出申请）、付钱、和吃（使用），吃饱了就走，不必理会切菜、洗菜等准备工作和洗碗、刷锅等扫尾工作，他的好处是快捷，但是自由度小。使用堆就象是自己动手做喜欢吃的菜肴，比较麻烦，但是比较符合自己的口味，而且自由度大。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>typeof与instanceof区别</title>
-    <url>/2020/08/02/typeof%E4%B8%8Einstanceof%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<blockquote>
-<p>typeof可以判断数据类型，但是无法判断array和object，如何解决?</p>
-</blockquote>
-<h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><p>用于判断数据类型，返回值为6个字符串，分别为<code>string</code>、<code>Boolean</code>、<code>number</code>、<code>function</code>、<code>object</code>、<code>undefined</code>。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var a = [34,4,3,54],</span><br><span class="line">    b = 34,</span><br><span class="line">    c = <span class="string">&#x27;adsfas&#x27;</span>,</span><br><span class="line">    d = <span class="function"><span class="title">function</span></span>()&#123;console.log(<span class="string">&#x27;我是函数&#x27;</span>)&#125;,</span><br><span class="line">    e = <span class="literal">true</span>,</span><br><span class="line">    f = null,</span><br><span class="line">    g;</span><br><span class="line"></span><br><span class="line">    console.log(typeof(a));//object</span><br><span class="line">    console.log(typeof(b));//number</span><br><span class="line">    console.log(typeof(c));//string</span><br><span class="line">    console.log(typeof(d));//<span class="keyword">function</span></span><br><span class="line">    console.log(typeof(e));//boolean</span><br><span class="line">    console.log(typeof(f));//object</span><br><span class="line">    console.log(typeof(g));//undefined</span><br></pre></td></tr></table></figure>
-<p>但是你可能会发现，<code>typeof</code>在判断<code>null</code>、<code>array</code>、<code>object</code>以及函数实例<code>（new + 函数）</code>时，得到的都是<code>object</code>。这使得在判断这些数据类型的时候，得不到真是的数据类型。由此引出<code>instanceof</code>。</p>
-<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>instance中文翻译为实例，因此instanceof的含义就不言而喻，判断该对象是谁的实例，同时我们也就知道instanceof是对象运算符。<br>这里的实例就牵扯到了对象的继承，它的判断就是根据原型链进行搜寻，在对象obj1的原型链上如果存在另一个对象obj2的原型属性，那么表达式（obj1 instanceof obj2）返回值为true；否则返回false。</p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p> typeof和instanceof都是用来判断变量类型的，两者的区别在于：</p>
-<ul>
-<li>typeof判断所有变量的类型，返回值有number，boolean，string，function，object，undefined。</li>
-<li>typeof对于丰富的对象实例，只能返回”Object”字符串。<br>instanceof用来判断对象，代码形式为obj1 instanceof obj2（obj1是否是obj2的实例），obj2必须为对象，否则会报错！其返回值为布尔值。</li>
-<li>instanceof可以对不同的对象实例进行判断，判断方法是根据对象的原型链依次向下查询，如果obj2的原型属性存在obj1的原型链上，（obj1 instanceof obj2）值为true。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>uni-app利用rich-text展示富文本内容,图片的宽度溢出屏幕</title>
-    <url>/2020/09/02/uni-app%E5%88%A9%E7%94%A8rich-text%E5%B1%95%E7%A4%BA%E5%AF%8C%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9-%E5%9B%BE%E7%89%87%E7%9A%84%E5%AE%BD%E5%BA%A6%E6%BA%A2%E5%87%BA%E5%B1%8F%E5%B9%95/</url>
-    <content><![CDATA[<p>一、在App.vue组件中（h5），直接在App.vue修改即可</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">uni-rich-text img &#123;</span><br><span class="line">    max-<span class="keyword">with</span>: <span class="number">100</span>% !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二、在小程序里面展示富文本内容，图片的宽度溢出屏幕的问题。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;rich-text :nodes=<span class="string">&quot;infos.content | formatRichText&quot;</span>&gt;&lt;/rich-text&gt; </span><br><span class="line">&lt;/template&gt;</span><br><span class="line">	<span class="built_in">export</span> default &#123;</span><br><span class="line">		<span class="function"><span class="title">data</span></span>() &#123;</span><br><span class="line">			<span class="built_in">return</span> &#123;&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		components: &#123;&#125;,</span><br><span class="line">		onLoad(option) &#123;&#125;,</span><br><span class="line">		filters: &#123;</span><br><span class="line">           /**</span><br><span class="line">			 * 处理富文本里的图片宽度自适应</span><br><span class="line">			 * 1.去掉img标签里的style、width、height属性</span><br><span class="line">			 * 2.img标签添加style属性：max-width:100%;height:auto</span><br><span class="line">			 * 3.修改所有style里的width属性为max-width:100%</span><br><span class="line">			 * 4.去掉&lt;br/&gt;标签</span><br><span class="line">			 * @param html</span><br><span class="line">			 * @returns &#123;void|string|*&#125;</span><br><span class="line">			 */    </span><br><span class="line">                     </span><br><span class="line">			formatRichText (html) &#123; </span><br><span class="line">        <span class="built_in">let</span> newContent= html.replace(/&lt;img[^&gt;]*&gt;/gi,<span class="keyword">function</span>(match,capture)&#123;</span><br><span class="line">            match = match.replace(/style=<span class="string">&quot;[^&quot;</span>]+<span class="string">&quot;/gi, &#x27;&#x27;).replace(/style=&#x27;[^&#x27;]+&#x27;/gi, &#x27;&#x27;);</span></span><br><span class="line"><span class="string">            match = match.replace(/width=&quot;</span>[^<span class="string">&quot;]+&quot;</span>/gi, <span class="string">&#x27;&#x27;</span>).replace(/width=<span class="string">&#x27;[^&#x27;</span>]+<span class="string">&#x27;/gi, &#x27;</span><span class="string">&#x27;);</span></span><br><span class="line"><span class="string">            match = match.replace(/height=&quot;[^&quot;]+&quot;/gi, &#x27;</span><span class="string">&#x27;).replace(/height=&#x27;</span>[^<span class="string">&#x27;]+&#x27;</span>/gi, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            <span class="built_in">return</span> match;</span><br><span class="line">        &#125;);</span><br><span class="line">        newContent = newContent.replace(/style=<span class="string">&quot;[^&quot;</span>]+<span class="string">&quot;/gi,function(match,capture)&#123;</span></span><br><span class="line"><span class="string">            match = match.replace(/width:[^;]+;/gi, &#x27;max-width:100%;&#x27;).replace(/width:[^;]+;/gi, &#x27;max-width:100%;&#x27;);</span></span><br><span class="line"><span class="string">            return match;</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">        newContent = newContent.replace(/&lt;br[^&gt;]*\/&gt;/gi, &#x27;&#x27;);</span></span><br><span class="line"><span class="string">        newContent = newContent.replace(/\&lt;img/gi, &#x27;&lt;img style=&quot;</span>max-width:100%;height:auto;display:inline-block;margin:10rpx auto;<span class="string">&quot;&#x27;);</span></span><br><span class="line"><span class="string">        return newContent;</span></span><br><span class="line"><span class="string">			&#125;       </span></span><br><span class="line"><span class="string">		&#125;,</span></span><br><span class="line"><span class="string">		methods: &#123;&#125;</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>uni-app</tag>
       </tags>
   </entry>
   <entry>
@@ -1824,6 +1782,57 @@
 ]]></content>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>table使用总结</title>
+    <url>/2020/11/13/table%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>1、(IE浏览器)使用 table-layout:fixed;强制table的宽度,内层td,th采用word-break : break-all;或者word-wrap : break-word ;换行</p>
+<h3 id="2、解决设置table中td宽度不生效"><a href="#2、解决设置table中td宽度不生效" class="headerlink" title="2、解决设置table中td宽度不生效"></a>2、解决设置table中td宽度不生效</h3><ul>
+<li><p>特性：table是一个整体，每一列td的宽度是由一个其中一个最长td的宽度决定的。</p>
+</li>
+<li><p>解决：一定要在table标签上加word-wrap: break-word; word-break: break-all;之后再设置百分比宽度就可以生效了(获取你用的bootstrap，可以添加col-md-1)</p>
+<p><a href="https://imgchr.com/i/DpvwdS"><img src="https://s3.ax1x.com/2020/11/13/DpvwdS.png" alt="DpvwdS.png"></a><br><a href="https://imgchr.com/i/DpvWZT"><img src="https://s3.ax1x.com/2020/11/13/DpvWZT.png" alt="DpvWZT.png"></a></p>
+<h1 id="让一个元素相对于父元素固定定位"><a href="#让一个元素相对于父元素固定定位" class="headerlink" title="让一个元素相对于父元素固定定位"></a>让一个元素相对于父元素固定定位</h1><p>遇到了一个场景，需要实现相对于父元素的fixed定位：在父元素内拖动滚动条时，”fixed”定位的元素不能滑动，在外层拖动滚动条时，父元素及父元素内的所有元素跟着一起滑动。但是position: fixed是相对于窗口进行的定位，不能直接实现我们需要的效果。</p>
+</li>
+</ul>
+<p>  让特定子元素相对于父元素”fixed”定位，也就是说，剩余的子元素不定位。那我们可以分开来想，如果添加一个祖先元素assistor，有两个祖先元素，一个用于辅助定位，一个用于包裹不定位的内容，这个问题就解决了。</p>
+<p>  实质上是child相对于assistorabsolute定位，parent内的内容自己负责展示。只要assistor和parent一样大，看起来就像是子元素child相对于父元素parent固定定位了。具体原理是position: absolute;的元素会相对于第一个设置了position: relative;的祖先元素进行定位，我们将assistor设置为position: reletive;，滚动条是在parent中的，这样”fixed”定位和parent内的内容滚动就都实现了。</p>
+  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">&quot;utf-8&quot;</span> /&gt;</span><br><span class="line">&lt;title&gt;<span class="built_in">test</span>&lt;/td&gt;&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">.assistor &#123;</span><br><span class="line">  position: relative; /*关键点*/</span><br><span class="line">  display: block;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 300px;</span><br><span class="line">  margin: 100px auto 0 auto;</span><br><span class="line">  background-color: <span class="comment">#ddd;</span></span><br><span class="line">&#125;</span><br><span class="line">.parent &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 300px;</span><br><span class="line">  background-color: <span class="comment">#888;</span></span><br><span class="line">  overflow: auto; /*关键点*/</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  position: absolute; /*关键点*/</span><br><span class="line">  width: 120px;</span><br><span class="line">  height: 120px;</span><br><span class="line">  margin: 100px 50px;</span><br><span class="line">  background-color: <span class="comment">#eee;</span></span><br><span class="line">&#125;</span><br><span class="line">.placeholder &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 1000px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div class=<span class="string">&quot;assistor&quot;</span>&gt;</span><br><span class="line">		&lt;div class=<span class="string">&quot;parent&quot;</span>&gt;</span><br><span class="line">		  &lt;div class=<span class="string">&quot;child&quot;</span>&gt;111&lt;/div&gt;</span><br><span class="line">		  &lt;div class=<span class="string">&quot;placeholder&quot;</span>&gt;</span><br><span class="line">			  1114561611&lt;br/&gt;11134111&lt;br/&gt;1111116761111&lt;br/&gt;1111111111111111111111</span><br><span class="line">			  11111111111111111111111111111111111111111111111111111111111</span><br><span class="line">			  1111111111111111111111111111111111111122222222222222222222</span><br><span class="line">			  22222222222222222222222222222222222222222222222222222222222</span><br><span class="line">			  222222222222222222222222&lt;br/&gt; 2222222222222222222222222222222</span><br><span class="line">			  22222222222222222222222222&lt;/div&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>typeof与instanceof区别</title>
+    <url>/2020/08/02/typeof%E4%B8%8Einstanceof%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<blockquote>
+<p>typeof可以判断数据类型，但是无法判断array和object，如何解决?</p>
+</blockquote>
+<h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><p>用于判断数据类型，返回值为6个字符串，分别为<code>string</code>、<code>Boolean</code>、<code>number</code>、<code>function</code>、<code>object</code>、<code>undefined</code>。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var a = [34,4,3,54],</span><br><span class="line">    b = 34,</span><br><span class="line">    c = <span class="string">&#x27;adsfas&#x27;</span>,</span><br><span class="line">    d = <span class="function"><span class="title">function</span></span>()&#123;console.log(<span class="string">&#x27;我是函数&#x27;</span>)&#125;,</span><br><span class="line">    e = <span class="literal">true</span>,</span><br><span class="line">    f = null,</span><br><span class="line">    g;</span><br><span class="line"></span><br><span class="line">    console.log(typeof(a));//object</span><br><span class="line">    console.log(typeof(b));//number</span><br><span class="line">    console.log(typeof(c));//string</span><br><span class="line">    console.log(typeof(d));//<span class="keyword">function</span></span><br><span class="line">    console.log(typeof(e));//boolean</span><br><span class="line">    console.log(typeof(f));//object</span><br><span class="line">    console.log(typeof(g));//undefined</span><br></pre></td></tr></table></figure>
+<p>但是你可能会发现，<code>typeof</code>在判断<code>null</code>、<code>array</code>、<code>object</code>以及函数实例<code>（new + 函数）</code>时，得到的都是<code>object</code>。这使得在判断这些数据类型的时候，得不到真是的数据类型。由此引出<code>instanceof</code>。</p>
+<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>instance中文翻译为实例，因此instanceof的含义就不言而喻，判断该对象是谁的实例，同时我们也就知道instanceof是对象运算符。<br>这里的实例就牵扯到了对象的继承，它的判断就是根据原型链进行搜寻，在对象obj1的原型链上如果存在另一个对象obj2的原型属性，那么表达式（obj1 instanceof obj2）返回值为true；否则返回false。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p> typeof和instanceof都是用来判断变量类型的，两者的区别在于：</p>
+<ul>
+<li>typeof判断所有变量的类型，返回值有number，boolean，string，function，object，undefined。</li>
+<li>typeof对于丰富的对象实例，只能返回”Object”字符串。<br>instanceof用来判断对象，代码形式为obj1 instanceof obj2（obj1是否是obj2的实例），obj2必须为对象，否则会报错！其返回值为布尔值。</li>
+<li>instanceof可以对不同的对象实例进行判断，判断方法是根据对象的原型链依次向下查询，如果obj2的原型属性存在obj1的原型链上，（obj1 instanceof obj2）值为true。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uni-app利用rich-text展示富文本内容,图片的宽度溢出屏幕</title>
+    <url>/2020/09/02/uni-app%E5%88%A9%E7%94%A8rich-text%E5%B1%95%E7%A4%BA%E5%AF%8C%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9-%E5%9B%BE%E7%89%87%E7%9A%84%E5%AE%BD%E5%BA%A6%E6%BA%A2%E5%87%BA%E5%B1%8F%E5%B9%95/</url>
+    <content><![CDATA[<p>一、在App.vue组件中（h5），直接在App.vue修改即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">uni-rich-text img &#123;</span><br><span class="line">    max-<span class="keyword">with</span>: <span class="number">100</span>% !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二、在小程序里面展示富文本内容，图片的宽度溢出屏幕的问题。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;rich-text :nodes=<span class="string">&quot;infos.content | formatRichText&quot;</span>&gt;&lt;/rich-text&gt; </span><br><span class="line">&lt;/template&gt;</span><br><span class="line">	<span class="built_in">export</span> default &#123;</span><br><span class="line">		<span class="function"><span class="title">data</span></span>() &#123;</span><br><span class="line">			<span class="built_in">return</span> &#123;&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		components: &#123;&#125;,</span><br><span class="line">		onLoad(option) &#123;&#125;,</span><br><span class="line">		filters: &#123;</span><br><span class="line">           /**</span><br><span class="line">			 * 处理富文本里的图片宽度自适应</span><br><span class="line">			 * 1.去掉img标签里的style、width、height属性</span><br><span class="line">			 * 2.img标签添加style属性：max-width:100%;height:auto</span><br><span class="line">			 * 3.修改所有style里的width属性为max-width:100%</span><br><span class="line">			 * 4.去掉&lt;br/&gt;标签</span><br><span class="line">			 * @param html</span><br><span class="line">			 * @returns &#123;void|string|*&#125;</span><br><span class="line">			 */    </span><br><span class="line">                     </span><br><span class="line">			formatRichText (html) &#123; </span><br><span class="line">        <span class="built_in">let</span> newContent= html.replace(/&lt;img[^&gt;]*&gt;/gi,<span class="keyword">function</span>(match,capture)&#123;</span><br><span class="line">            match = match.replace(/style=<span class="string">&quot;[^&quot;</span>]+<span class="string">&quot;/gi, &#x27;&#x27;).replace(/style=&#x27;[^&#x27;]+&#x27;/gi, &#x27;&#x27;);</span></span><br><span class="line"><span class="string">            match = match.replace(/width=&quot;</span>[^<span class="string">&quot;]+&quot;</span>/gi, <span class="string">&#x27;&#x27;</span>).replace(/width=<span class="string">&#x27;[^&#x27;</span>]+<span class="string">&#x27;/gi, &#x27;</span><span class="string">&#x27;);</span></span><br><span class="line"><span class="string">            match = match.replace(/height=&quot;[^&quot;]+&quot;/gi, &#x27;</span><span class="string">&#x27;).replace(/height=&#x27;</span>[^<span class="string">&#x27;]+&#x27;</span>/gi, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            <span class="built_in">return</span> match;</span><br><span class="line">        &#125;);</span><br><span class="line">        newContent = newContent.replace(/style=<span class="string">&quot;[^&quot;</span>]+<span class="string">&quot;/gi,function(match,capture)&#123;</span></span><br><span class="line"><span class="string">            match = match.replace(/width:[^;]+;/gi, &#x27;max-width:100%;&#x27;).replace(/width:[^;]+;/gi, &#x27;max-width:100%;&#x27;);</span></span><br><span class="line"><span class="string">            return match;</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">        newContent = newContent.replace(/&lt;br[^&gt;]*\/&gt;/gi, &#x27;&#x27;);</span></span><br><span class="line"><span class="string">        newContent = newContent.replace(/\&lt;img/gi, &#x27;&lt;img style=&quot;</span>max-width:100%;height:auto;display:inline-block;margin:10rpx auto;<span class="string">&quot;&#x27;);</span></span><br><span class="line"><span class="string">        return newContent;</span></span><br><span class="line"><span class="string">			&#125;       </span></span><br><span class="line"><span class="string">		&#125;,</span></span><br><span class="line"><span class="string">		methods: &#123;&#125;</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>uni-app</tag>
       </tags>
   </entry>
   <entry>
@@ -1889,6 +1898,15 @@
       </tags>
   </entry>
   <entry>
+    <title>vue的双向绑定原理及实现</title>
+    <url>/2020/08/02/vue%E7%9A%84%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<p><a class="link"   href="https://www.cnblogs.com/libin-1/p/6893712.html" >vue的双向绑定原理及实现<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>webpack性能优化——DLL</title>
     <url>/2020/09/27/webpack%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94DLL/</url>
     <content><![CDATA[<p>Webpack性能优化的方式有很多种，本文之所以将 dll 单独讲解，是因为 dll 是一种最简单粗暴并且极其有效的优化方式。</p>
@@ -1921,15 +1939,6 @@
 ]]></content>
       <tags>
         <tag>webpack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue的双向绑定原理及实现</title>
-    <url>/2020/08/02/vue%E7%9A%84%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<p><a class="link"   href="https://www.cnblogs.com/libin-1/p/6893712.html" >vue的双向绑定原理及实现<i class="fas fa-external-link-alt"></i></a></p>
-]]></content>
-      <tags>
-        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2478,33 +2487,6 @@ jsonp又是什么?
       </tags>
   </entry>
   <entry>
-    <title>变量提升必须注意的问题</title>
-    <url>/2020/08/02/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%BF%85%E9%A1%BB%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h4 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h4><p>在使用一个变量的时候，我们必须先声明一个变量，我们共有 <code>var</code>，<code>let</code>，<code>const</code> 这三个关键字可选择，具体使用哪个关键字，那就要根据业务场景来使用。声明一个变量可以赋值为任何数据类型的，因为JS的松散性，然后要注意的是声明变量的时候可以简写。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> a = 10, b = 20;</span><br></pre></td></tr></table></figure>
-<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><p>我们在使用变量或函数的时候，理解什么时候被初始化值的是至关重要。变量提升是指在声明一个变量之前就使用了变量，在全局作用域中，只有使用<code>var</code>关键字声明的变量才会变量提升，变量提升的时候浏览器只知道有这么一个变量，但你下面定义的值还没有赋值给这个变量，这时候变量的值是<code>undefined</code>的，等到浏览器执行到下面的代码的时候才是一个赋值的过程。所以变量提升的时候没有初始化值。用<code>var</code>声明变量的时候回给window增加一个相同变量名的属性，所以你也可以通过属性名的方式获取这个变量的值，当没有使用任何关键字声明时，只是给一个变量赋值时，变量也相当于给window增加一个相同变量名的属性。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">console.log(a); // -&gt; undefined</span><br><span class="line">var a = 10;</span><br><span class="line">console.log(a); // -&gt; 10</span><br><span class="line">console.log(window.a); // -&gt; 10</span><br><span class="line"></span><br><span class="line">b = 10;</span><br><span class="line">console.log(window.b); // -&gt; 10</span><br></pre></td></tr></table></figure>
-<h4 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h4><p>定义一个函数可以使用函数声明和函数表达式，这两种方式在提升的时候也是有区别的，函数声明会提升到作用域的顶部，在提升的时候会分配一个内存空间，变量指向这个函数的内存空间，所以在定义一个函数之前是可以执行这个函数的，函数声明的方式定义函数会提升。而函数表达式就跟变量提升，仅仅只是声明，并没有给其赋值。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">fn1() // -&gt; <span class="string">&quot;函数声明&quot;</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn1</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">&quot;函数声明&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn2() // -&gt; <span class="string">&quot;fn2 is not a function&quot;</span></span><br><span class="line">var fn2 = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">&quot;函数表达式&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="重复声明"><a href="#重复声明" class="headerlink" title="重复声明"></a>重复声明</h4><p>用<code>var</code>可以重复声明同一个变量，如果重复声明了，就相当于给变量赋值一样，用<code>let</code>和<code>const</code>在同一个作用域中是不可以重复声明同一个变量的，如果重复声明了会报错。关于函数表达式，如果重复的定义相同函数名的函数，后面的会覆盖前面的函数，因为JavaScript没有重载。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var a = 10;</span><br><span class="line">var a = 100;</span><br><span class="line">console.log(a); // -&gt; 100</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">&quot;第一个fn函数&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">&quot;第二个fn函数&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">console.log(fn()) // -&gt; <span class="string">&quot;第二个fn函数&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h4><p>1、在块级作用域中（如<code>if</code>，<code>for</code>），<code>var</code>声明变量<code>function</code>定义函数的时候，他们都是只声明但还未初始化值。2、<code>return</code>语句下面的语句也是会提升的，变量是只提前声明，函数是声明跟初始化值一起完成。3、<code>return</code>本身这条语句不会提升。4、自执行函数不会提升。5、回调函数不会提升。</p>
-<h5 id="综合练习"><a href="#综合练习" class="headerlink" title="综合练习"></a>综合练习</h5><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">b</span></span>() &#123;</span><br><span class="line">  a = 10;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">a</span></span>() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">b();</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure>
-<p>答案：1</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">foo</span></span>()&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">bar</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> 3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> bar();</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">bar</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> 8;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(foo());</span><br></pre></td></tr></table></figure>
-<p>答案：8</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">parent</span></span>() &#123;</span><br><span class="line">    var hoisted = <span class="string">&quot;I&#x27;m a variable&quot;</span>;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">hoisted</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="string">&quot;I&#x27;m a function&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> hoisted(); </span><br><span class="line">&#125;</span><br><span class="line">console.log(parent());</span><br></pre></td></tr></table></figure>
-<p>答案：“TypeError: hoisted is not a function”</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">alert(foo());</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">foo</span></span>() &#123;</span><br><span class="line">  var bar = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> 3;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">return</span> bar();</span><br><span class="line">  var bar = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> 8;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>答案：3</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var myVar = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">  console.log(<span class="string">&#x27;Original value was: &#x27;</span> + myVar);</span><br><span class="line">  var myVar = <span class="string">&#x27;bar&#x27;</span>;</span><br><span class="line">  console.log(<span class="string">&#x27;New value is: &#x27;</span> + myVar);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-<p>答案：“Original value was: undefined”, “New value is: bar”</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>前端样式导入的方式有哪些？</title>
     <url>/2020/12/07/%E5%89%8D%E7%AB%AF%E6%A0%B7%E5%BC%8F%E5%AF%BC%E5%85%A5%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
     <content><![CDATA[<h4 id="样式导入方式"><a href="#样式导入方式" class="headerlink" title="样式导入方式"></a>样式导入方式</h4><ul>
@@ -2534,6 +2516,33 @@ jsonp又是什么?
 ]]></content>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>变量提升必须注意的问题</title>
+    <url>/2020/08/02/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%BF%85%E9%A1%BB%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h4 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h4><p>在使用一个变量的时候，我们必须先声明一个变量，我们共有 <code>var</code>，<code>let</code>，<code>const</code> 这三个关键字可选择，具体使用哪个关键字，那就要根据业务场景来使用。声明一个变量可以赋值为任何数据类型的，因为JS的松散性，然后要注意的是声明变量的时候可以简写。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> a = 10, b = 20;</span><br></pre></td></tr></table></figure>
+<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><p>我们在使用变量或函数的时候，理解什么时候被初始化值的是至关重要。变量提升是指在声明一个变量之前就使用了变量，在全局作用域中，只有使用<code>var</code>关键字声明的变量才会变量提升，变量提升的时候浏览器只知道有这么一个变量，但你下面定义的值还没有赋值给这个变量，这时候变量的值是<code>undefined</code>的，等到浏览器执行到下面的代码的时候才是一个赋值的过程。所以变量提升的时候没有初始化值。用<code>var</code>声明变量的时候回给window增加一个相同变量名的属性，所以你也可以通过属性名的方式获取这个变量的值，当没有使用任何关键字声明时，只是给一个变量赋值时，变量也相当于给window增加一个相同变量名的属性。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">console.log(a); // -&gt; undefined</span><br><span class="line">var a = 10;</span><br><span class="line">console.log(a); // -&gt; 10</span><br><span class="line">console.log(window.a); // -&gt; 10</span><br><span class="line"></span><br><span class="line">b = 10;</span><br><span class="line">console.log(window.b); // -&gt; 10</span><br></pre></td></tr></table></figure>
+<h4 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h4><p>定义一个函数可以使用函数声明和函数表达式，这两种方式在提升的时候也是有区别的，函数声明会提升到作用域的顶部，在提升的时候会分配一个内存空间，变量指向这个函数的内存空间，所以在定义一个函数之前是可以执行这个函数的，函数声明的方式定义函数会提升。而函数表达式就跟变量提升，仅仅只是声明，并没有给其赋值。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">fn1() // -&gt; <span class="string">&quot;函数声明&quot;</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn1</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">&quot;函数声明&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn2() // -&gt; <span class="string">&quot;fn2 is not a function&quot;</span></span><br><span class="line">var fn2 = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">&quot;函数表达式&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="重复声明"><a href="#重复声明" class="headerlink" title="重复声明"></a>重复声明</h4><p>用<code>var</code>可以重复声明同一个变量，如果重复声明了，就相当于给变量赋值一样，用<code>let</code>和<code>const</code>在同一个作用域中是不可以重复声明同一个变量的，如果重复声明了会报错。关于函数表达式，如果重复的定义相同函数名的函数，后面的会覆盖前面的函数，因为JavaScript没有重载。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var a = 10;</span><br><span class="line">var a = 100;</span><br><span class="line">console.log(a); // -&gt; 100</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">&quot;第一个fn函数&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">&quot;第二个fn函数&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">console.log(fn()) // -&gt; <span class="string">&quot;第二个fn函数&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h4><p>1、在块级作用域中（如<code>if</code>，<code>for</code>），<code>var</code>声明变量<code>function</code>定义函数的时候，他们都是只声明但还未初始化值。2、<code>return</code>语句下面的语句也是会提升的，变量是只提前声明，函数是声明跟初始化值一起完成。3、<code>return</code>本身这条语句不会提升。4、自执行函数不会提升。5、回调函数不会提升。</p>
+<h5 id="综合练习"><a href="#综合练习" class="headerlink" title="综合练习"></a>综合练习</h5><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">b</span></span>() &#123;</span><br><span class="line">  a = 10;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">a</span></span>() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">b();</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure>
+<p>答案：1</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">foo</span></span>()&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">bar</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> 3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> bar();</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">bar</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> 8;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(foo());</span><br></pre></td></tr></table></figure>
+<p>答案：8</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">parent</span></span>() &#123;</span><br><span class="line">    var hoisted = <span class="string">&quot;I&#x27;m a variable&quot;</span>;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">hoisted</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="string">&quot;I&#x27;m a function&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> hoisted(); </span><br><span class="line">&#125;</span><br><span class="line">console.log(parent());</span><br></pre></td></tr></table></figure>
+<p>答案：“TypeError: hoisted is not a function”</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">alert(foo());</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">foo</span></span>() &#123;</span><br><span class="line">  var bar = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> 3;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">return</span> bar();</span><br><span class="line">  var bar = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> 8;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>答案：3</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">var myVar = <span class="string">&#x27;foo&#x27;</span>;</span><br><span class="line">(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">  console.log(<span class="string">&#x27;Original value was: &#x27;</span> + myVar);</span><br><span class="line">  var myVar = <span class="string">&#x27;bar&#x27;</span>;</span><br><span class="line">  console.log(<span class="string">&#x27;New value is: &#x27;</span> + myVar);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>答案：“Original value was: undefined”, “New value is: bar”</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2833,12 +2842,21 @@ jsonp又是什么?
       </tags>
   </entry>
   <entry>
-    <title>flex</title>
-    <url>/2020/08/02/flex/</url>
-    <content><![CDATA[<p><a class="link"   href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" >Flex 布局教程：语法篇<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" >Flex 布局教程：实例篇<i class="fas fa-external-link-alt"></i></a><br><a class="link"   href="http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html" >grid布局<i class="fas fa-external-link-alt"></i></a></p>
+    <title>解决JavaScript中0.1+0.2不等于0.3的问题</title>
+    <url>/2020/08/24/%E8%A7%A3%E5%86%B3JavaScript%E4%B8%AD0-1-0-2%E4%B8%8D%E7%AD%89%E4%BA%8E0-3%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>此问题主要是考察对JavaScript的理解层度。</p>
+<p>在正常的数学逻辑思维中，0.1+0.2=0.3这个逻辑是正确的，但是在JavaScript中0.1+0.2！==0.3。</p>
+<p>在JavaScript中的二进制的浮点数0.1和0.2并不是十分精确，在他们相加的结果并非正好等于0.3，而是一个比较接近的数字 0.30000000000000004 ，所以条件判断结果为false。</p>
+<p><strong>解决办法：</strong></p>
+<p>设置一个误差范围值，通常称为”机器精度“，而对于Javascript来说，这个值通常是2^-52,而在ES6中，已经为我们提供了这样一个<br>属性：Number.EPSILON，而这个值正等于2^-52。这个值非常非常小，在底层计算机已经帮我们运算好，并且无限接近0，但不等于0,。这个时候我们只要判断(0.1+0.2)-0.3小于Number.EPSILON，在这个误差的范围内就可以判定0.1+0.2===0.3为true。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numbersequal</span>(<span class="params">a,b</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(a-b)&lt;<span class="built_in">Number</span>.EPSILON;</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> a=<span class="number">0.1</span>+<span class="number">0.2</span>， b=<span class="number">0.3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(numbersequal(a,b)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>完美的兼容写法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Number</span>.EPSILON=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;   <span class="comment">//解决兼容性问题</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>.EPSILON?<span class="built_in">Number</span>.EPSILON:<span class="built_in">Math</span>.pow(<span class="number">2</span>,-<span class="number">52</span>);</span><br><span class="line">      &#125;)();</span><br><span class="line"><span class="comment">//上面是一个自调用函数，当JS文件刚加载到内存中，就会去判断并返回一个结果，相比if(!Number.EPSILON)&#123;</span></span><br><span class="line">  <span class="comment">//   Number.EPSILON=Math.pow(2,-52);</span></span><br><span class="line">  <span class="comment">//&#125;这种代码更节约性能，也更美观。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numbersequal</span>(<span class="params">a,b</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(a-b)&lt;<span class="built_in">Number</span>.EPSILON;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//接下来再判断   </span></span><br><span class="line"><span class="keyword">var</span> a=<span class="number">0.1</span>+<span class="number">0.2</span>, b=<span class="number">0.3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(numbersequal(a,b)); <span class="comment">//这里就为true了</span></span><br></pre></td></tr></table></figure>
+<p>这个是二进制浮点数最大的问题（不仅JavaScript，所有遵循IEEE 754规范的语言都是如此）。</p>
+<p>　　注意：有人认为，JavaScript应该采用一种可以精确呈现数字的实现方式。一直以来出现过很多替代方案，只是都没能成为标准，以后大概也不会。这个问题看似简单，实则不然，否则早就解决了。</p>
 ]]></content>
       <tags>
-        <tag>flex</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2889,6 +2907,90 @@ jsonp又是什么?
 ]]></content>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>谈谈对闭包的理解</title>
+    <url>/2020/09/28/%E8%B0%88%E8%B0%88%E5%AF%B9%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包常用的方式是在一个函数中创建另一个函数，通过另一个函数访问这个函数的局部变量</p>
+<h4 id="2、特性"><a href="#2、特性" class="headerlink" title="2、特性"></a>2、特性</h4><ul>
+<li>函数嵌套函数</li>
+<li>在函数内部可以引用外部的参数和变量</li>
+<li>参数和变量不会以垃圾回收机制回收</li>
+</ul>
+<h4 id="3、优点"><a href="#3、优点" class="headerlink" title="3、优点"></a>3、优点</h4><ul>
+<li>设计私有的方法和变量</li>
+<li>利用闭包可以读取函数内部的变量，变量在函数外部不能直接读取到，从而达到保护变量安全的作用。因为私有方法在函数内部都能被访问到，从而实现了私有属性和方法的共享。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Counter = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">//私有属性</span></span><br><span class="line"><span class="keyword">var</span> privateCounter = <span class="number">0</span>; </span><br><span class="line"><span class="comment">//私有方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeBy</span>(<span class="params">val</span>) </span>&#123; </span><br><span class="line">    privateCounter += val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    increment: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    changeBy(<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    changeBy(-<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> privateCounter;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line">&#125;)();</span><br><span class="line"><span class="built_in">console</span>.log(privateCounter); <span class="comment">//privateCounter is not defined </span></span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 0</span></span><br><span class="line">Counter.increment();</span><br><span class="line">Counter.increment();</span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 2</span></span><br><span class="line">Counter.decrement();</span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+在jQuery框架的私有方法和变量也是这么设计的<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> jQuery.fn.init();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">    init:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;  <span class="comment">//this指向jQuery.prototype</span></span><br><span class="line">    &#125;,</span><br><span class="line">    length: <span class="number">1</span>,</span><br><span class="line">    size: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log($().size()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></li>
+<li>将处理结果缓存<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mult = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(vari=<span class="number">0</span>,l=<span class="built_in">arguments</span>.length;i&lt;l;i++)&#123;</span><br><span class="line">            a = a*<span class="built_in">arguments</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;    </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>,<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span>(args <span class="keyword">in</span> cache)&#123;</span><br><span class="line">            <span class="keyword">return</span> cache[args];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache[args] = calculate.apply(<span class="literal">null</span>,<span class="built_in">arguments</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h4 id="4、缺点"><a href="#4、缺点" class="headerlink" title="4、缺点"></a>4、缺点</h4></li>
+<li>闭包会常驻内存，增加内存使用量，使用不当很容易造成内存泄漏。在JavaScript中，函数即闭包，只有函数才会产生作用域。</li>
+<li>当返回的函数为匿名函数时，注意匿名函数中的this指的是window对象。</li>
+</ul>
+<h4 id="5、什么是内存泄漏？"><a href="#5、什么是内存泄漏？" class="headerlink" title="5、什么是内存泄漏？"></a>5、什么是内存泄漏？</h4><p>内存泄漏（Memory Leak）是指不再用到的内存，没有及时释放。</p>
+<h4 id="6、JavaScript垃圾回收机制原理"><a href="#6、JavaScript垃圾回收机制原理" class="headerlink" title="6、JavaScript垃圾回收机制原理"></a>6、JavaScript垃圾回收机制原理</h4><p>解决内存的泄露，垃圾回收机制会定期（周期性）找出那些不再用到的内存（变量），然后释放其内存。<br>现在各大浏览器通常采用的垃圾回收机制有两种方法：标记清除，引用计数。</p>
+<blockquote>
+<p>标记清除：</p>
+</blockquote>
+<p>js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在一个函数中声明一个变量，就将这个变量标记为”进入环境”，从逻辑上讲，永远不能释放进入环境变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为”离开环境”。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">//被标记&quot;进入环境&quot;</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="string">&quot;hello&quot;</span>;    <span class="comment">//被标记&quot;进入环境&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">test();    <span class="comment">//执行完毕后之后，a和b又被标记&quot;离开环境&quot;，被回收</span></span><br></pre></td></tr></table></figure>
+<p>垃圾回收机制在运行的时候会给存储再内存中的所有变量都加上标记（可以是任何标记方式），然后，它会去掉处在环境中的变量及被环境中的变量引用的变量标记（闭包）。而在此之后剩下的带有标记的变量被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后垃圾回收机制到下一个周期运行时，将释放这些变量的内存，回收它们所占用的空间。</p>
+<p>到目前为止，IE、Firefox、Opera、Chrome、Safari的js实现使用的都是标记清除的垃圾回收策略或类似的策略，只不过垃圾收集的时间间隔互不相同。</p>
+<blockquote>
+<p>引用计数：</p>
+</blockquote>
+<p>语言引擎有一张”引用表”，保存了内存里面所有资源（通常是各种值）的引用次数。如果一个值的引用次数是0，就表示这个值不再用到了，因此可以将这块内存释放。</p>
+<p><a href="https://imgchr.com/i/Bz6jVe"><img src="https://s3.ax1x.com/2020/11/12/Bz6jVe.png" alt="Bz6jVe.png"></a></p>
+<p>上图中，左下角的两个值，没有任何引用，所以可以释放。</p>
+<p>如果一个值不再需要了，引用数却不为0，垃圾回收机制无法释放这块内存，从而导致内存泄漏。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">console.log(<span class="string">&quot;hello world&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>上面的代码中，数组[1,2,3,4]是一个值，会占用内存。变量arr是仅有的对这个值的引用，因此引用次数为1。尽管后面的代码没有用到arr，它是会持续占用内存。<br>如果增加一行代码，解除arr对[1,2,3,4]引用，这块内存就可以被垃圾回收机制释放了。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [1,2,3,4];</span><br><span class="line">console.log(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">arr = null;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，arr重置为null，就解除了对[1，2，3，4]的引用，引用次数变成了0，内存就可以释放出来了。</p>
+<p>因此，并不是说有了垃圾回收机制，程序员就轻松了。你还是需要关注内存占用：那些很占空间的值，一旦不再用到，你必须检查是否还存在对它们的引用。如果是的话，就必须手动解除引用</p>
+<h4 id="7、内存泄漏的识别方法"><a href="#7、内存泄漏的识别方法" class="headerlink" title="7、内存泄漏的识别方法"></a>7、内存泄漏的识别方法</h4><p>怎样可以观察到内存泄漏呢？</p>
+<p>如果连续五次垃圾回收之后，内存占用一次比一次大，就有内存泄漏。这就要求实时查看内存占用。</p>
+<ul>
+<li>1、浏览器<br>Chrome 浏览器查看内存占用，按照以下步骤操作。</li>
+</ul>
+<p><a href="https://imgchr.com/i/BzcrZD"><img src="https://s3.ax1x.com/2020/11/12/BzcrZD.png" alt="BzcrZD.png"></a></p>
+<blockquote>
+<p>1、打开开发者工具，选择 Timeline 面板<br> 2、在顶部的Capture字段里面勾选 Memory<br> 3、点击左上角的录制按钮。<br> 4、在页面上进行各种操作，模拟用户的使用情况。<br> 5、一段时间后，点击对话框的 stop 按钮，面板上就会显示这段时间的内存占用情况。</p>
+</blockquote>
+<p> 如果内存占用基本平稳，接近水平，就说明不存在内存泄漏。</p>
+<p><a href="https://imgchr.com/i/BzgPY9"><img src="https://s3.ax1x.com/2020/11/12/BzgPY9.png" alt="BzgPY9.png"></a></p>
+<p>反之，就是内存泄漏了。<br><a href="https://imgchr.com/i/BzgMYd"><img src="https://s3.ax1x.com/2020/11/12/BzgMYd.png" alt="BzgMYd.png"></a></p>
+<ul>
+<li>2、命令行<br>命令行可以使用 Node 提供的<a class="link"   href="https://nodejs.org/api/process.html#process_process_memoryusage" >process.memoryUsage<i class="fas fa-external-link-alt"></i></a>方法。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">console.log(process.memoryUsage());</span><br><span class="line">// &#123; rss: 27709440,</span><br><span class="line">//  heapTotal: 5685248,</span><br><span class="line">//  heapUsed: 3449392,</span><br><span class="line">//  external: 8772 &#125;</span><br></pre></td></tr></table></figure>
+<p>process.memoryUsage返回一个对象，包含了 Node 进程的内存占用信息。该对象包含四个字段，单位是字节，含义如下。</p>
+<p> <a href="https://imgchr.com/i/Bzg4pR"><img src="https://s3.ax1x.com/2020/11/12/Bzg4pR.png" alt="Bzg4pR.png"></a></p>
+<blockquote>
+<p>1、rss（resident set size）：所有内存占用，包括指令区和堆栈。<br>   2、heapTotal：”堆”占用的内存，包括用到的和没用到的。<br>   3、heapUsed：用到的堆的部分。<br>   4、external： V8 引擎内部的 C++ 对象占用的内存。</p>
+</blockquote>
+<p>判断内存泄漏，以heapUsed字段为准。</p>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>前面说过，及时清除引用非常重要。但是，你不可能记得那么多，有时候一疏忽就忘了，所以才有那么多内存泄漏。</p>
+<p>最好能有一种方法，在新建引用的时候就声明，哪些引用必须手动清除，哪些引用可以忽略不计，当其他引用消失以后，垃圾回收机制就可以释放内存。这样就能大大减轻程序员的负担，你只要清除主要引用就可以了。</p>
+<p>ES6 考虑到了这一点，推出了两种新的数据结构：WeakSet 和 WeakMap。它们对于值的引用都是不计入垃圾回收机制的，所以名字里面才会有一个”Weak”，表示这是弱引用。</p>
+<p>下面以 WeakMap 为例，看看它是怎么解决内存泄漏的。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">const wm = new WeakMap();</span><br><span class="line"> </span><br><span class="line">const element = document.getElementById(<span class="string">&#x27;example&#x27;</span>);</span><br><span class="line"> </span><br><span class="line">wm.set(element, <span class="string">&#x27;some information&#x27;</span>);</span><br><span class="line">wm.get(element) // <span class="string">&quot;some information&quot;</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，先新建一个 Weakmap 实例。然后，将一个 DOM 节点作为键名存入该实例，并将一些附加信息作为键值，一起存放在 WeakMap 里面。这时，WeakMap 里面对element的引用就是弱引用，不会被计入垃圾回收机制。</p>
+<p>也就是说，DOM 节点对象的引用计数是1，而不是2。这时，一旦消除对该节点的引用，它占用的内存就会被垃圾回收机制释放。Weakmap 保存的这个键值对，也会自动消失。</p>
+<p>基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。</p>
+<h3 id="WeakMap-示例"><a href="#WeakMap-示例" class="headerlink" title="WeakMap 示例"></a>WeakMap 示例</h3><p><a class="link"   href="https://github.com/ruanyf/es6tutorial/issues/362#issuecomment-292109104" >根据这个思路<i class="fas fa-external-link-alt"></i></a></p>
+<p>首先，打开 Node 命令行。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ node --expose-gc</span><br></pre></td></tr></table></figure>
+<p>上面代码中，–expose-gc参数表示允许手动执行垃圾回收机制。</p>
+<p>然后，执行下面的代码。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">// 手动执行一次垃圾回收，保证获取的内存使用状态准确</span><br><span class="line">&gt; global.gc(); </span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 查看内存占用的初始状态，heapUsed 为 4M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 21106688,</span><br><span class="line">  heapTotal: 7376896,</span><br><span class="line">  heapUsed: 4153936,</span><br><span class="line">  external: 9059 &#125;</span><br><span class="line"> </span><br><span class="line">&gt; <span class="built_in">let</span> wm = new WeakMap();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">&gt; <span class="built_in">let</span> b = new Object();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 此时，heapUsed 仍然为 4M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 20537344,</span><br><span class="line">  heapTotal: 9474048,</span><br><span class="line">  heapUsed: 3967272,</span><br><span class="line">  external: 8993 &#125;</span><br><span class="line"> </span><br><span class="line">// 在 WeakMap 中添加一个键值对，</span><br><span class="line">// 键名为对象 b，键值为一个 5*1024*1024 的数组  </span><br><span class="line">&gt; wm.set(b, new Array(5*1024*1024));</span><br><span class="line">WeakMap &#123;&#125;</span><br><span class="line"> </span><br><span class="line">// 手动执行一次垃圾回收</span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 此时，heapUsed 为 45M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 62652416,</span><br><span class="line">  heapTotal: 51437568,</span><br><span class="line">  heapUsed: 45911664,</span><br><span class="line">  external: 8951 &#125;</span><br><span class="line"> </span><br><span class="line">// 解除对象 b 的引用  </span><br><span class="line">&gt; b = null;</span><br><span class="line">null</span><br><span class="line"> </span><br><span class="line">// 再次执行垃圾回收</span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 解除 b 的引用以后，heapUsed 变回 4M 左右</span><br><span class="line">// 说明 WeakMap 中的那个长度为 5*1024*1024 的数组被销毁了</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 20639744,</span><br><span class="line">  heapTotal: 8425472,</span><br><span class="line">  heapUsed: 3979792,</span><br><span class="line">  external: 8956 &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，只要外部的引用消失，WeakMap 内部的引用，就会自动被垃圾回收清除。由此可见，有了它的帮助，解决内存泄漏就会简单很多。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><a class="link"   href="http://newhtml.net/v8-garbage-collection/" >更深入一些的讲解<i class="fas fa-external-link-alt"></i></a></p>
+<p>没有被引用的对象就是垃圾，就是要被清除。</p>
+<p><a class="link"   href="https://www.jianshu.com/p/a8a04fd00c3c" >其他的算法参考这里<i class="fas fa-external-link-alt"></i></a></p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -3140,108 +3242,6 @@ jsonp又是什么?
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">matchesPattern</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="regexp">/^\d&#123;3&#125;-\d&#123;3&#125;-\d&#123;4&#125;/</span>.test(str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">本题需要注意格式，开头 ^ 和结尾 $ 必须加上来限定字符串，<span class="number">3</span>个数可表示为\d&#123;<span class="number">3</span>&#125;，<span class="number">4</span>个数则为\d&#123;<span class="number">4</span>&#125;，&#123;n&#125;表示前面内容出现的次数。正则表达式可写作 /^ \d&#123;<span class="number">3</span>&#125;-\d&#123;<span class="number">3</span>&#125;-\d&#123;<span class="number">4</span>&#125;$ / ，有相同部分\d&#123;<span class="number">3</span>&#125;-，因此也可写作 /^(\d&#123;<span class="number">3</span>&#125;-)&#123;<span class="number">2</span>&#125;\d&#123;<span class="number">4</span>&#125;$/。</span><br></pre></td></tr></table></figure>
 <h4 id="45、判断是否符合-USD-格式"><a href="#45、判断是否符合-USD-格式" class="headerlink" title="45、判断是否符合 USD 格式"></a>45、判断是否符合 USD 格式</h4><p><a href="https://imgchr.com/i/B86HeO"><img src="https://s1.ax1x.com/2020/10/29/B86HeO.jpg" alt="B86HeO.jpg"></a></p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isUSD</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="regexp">/^\$\d&#123;1,3&#125;(,\d&#123;3&#125;)*(\.\d&#123;2&#125;)?$/</span>.test(str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">? 匹配前面一个表达式<span class="number">0</span>次或者<span class="number">1</span>次。等价于 &#123;<span class="number">0</span>,<span class="number">1</span>&#125;。</span><br><span class="line">例如，/e?le?/ 匹配 <span class="string">&#x27;angel&#x27;</span> 中的 <span class="string">&#x27;el&#x27;</span>，和 <span class="string">&#x27;angle&#x27;</span> 中的 <span class="string">&#x27;le&#x27;</span> </span><br><span class="line">(注意第二个 ? 前面的匹配表达式是 e 而不是 le) 以及 <span class="string">&#x27;oslo&#x27;</span> 中的<span class="string">&#x27;l&#x27;</span>。</span><br><span class="line"></span><br><span class="line">如果紧跟在任何量词 *、 +、? 或 &#123;&#125; 的后面，将会使量词变为非贪婪的（匹配尽量少的字符），和缺省</span><br><span class="line">使用的贪婪模式（匹配尽可能多的字符）正好相反。</span><br><span class="line">例如，对 <span class="string">&quot;123abc&quot;</span> 应用 /\d+<span class="regexp">/ 将会返回 &quot;123&quot;，如果使用 /</span>\d+?/,那么就只会匹配到 <span class="string">&quot;1&quot;</span>。</span><br><span class="line">还可以运用于向前断言 正向肯定查找x(?=y) 和 正向否定查找x(?!y) 。</span><br><span class="line"></span><br><span class="line">* 匹配前一个表达式<span class="number">0</span>次或多次。等价于 &#123;<span class="number">0</span>,&#125;。</span><br><span class="line">例如，/bo*/会匹配 <span class="string">&quot;A ghost boooooed&quot;</span> 中的 <span class="string">&#x27;booooo&#x27;</span> 和 <span class="string">&quot;A bird warbled&quot;</span> 中的 <span class="string">&#x27;b&#x27;</span>, </span><br><span class="line">但是在 <span class="string">&quot;A goat grunted&quot;</span> 中将不会匹配任何东西。</span><br><span class="line"></span><br><span class="line">. (小数点)匹配  除了换行符（\n）之外的任何单个字符。</span><br><span class="line">例如, <span class="regexp">/.n/</span>将会匹配<span class="string">&quot;nay, an apple is on the tree&quot;</span>中的<span class="string">&#x27;an&#x27;</span>和<span class="string">&#x27;on&#x27;</span>, 但是不会匹配 <span class="string">&#x27;nay&#x27;</span>。</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>谈谈对闭包的理解</title>
-    <url>/2020/09/28/%E8%B0%88%E8%B0%88%E5%AF%B9%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包常用的方式是在一个函数中创建另一个函数，通过另一个函数访问这个函数的局部变量</p>
-<h4 id="2、特性"><a href="#2、特性" class="headerlink" title="2、特性"></a>2、特性</h4><ul>
-<li>函数嵌套函数</li>
-<li>在函数内部可以引用外部的参数和变量</li>
-<li>参数和变量不会以垃圾回收机制回收</li>
-</ul>
-<h4 id="3、优点"><a href="#3、优点" class="headerlink" title="3、优点"></a>3、优点</h4><ul>
-<li>设计私有的方法和变量</li>
-<li>利用闭包可以读取函数内部的变量，变量在函数外部不能直接读取到，从而达到保护变量安全的作用。因为私有方法在函数内部都能被访问到，从而实现了私有属性和方法的共享。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Counter = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">//私有属性</span></span><br><span class="line"><span class="keyword">var</span> privateCounter = <span class="number">0</span>; </span><br><span class="line"><span class="comment">//私有方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeBy</span>(<span class="params">val</span>) </span>&#123; </span><br><span class="line">    privateCounter += val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    increment: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    changeBy(<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    changeBy(-<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> privateCounter;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line">&#125;)();</span><br><span class="line"><span class="built_in">console</span>.log(privateCounter); <span class="comment">//privateCounter is not defined </span></span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 0</span></span><br><span class="line">Counter.increment();</span><br><span class="line">Counter.increment();</span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 2</span></span><br><span class="line">Counter.decrement();</span><br><span class="line"><span class="built_in">console</span>.log(Counter.value()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-在jQuery框架的私有方法和变量也是这么设计的<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> jQuery.fn.init();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">    init:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;  <span class="comment">//this指向jQuery.prototype</span></span><br><span class="line">    &#125;,</span><br><span class="line">    length: <span class="number">1</span>,</span><br><span class="line">    size: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log($().size()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></li>
-<li>将处理结果缓存<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mult = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(vari=<span class="number">0</span>,l=<span class="built_in">arguments</span>.length;i&lt;l;i++)&#123;</span><br><span class="line">            a = a*<span class="built_in">arguments</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;    </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>,<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span>(args <span class="keyword">in</span> cache)&#123;</span><br><span class="line">            <span class="keyword">return</span> cache[args];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache[args] = calculate.apply(<span class="literal">null</span>,<span class="built_in">arguments</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-<h4 id="4、缺点"><a href="#4、缺点" class="headerlink" title="4、缺点"></a>4、缺点</h4></li>
-<li>闭包会常驻内存，增加内存使用量，使用不当很容易造成内存泄漏。在JavaScript中，函数即闭包，只有函数才会产生作用域。</li>
-<li>当返回的函数为匿名函数时，注意匿名函数中的this指的是window对象。</li>
-</ul>
-<h4 id="5、什么是内存泄漏？"><a href="#5、什么是内存泄漏？" class="headerlink" title="5、什么是内存泄漏？"></a>5、什么是内存泄漏？</h4><p>内存泄漏（Memory Leak）是指不再用到的内存，没有及时释放。</p>
-<h4 id="6、JavaScript垃圾回收机制原理"><a href="#6、JavaScript垃圾回收机制原理" class="headerlink" title="6、JavaScript垃圾回收机制原理"></a>6、JavaScript垃圾回收机制原理</h4><p>解决内存的泄露，垃圾回收机制会定期（周期性）找出那些不再用到的内存（变量），然后释放其内存。<br>现在各大浏览器通常采用的垃圾回收机制有两种方法：标记清除，引用计数。</p>
-<blockquote>
-<p>标记清除：</p>
-</blockquote>
-<p>js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在一个函数中声明一个变量，就将这个变量标记为”进入环境”，从逻辑上讲，永远不能释放进入环境变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为”离开环境”。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">//被标记&quot;进入环境&quot;</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="string">&quot;hello&quot;</span>;    <span class="comment">//被标记&quot;进入环境&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">test();    <span class="comment">//执行完毕后之后，a和b又被标记&quot;离开环境&quot;，被回收</span></span><br></pre></td></tr></table></figure>
-<p>垃圾回收机制在运行的时候会给存储再内存中的所有变量都加上标记（可以是任何标记方式），然后，它会去掉处在环境中的变量及被环境中的变量引用的变量标记（闭包）。而在此之后剩下的带有标记的变量被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后垃圾回收机制到下一个周期运行时，将释放这些变量的内存，回收它们所占用的空间。</p>
-<p>到目前为止，IE、Firefox、Opera、Chrome、Safari的js实现使用的都是标记清除的垃圾回收策略或类似的策略，只不过垃圾收集的时间间隔互不相同。</p>
-<blockquote>
-<p>引用计数：</p>
-</blockquote>
-<p>语言引擎有一张”引用表”，保存了内存里面所有资源（通常是各种值）的引用次数。如果一个值的引用次数是0，就表示这个值不再用到了，因此可以将这块内存释放。</p>
-<p><a href="https://imgchr.com/i/Bz6jVe"><img src="https://s3.ax1x.com/2020/11/12/Bz6jVe.png" alt="Bz6jVe.png"></a></p>
-<p>上图中，左下角的两个值，没有任何引用，所以可以释放。</p>
-<p>如果一个值不再需要了，引用数却不为0，垃圾回收机制无法释放这块内存，从而导致内存泄漏。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">console.log(<span class="string">&quot;hello world&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>上面的代码中，数组[1,2,3,4]是一个值，会占用内存。变量arr是仅有的对这个值的引用，因此引用次数为1。尽管后面的代码没有用到arr，它是会持续占用内存。<br>如果增加一行代码，解除arr对[1,2,3,4]引用，这块内存就可以被垃圾回收机制释放了。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [1,2,3,4];</span><br><span class="line">console.log(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">arr = null;</span><br></pre></td></tr></table></figure>
-<p>上面代码中，arr重置为null，就解除了对[1，2，3，4]的引用，引用次数变成了0，内存就可以释放出来了。</p>
-<p>因此，并不是说有了垃圾回收机制，程序员就轻松了。你还是需要关注内存占用：那些很占空间的值，一旦不再用到，你必须检查是否还存在对它们的引用。如果是的话，就必须手动解除引用</p>
-<h4 id="7、内存泄漏的识别方法"><a href="#7、内存泄漏的识别方法" class="headerlink" title="7、内存泄漏的识别方法"></a>7、内存泄漏的识别方法</h4><p>怎样可以观察到内存泄漏呢？</p>
-<p>如果连续五次垃圾回收之后，内存占用一次比一次大，就有内存泄漏。这就要求实时查看内存占用。</p>
-<ul>
-<li>1、浏览器<br>Chrome 浏览器查看内存占用，按照以下步骤操作。</li>
-</ul>
-<p><a href="https://imgchr.com/i/BzcrZD"><img src="https://s3.ax1x.com/2020/11/12/BzcrZD.png" alt="BzcrZD.png"></a></p>
-<blockquote>
-<p>1、打开开发者工具，选择 Timeline 面板<br> 2、在顶部的Capture字段里面勾选 Memory<br> 3、点击左上角的录制按钮。<br> 4、在页面上进行各种操作，模拟用户的使用情况。<br> 5、一段时间后，点击对话框的 stop 按钮，面板上就会显示这段时间的内存占用情况。</p>
-</blockquote>
-<p> 如果内存占用基本平稳，接近水平，就说明不存在内存泄漏。</p>
-<p><a href="https://imgchr.com/i/BzgPY9"><img src="https://s3.ax1x.com/2020/11/12/BzgPY9.png" alt="BzgPY9.png"></a></p>
-<p>反之，就是内存泄漏了。<br><a href="https://imgchr.com/i/BzgMYd"><img src="https://s3.ax1x.com/2020/11/12/BzgMYd.png" alt="BzgMYd.png"></a></p>
-<ul>
-<li>2、命令行<br>命令行可以使用 Node 提供的<a class="link"   href="https://nodejs.org/api/process.html#process_process_memoryusage" >process.memoryUsage<i class="fas fa-external-link-alt"></i></a>方法。</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">console.log(process.memoryUsage());</span><br><span class="line">// &#123; rss: 27709440,</span><br><span class="line">//  heapTotal: 5685248,</span><br><span class="line">//  heapUsed: 3449392,</span><br><span class="line">//  external: 8772 &#125;</span><br></pre></td></tr></table></figure>
-<p>process.memoryUsage返回一个对象，包含了 Node 进程的内存占用信息。该对象包含四个字段，单位是字节，含义如下。</p>
-<p> <a href="https://imgchr.com/i/Bzg4pR"><img src="https://s3.ax1x.com/2020/11/12/Bzg4pR.png" alt="Bzg4pR.png"></a></p>
-<blockquote>
-<p>1、rss（resident set size）：所有内存占用，包括指令区和堆栈。<br>   2、heapTotal：”堆”占用的内存，包括用到的和没用到的。<br>   3、heapUsed：用到的堆的部分。<br>   4、external： V8 引擎内部的 C++ 对象占用的内存。</p>
-</blockquote>
-<p>判断内存泄漏，以heapUsed字段为准。</p>
-<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>前面说过，及时清除引用非常重要。但是，你不可能记得那么多，有时候一疏忽就忘了，所以才有那么多内存泄漏。</p>
-<p>最好能有一种方法，在新建引用的时候就声明，哪些引用必须手动清除，哪些引用可以忽略不计，当其他引用消失以后，垃圾回收机制就可以释放内存。这样就能大大减轻程序员的负担，你只要清除主要引用就可以了。</p>
-<p>ES6 考虑到了这一点，推出了两种新的数据结构：WeakSet 和 WeakMap。它们对于值的引用都是不计入垃圾回收机制的，所以名字里面才会有一个”Weak”，表示这是弱引用。</p>
-<p>下面以 WeakMap 为例，看看它是怎么解决内存泄漏的。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">const wm = new WeakMap();</span><br><span class="line"> </span><br><span class="line">const element = document.getElementById(<span class="string">&#x27;example&#x27;</span>);</span><br><span class="line"> </span><br><span class="line">wm.set(element, <span class="string">&#x27;some information&#x27;</span>);</span><br><span class="line">wm.get(element) // <span class="string">&quot;some information&quot;</span></span><br></pre></td></tr></table></figure>
-<p>上面代码中，先新建一个 Weakmap 实例。然后，将一个 DOM 节点作为键名存入该实例，并将一些附加信息作为键值，一起存放在 WeakMap 里面。这时，WeakMap 里面对element的引用就是弱引用，不会被计入垃圾回收机制。</p>
-<p>也就是说，DOM 节点对象的引用计数是1，而不是2。这时，一旦消除对该节点的引用，它占用的内存就会被垃圾回收机制释放。Weakmap 保存的这个键值对，也会自动消失。</p>
-<p>基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。</p>
-<h3 id="WeakMap-示例"><a href="#WeakMap-示例" class="headerlink" title="WeakMap 示例"></a>WeakMap 示例</h3><p><a class="link"   href="https://github.com/ruanyf/es6tutorial/issues/362#issuecomment-292109104" >根据这个思路<i class="fas fa-external-link-alt"></i></a></p>
-<p>首先，打开 Node 命令行。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ node --expose-gc</span><br></pre></td></tr></table></figure>
-<p>上面代码中，–expose-gc参数表示允许手动执行垃圾回收机制。</p>
-<p>然后，执行下面的代码。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">// 手动执行一次垃圾回收，保证获取的内存使用状态准确</span><br><span class="line">&gt; global.gc(); </span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 查看内存占用的初始状态，heapUsed 为 4M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 21106688,</span><br><span class="line">  heapTotal: 7376896,</span><br><span class="line">  heapUsed: 4153936,</span><br><span class="line">  external: 9059 &#125;</span><br><span class="line"> </span><br><span class="line">&gt; <span class="built_in">let</span> wm = new WeakMap();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">&gt; <span class="built_in">let</span> b = new Object();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 此时，heapUsed 仍然为 4M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 20537344,</span><br><span class="line">  heapTotal: 9474048,</span><br><span class="line">  heapUsed: 3967272,</span><br><span class="line">  external: 8993 &#125;</span><br><span class="line"> </span><br><span class="line">// 在 WeakMap 中添加一个键值对，</span><br><span class="line">// 键名为对象 b，键值为一个 5*1024*1024 的数组  </span><br><span class="line">&gt; wm.set(b, new Array(5*1024*1024));</span><br><span class="line">WeakMap &#123;&#125;</span><br><span class="line"> </span><br><span class="line">// 手动执行一次垃圾回收</span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 此时，heapUsed 为 45M 左右</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 62652416,</span><br><span class="line">  heapTotal: 51437568,</span><br><span class="line">  heapUsed: 45911664,</span><br><span class="line">  external: 8951 &#125;</span><br><span class="line"> </span><br><span class="line">// 解除对象 b 的引用  </span><br><span class="line">&gt; b = null;</span><br><span class="line">null</span><br><span class="line"> </span><br><span class="line">// 再次执行垃圾回收</span><br><span class="line">&gt; global.gc();</span><br><span class="line">undefined</span><br><span class="line"> </span><br><span class="line">// 解除 b 的引用以后，heapUsed 变回 4M 左右</span><br><span class="line">// 说明 WeakMap 中的那个长度为 5*1024*1024 的数组被销毁了</span><br><span class="line">&gt; process.memoryUsage(); </span><br><span class="line">&#123; rss: 20639744,</span><br><span class="line">  heapTotal: 8425472,</span><br><span class="line">  heapUsed: 3979792,</span><br><span class="line">  external: 8956 &#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码中，只要外部的引用消失，WeakMap 内部的引用，就会自动被垃圾回收清除。由此可见，有了它的帮助，解决内存泄漏就会简单很多。</p>
-<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p><a class="link"   href="http://newhtml.net/v8-garbage-collection/" >更深入一些的讲解<i class="fas fa-external-link-alt"></i></a></p>
-<p>没有被引用的对象就是垃圾，就是要被清除。</p>
-<p><a class="link"   href="https://www.jianshu.com/p/a8a04fd00c3c" >其他的算法参考这里<i class="fas fa-external-link-alt"></i></a></p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决JavaScript中0.1+0.2不等于0.3的问题</title>
-    <url>/2020/08/24/%E8%A7%A3%E5%86%B3JavaScript%E4%B8%AD0-1-0-2%E4%B8%8D%E7%AD%89%E4%BA%8E0-3%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>此问题主要是考察对JavaScript的理解层度。</p>
-<p>在正常的数学逻辑思维中，0.1+0.2=0.3这个逻辑是正确的，但是在JavaScript中0.1+0.2！==0.3。</p>
-<p>在JavaScript中的二进制的浮点数0.1和0.2并不是十分精确，在他们相加的结果并非正好等于0.3，而是一个比较接近的数字 0.30000000000000004 ，所以条件判断结果为false。</p>
-<p><strong>解决办法：</strong></p>
-<p>设置一个误差范围值，通常称为”机器精度“，而对于Javascript来说，这个值通常是2^-52,而在ES6中，已经为我们提供了这样一个<br>属性：Number.EPSILON，而这个值正等于2^-52。这个值非常非常小，在底层计算机已经帮我们运算好，并且无限接近0，但不等于0,。这个时候我们只要判断(0.1+0.2)-0.3小于Number.EPSILON，在这个误差的范围内就可以判定0.1+0.2===0.3为true。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numbersequal</span>(<span class="params">a,b</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(a-b)&lt;<span class="built_in">Number</span>.EPSILON;</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> a=<span class="number">0.1</span>+<span class="number">0.2</span>， b=<span class="number">0.3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(numbersequal(a,b)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p>完美的兼容写法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Number</span>.EPSILON=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;   <span class="comment">//解决兼容性问题</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>.EPSILON?<span class="built_in">Number</span>.EPSILON:<span class="built_in">Math</span>.pow(<span class="number">2</span>,-<span class="number">52</span>);</span><br><span class="line">      &#125;)();</span><br><span class="line"><span class="comment">//上面是一个自调用函数，当JS文件刚加载到内存中，就会去判断并返回一个结果，相比if(!Number.EPSILON)&#123;</span></span><br><span class="line">  <span class="comment">//   Number.EPSILON=Math.pow(2,-52);</span></span><br><span class="line">  <span class="comment">//&#125;这种代码更节约性能，也更美观。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numbersequal</span>(<span class="params">a,b</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(a-b)&lt;<span class="built_in">Number</span>.EPSILON;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//接下来再判断   </span></span><br><span class="line"><span class="keyword">var</span> a=<span class="number">0.1</span>+<span class="number">0.2</span>, b=<span class="number">0.3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(numbersequal(a,b)); <span class="comment">//这里就为true了</span></span><br></pre></td></tr></table></figure>
-<p>这个是二进制浮点数最大的问题（不仅JavaScript，所有遵循IEEE 754规范的语言都是如此）。</p>
-<p>　　注意：有人认为，JavaScript应该采用一种可以精确呈现数字的实现方式。一直以来出现过很多替代方案，只是都没能成为标准，以后大概也不会。这个问题看似简单，实则不然，否则早就解决了。</p>
 ]]></content>
       <tags>
         <tag>JavaScript</tag>

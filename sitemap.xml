@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://perfectsymphony.github.io/2021/01/14/BFF%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>https://perfectsymphony.github.io/changelog/index.html</loc>
     
     <lastmod>2021-01-24</lastmod>
     
@@ -10,6 +10,20 @@
   
   <url>
     <loc>https://perfectsymphony.github.io/about/index.html</loc>
+    
+    <lastmod>2021-01-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://perfectsymphony.github.io/tags/index.html</loc>
+    
+    <lastmod>2021-01-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://perfectsymphony.github.io/2021/01/14/BFF%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</loc>
     
     <lastmod>2021-01-24</lastmod>
     
@@ -522,14 +536,14 @@
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/vue/</loc>
+    <loc>https://perfectsymphony.github.io/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <loc>https://perfectsymphony.github.io/tags/vue/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -557,14 +571,14 @@
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/uni-app/</loc>
+    <loc>https://perfectsymphony.github.io/tags/Git/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://perfectsymphony.github.io/tags/Git/</loc>
+    <loc>https://perfectsymphony.github.io/tags/uni-app/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
